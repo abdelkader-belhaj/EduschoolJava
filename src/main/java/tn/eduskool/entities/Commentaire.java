@@ -1,4 +1,4 @@
-package tn.esprit.entities;
+package tn.eduskool.entities;
 
 public class Commentaire {
     private int id;

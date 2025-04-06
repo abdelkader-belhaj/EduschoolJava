@@ -1,10 +1,10 @@
-package tn.esprit.tools;
+package tn.eduskool.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MyDataBase {
+public class DatabaseConnection {
 
     public static Connection connect() {
         String url = "jdbc:mysql://127.0.0.1:3306/eduskool?serverVersion=10.4.32-MariaDB&charset=utf8mb4";
@@ -21,5 +21,4 @@ public class MyDataBase {
             return null;
         }
     }
-
 }

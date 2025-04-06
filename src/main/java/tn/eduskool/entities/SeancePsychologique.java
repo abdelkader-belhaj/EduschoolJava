@@ -1,4 +1,5 @@
-package tn.esprit.entities;
+
+package tn.eduskool.entities;
 
 import java.sql.Date;
 

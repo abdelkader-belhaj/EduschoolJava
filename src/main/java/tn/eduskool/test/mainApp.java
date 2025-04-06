@@ -1,6 +1,6 @@
-package tn.esprit.tests;
+package tn.eduskool.test;
 
-public class Main {
+public class mainApp {
     public static void main(String[] args) {
     }
 }
