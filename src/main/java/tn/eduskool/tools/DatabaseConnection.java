@@ -1,4 +1,4 @@
-package tn.eduskool.database;
+package tn.eduskool.tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
