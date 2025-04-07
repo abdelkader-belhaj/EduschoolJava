@@ -1,9 +1,6 @@
 package tn.eduskool.entities;
 
 import java.time.LocalDateTime;
-import jakarta.persistence.*;
-
-import java.util.List;
 
 public class Devoir {
     private int id;
@@ -11,18 +8,6 @@ public class Devoir {
     private String description;
     private LocalDateTime datelimite;
     private String fichier;
-
-    @OneToMany(mappedBy = "devoir", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SoumissionDevoir> soumissions;
-
-    // Getter & Setter pour soumissions
-    public List<SoumissionDevoir> getSoumissions() {
-        return soumissions;
-    }
-
-    public void setSoumissions(List<SoumissionDevoir> soumissions) {
-        this.soumissions = soumissions;
-    }
 
     // Constructeurs
 

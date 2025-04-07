@@ -2,27 +2,11 @@ package tn.eduskool.entities;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 public class SoumissionDevoir {
     private int id;
     private LocalDateTime dateSoumission;
     private String fichier;
     private Integer note;
-
-    @ManyToOne
-    @JoinColumn(name = "devoir_id")
-    private Devoir devoir;
-
-    // Getter & Setter pour devoir
-    public Devoir getDevoir() {
-        return devoir;
-    }
-
-    public void setDevoir(Devoir devoir) {
-        this.devoir = devoir;
-    }
 
     // Constructeurs
 
