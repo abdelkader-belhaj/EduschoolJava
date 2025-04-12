@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
     public static Connection connect() {
-        String url = "jdbc:mysql://127.0.0.1:3306/eduskool?serverVersion=10.4.32-MariaDB&charset=utf8mb4";
+        String url = "jdbc:mysql://127.0.0.1:3306/eduskool";
         String username = "root";
         String password = "";
 

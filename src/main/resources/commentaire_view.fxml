@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduskool.controllers.CommentaireViewController" style="-fx-background-color: #F9F9F9; -fx-padding: 30;">
+    <!-- Titre de l'interface -->
+    <children>
+        <Label text="Gestion des Commentaires" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+        
+        <!-- Formulaire dans une VBox avec style -->
+        <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;" >
+            <effect>
+                <DropShadow radius="10" offsetX="2" offsetY="2" color="#cccccc"/>
+            </effect>
+            <children>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Activity ID :" style="-fx-font-size: 14px; -fx-text-fill: #34495E;" />
+                    <TextField fx:id="tfActivityId" promptText="Saisir l'ID de l'activité" style="-fx-background-radius: 5; -fx-font-size: 14px;"/>
+                </HBox>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Contenu :" style="-fx-font-size: 14px; -fx-text-fill: #34495E;" />
+                    <TextField fx:id="tfContenu" promptText="Saisir le contenu" style="-fx-background-radius: 5; -fx-font-size: 14px;"/>
+                </HBox>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Note :" style="-fx-font-size: 14px; -fx-text-fill: #34495E;" />
+                    <!-- Conteneur pour les étoiles -->
+                    <HBox fx:id="starBox" spacing="5" alignment="CENTER"/>
+                </HBox>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="ID (pour actions) :" style="-fx-font-size: 14px; -fx-text-fill: #34495E;" />
+                    <TextField fx:id="tfId" promptText="ID pour update/delete/écouter" style="-fx-background-radius: 5; -fx-font-size: 14px;"/>
+                </HBox>
+                
+                <!-- Boutons d'actions -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="btnCreate" text="Créer" onAction="#handleCreate" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    <Button fx:id="btnUpdate" text="Modifier" onAction="#handleUpdate" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    <Button fx:id="btnDelete" text="Supprimer" onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                </HBox>
+                
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="btnLoad" text="Charger" onAction="#handleLoad" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    <Button fx:id="btnListen" text="Écouter" onAction="#handleListen" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                </HBox>
+            </children>
+        </VBox>
+        
+        <!-- Zone d'affichage des commentaires -->
+        <VBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+            <effect>
+                <DropShadow radius="10" offsetX="2" offsetY="2" color="#cccccc"/>
+            </effect>
+            <children>
+                <Label text="Commentaires :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                <TextArea fx:id="taCommentaires" prefRowCount="6" style="-fx-font-size: 14px;"/>
+            </children>
+        </VBox>
+    </children>
+</VBox>

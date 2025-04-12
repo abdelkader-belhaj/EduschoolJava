@@ -1,4 +1,4 @@
-package tn.eduskool.servicesAPI;
+package tn.eduskool.serviceExterne;
 
 import java.io.*;
 import java.net.HttpURLConnection;

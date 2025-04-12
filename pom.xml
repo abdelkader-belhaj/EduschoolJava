@@ -32,6 +32,17 @@
             <version>17.0.2</version>
         </dependency>
 
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-graphics</artifactId>
+    <version>17.0.2</version>
+</dependency>
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-base</artifactId>
+    <version>17.0.2</version>
+</dependency>
+
 
  <!-- JPA / Hibernate -->
     <dependency>
@@ -39,6 +50,12 @@
         <artifactId>jakarta.persistence-api</artifactId>
         <version>3.1.0</version>
     </dependency>
+
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-fxml</artifactId>
+    <version>17.0.2</version>
+</dependency>
 
     <!-- Hibernate (implémentation de JPA) -->
     <dependency>
@@ -81,6 +98,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
+                    <fork>true</fork>
                     <mainClass>tn.eduskool.test.mainApp</mainClass>
                 </configuration>
                 <executions>
