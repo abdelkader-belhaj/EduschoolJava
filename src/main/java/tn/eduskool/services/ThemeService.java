@@ -1,6 +1,6 @@
 package tn.eduskool.services;
 
-import tn.eduskool.database.DatabaseConnection;
+import tn.eduskool.tools.DatabaseConnection;
 import tn.eduskool.entities.Theme;
 
 import java.sql.*;

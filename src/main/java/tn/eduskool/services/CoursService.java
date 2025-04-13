@@ -1,6 +1,7 @@
 package tn.eduskool.services;
 
-import tn.eduskool.database.DatabaseConnection;
+import tn.eduskool.entities.Theme;
+import tn.eduskool.tools.DatabaseConnection;
 import tn.eduskool.entities.Cours;
 
 import java.sql.SQLException;
@@ -25,9 +26,11 @@ public class CoursService implements IServices<Cours> {
         ps.setString(1, cours.getTitre());
         ps.setTimestamp(2, Timestamp.valueOf(cours.getDateHeure()));
         ps.setString(3, cours.getEnseignant());
-        ps.setString(4, cours.getTheme());
+        ps.setInt(4, cours.getTheme().getId());
         ps.executeUpdate();
-        System.out.println("Cour ajouté");
+        System.out.println("Cours  ajouté");
+
+
     }
 
     @Override
@@ -70,9 +73,11 @@ public class CoursService implements IServices<Cours> {
             String titre = rs.getString("titre");
             LocalDate dateHeure = rs.getTimestamp("date_heure").toLocalDateTime().toLocalDate();
             String enseignant = rs.getString("enseignant");
-            String theme = rs.getString("theme");
+            Theme theme = rs.getObject("theme", Theme.class);
             Cours cours = new Cours(id,titre, dateHeure.atStartOfDay(),enseignant,theme);
             listCours.add(cours);
+
+
         }
 
         return null;

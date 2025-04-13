@@ -1,6 +1,5 @@
 package tn.eduskool.test;
 
-import tn.eduskool.database.DatabaseConnection;
 import tn.eduskool.entities.Cours;
 import tn.eduskool.entities.Theme;
 import tn.eduskool.services.CoursService;
@@ -13,16 +12,17 @@ public class mainApp {
     public static void main(String[] args) throws SQLException {
 
         // Créer une instance de CoursService
-        //CoursService cs = new CoursService();
+          CoursService cs = new CoursService();
 
         // Créer un objet Cours avec les données à modifier
-        // LocalDateTime dt = LocalDateTime.now();
+         LocalDateTime dt = LocalDateTime.now();
+         Theme t = new Theme("fjjfrf");
 
         //Cours cours = new Cours(2,"hahahahhahahha",dt,"zayneb","histoire");
-        //Cours c= new Cours("cinema","farouha",dt,"khaha");
+        Cours c1= new Cours("maryem",dt,"fjdkfd",t);
 
-        //try {
-        //cs.ajouter(c);
+        try {
+        cs.ajouter(c1);
         // Appeler la méthode modifier pour mettre à jour les données dans la base
         //cs.modifier(cours);
 
@@ -31,13 +31,13 @@ public class mainApp {
         // Gérer les erreurs de SQL
         //  System.out.println(e.getMessage());
         //}
-       ThemeService ts = new ThemeService();
+       //ThemeService ts = new ThemeService();
         //Theme t = new Theme(1, "jddcd");
-        Theme t = new Theme(1, "test");
-        try {
+        //Theme t = new Theme(1, "test");
+        //try {
             //ts.ajouter(t);
             //ts.modifier(t);
-            ts.supprimer(1);
+            //ts.supprimer(1);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

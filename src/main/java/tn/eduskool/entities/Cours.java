@@ -12,13 +12,13 @@ public class Cours {
 
     private String enseignant;
 
-    private String theme; // plus de relation, juste une chaîne de caractères
+    private Theme theme; // plus de relation, juste une chaîne de caractères
 
     // Constructeur par défaut
     public Cours() {
     }
 
-    public Cours(int id, String titre, LocalDateTime dateHeure, String enseignant, String theme) {
+    public Cours(int id, String titre, LocalDateTime dateHeure, String enseignant, Theme theme) {
         this.id = id;
         this.titre = titre;
         this.dateHeure = dateHeure;
@@ -26,11 +26,11 @@ public class Cours {
         this.theme = theme;
     }
 
-    public Cours(String theme, String enseignant, LocalDateTime dateHeure, String titre) {
-        this.theme = theme;
-        this.enseignant = enseignant;
-        this.dateHeure = dateHeure;
+    public Cours(String titre, LocalDateTime dateHeure, String enseignant, Theme theme) {
         this.titre = titre;
+        this.dateHeure = dateHeure;
+        this.enseignant = enseignant;
+        this.theme = theme;
     }
 
     // Getters et Setters
@@ -62,11 +62,11 @@ public class Cours {
         this.enseignant = enseignant;
     }
 
-    public String getTheme() {
+    public Theme getTheme() {
         return theme;
     }
 
-    public void setTheme(String theme) {
+    public void setTheme(Theme theme) {
         this.theme = theme;
 
     }

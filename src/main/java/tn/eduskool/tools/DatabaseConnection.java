@@ -1,4 +1,4 @@
-package tn.eduskool.database;
+package tn.eduskool.tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
 
-        String url = "jdbc:mysql://127.0.0.1:3306/bdeduskool";
+        String url = "jdbc:mysql://127.0.0.1:3306/eduskool";
         String username = "root";
         String password = "";
         private Connection cnx;
