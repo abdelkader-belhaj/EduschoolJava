@@ -7,6 +7,15 @@ public class SoumissionDevoir {
     private LocalDateTime dateSoumission;
     private String fichier;
     private Integer note;
+    private Devoir devoir;
+
+    public Devoir getDevoir() {
+        return devoir;
+    }
+
+    public void setDevoir(Devoir devoir) {
+        this.devoir = devoir;
+    }
 
     // Constructeurs
 
@@ -60,6 +69,14 @@ public class SoumissionDevoir {
     public void setNote(Integer note) {
         this.note = note;
     }
+    public SoumissionDevoir(int id, LocalDateTime dateSoumission, String fichier, Integer note, Devoir devoir) {
+        this.id = id;
+        this.dateSoumission = dateSoumission;
+        this.fichier = fichier;
+        this.note = note;
+        this.devoir = devoir;
+    }
+
 
     // toString
 

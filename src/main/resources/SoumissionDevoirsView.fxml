@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SoumissionDevoirsController" prefWidth="800" prefHeight="500">
+    <children>
+        <TableView fx:id="tableDevoirs" layoutX="14" layoutY="14" prefHeight="472" prefWidth="770">
+            <columns>
+                <TableColumn fx:id="colTitre" text="Titre" prefWidth="200"/>
+                <TableColumn fx:id="colDescription" text="Description" prefWidth="200"/>
+                <TableColumn fx:id="colDate" text="Date Limite" prefWidth="150"/>
+                <TableColumn fx:id="colTelecharger" text="Télécharger" prefWidth="100"/>
+                <TableColumn fx:id="colSoumettre" text="Soumettre" prefWidth="100"/>
+            </columns>
+        </TableView>
+        <Button fx:id="btnVoirSoumissions" layoutX="14" layoutY="490" text="SOUMISSIONS" prefWidth="150" onAction="#ouvrirListeSoumissions"/>
+
+    </children>
+</AnchorPane>

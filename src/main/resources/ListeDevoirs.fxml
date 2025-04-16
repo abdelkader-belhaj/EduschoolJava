@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ListeDevoirsController"
+            prefHeight="600.0" prefWidth="1200.0"
+            stylesheets="@/css/style.css">
+
+    <center>
+        <TableView fx:id="devoirTable">
+            <columns>
+                <TableColumn text="ID" fx:id="idCol" prefWidth="50"/>
+                <TableColumn text="Titre" fx:id="titreCol" prefWidth="150"/>
+                <TableColumn text="Description" fx:id="descriptionCol" prefWidth="350"/>
+                <TableColumn text="Date Limite" fx:id="dateLimiteCol" prefWidth="150"/>
+                <TableColumn text="Fichier" fx:id="fichierCol" prefWidth="200"/>
+                <TableColumn text="Actions" fx:id="actionsCol" prefWidth="200"/>
+                <TableColumn text="Soumissions" fx:id="colAction" prefWidth="180"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 15;">
+            <Button text="Ajouter un devoir" onAction="#ouvrirAjoutDevoir" styleClass="button" prefWidth="180"/>
+        </HBox>
+    </bottom>
+</BorderPane>

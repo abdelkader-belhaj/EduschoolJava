@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ModifierSoumissionController"
+            prefWidth="400" prefHeight="300">
+    <children>
+        <Label text="Date Soumission" layoutX="20" layoutY="30"/>
+        <DatePicker fx:id="dateSoumissionPicker" layoutX="150" layoutY="25"/>
+
+        <Label text="Fichier" layoutX="20" layoutY="80"/>
+        <TextField fx:id="fichierField" layoutX="150" layoutY="75" prefWidth="170"/>
+        <Button text="Choisir..." layoutX="330" layoutY="75" onAction="#choisirFichier"/>
+
+        <Label text="Note" layoutX="20" layoutY="130"/>
+        <TextField fx:id="noteField" layoutX="150" layoutY="125" prefWidth="210"
+                   editable="false" style="-fx-opacity: 0.6;"/>
+
+        <Button text="Enregistrer" layoutX="150" layoutY="200" prefWidth="100"
+                onAction="#enregistrer"/>
+    </children>
+</AnchorPane>

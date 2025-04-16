@@ -1,6 +1,12 @@
 package tn.eduskool.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Devoir {
     private int id;
@@ -8,6 +14,19 @@ public class Devoir {
     private String description;
     private LocalDateTime datelimite;
     private String fichier;
+    private List<SoumissionDevoir> soumissions = new ArrayList<>();
+
+    public List<SoumissionDevoir> getSoumissions() {
+        return soumissions;
+    }
+    public Devoir(int id) {
+        this.id = id;
+    }
+
+    public void setSoumissions(List<SoumissionDevoir> soumissions) {
+        this.soumissions = soumissions;
+    }
+
 
     // Constructeurs
 
@@ -69,6 +88,20 @@ public class Devoir {
 
     public void setFichier(String fichier) {
         this.fichier = fichier;
+    }
+
+    // Ajoutez ces nouvelles méthodes
+    public StringProperty titreProperty() {
+        return new SimpleStringProperty(titre);
+    }
+
+    public StringProperty dateLimiteStringProperty() {
+        return new SimpleStringProperty(datelimite.toString()); // Ou formater comme vous voulez
+    }
+
+    // Optionnel : Pour un meilleur affichage de la date
+    public String getFormattedDate() {
+        return datelimite.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
     // toString
