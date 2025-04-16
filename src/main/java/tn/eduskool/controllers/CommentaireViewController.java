@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -88,16 +91,20 @@ public class CommentaireViewController implements Initializable {
 
     @FXML
     void handleCreate(ActionEvent event) {
+        if (!validerChampActivityId() || !validerChampContenu() || !validerNote()) {
+            return;
+        }
+
         try {
-            int activityId = Integer.parseInt(tfActivityId.getText());
-            String contenu = tfContenu.getText();
+            int activityId = Integer.parseInt(tfActivityId.getText().trim());
+            String contenu = tfContenu.getText().trim();
             // Appel au service pour créer le commentaire et récupérer son ID généré
             int commentId = ServiceCommentaire.createCommentaireReturnId(activityId, contenu, selectedNote);
             if (commentId != -1) {
                 // Génération de l'audio du commentaire
                 TextToSpeechUtil.generateAudio(contenu, commentId);
-                taCommentaires
-                        .setText("Commentaire créé avec succès !\nAudio généré pour le commentaire #" + commentId);
+                afficherAlerte(AlertType.INFORMATION, "Succès",
+                        "Commentaire créé avec succès ! Audio généré pour le commentaire #" + commentId);
                 // Rafraîchir la liste des commentaires après création
                 handleLoad(event);
                 // Réinitialiser le champ contenu et la note
@@ -105,22 +112,26 @@ public class CommentaireViewController implements Initializable {
                 selectedNote = 0;
                 updateStars();
             } else {
-                taCommentaires.setText("Erreur lors de la création du commentaire.");
+                afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de la création du commentaire.");
             }
         } catch (NumberFormatException ex) {
-            taCommentaires.setText("Veuillez saisir des valeurs valides.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Veuillez saisir des valeurs valides.");
         }
     }
 
     @FXML
     void handleUpdate(ActionEvent event) {
+        if (!validerChampId() || !validerChampActivityId() || !validerChampContenu() || !validerNote()) {
+            return;
+        }
+
         try {
-            int id = Integer.parseInt(tfId.getText());
-            int activityId = Integer.parseInt(tfActivityId.getText());
-            String contenu = tfContenu.getText();
+            int id = Integer.parseInt(tfId.getText().trim());
+            int activityId = Integer.parseInt(tfActivityId.getText().trim());
+            String contenu = tfContenu.getText().trim();
             boolean success = ServiceCommentaire.updateCommentaire(id, activityId, contenu, selectedNote);
             if (success) {
-                taCommentaires.setText("Commentaire mis à jour avec succès !");
+                afficherAlerte(AlertType.INFORMATION, "Succès", "Commentaire mis à jour avec succès !");
                 // Rafraîchir la liste des commentaires après mise à jour
                 handleLoad(event);
                 // Réinitialiser les champs
@@ -129,37 +140,55 @@ public class CommentaireViewController implements Initializable {
                 selectedNote = 0;
                 updateStars();
             } else {
-                taCommentaires.setText("Erreur lors de la mise à jour du commentaire.");
+                afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de la mise à jour du commentaire.");
             }
         } catch (NumberFormatException ex) {
-            taCommentaires.setText("Veuillez saisir des valeurs valides.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Veuillez saisir des valeurs valides.");
         }
     }
 
     @FXML
     void handleDelete(ActionEvent event) {
+        if (!validerChampId()) {
+            return;
+        }
+
         try {
-            int id = Integer.parseInt(tfId.getText());
-            boolean success = ServiceCommentaire.deleteCommentaire(id);
-            if (success) {
-                taCommentaires.setText("Commentaire supprimé avec succès !");
-                // Rafraîchir la liste des commentaires après suppression
-                handleLoad(event);
-                // Réinitialiser le champ ID
-                tfId.clear();
-            } else {
-                taCommentaires.setText("Erreur lors de la suppression du commentaire.");
+            int id = Integer.parseInt(tfId.getText().trim());
+
+            // Confirmation de suppression
+            Alert confirmation = new Alert(AlertType.CONFIRMATION);
+            confirmation.setTitle("Confirmation de suppression");
+            confirmation.setHeaderText("Êtes-vous sûr de vouloir supprimer ce commentaire ?");
+            confirmation.setContentText("Cette action est irréversible.");
+
+            var result = confirmation.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                boolean success = ServiceCommentaire.deleteCommentaire(id);
+                if (success) {
+                    afficherAlerte(AlertType.INFORMATION, "Succès", "Commentaire supprimé avec succès !");
+                    // Rafraîchir la liste des commentaires après suppression
+                    handleLoad(event);
+                    // Réinitialiser le champ ID
+                    tfId.clear();
+                } else {
+                    afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de la suppression du commentaire.");
+                }
             }
         } catch (NumberFormatException ex) {
-            taCommentaires.setText("Veuillez saisir un ID valide.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Veuillez saisir un ID valide.");
         }
     }
 
     @FXML
     void handleLoad(ActionEvent event) {
+        if (!validerChampActivityId()) {
+            return;
+        }
+
         try {
             taCommentaires.clear();
-            int activityId = Integer.parseInt(tfActivityId.getText());
+            int activityId = Integer.parseInt(tfActivityId.getText().trim());
             List<Commentaire> commentaires = ServiceCommentaire.getCommentairesByActivityId(activityId);
             if (commentaires.isEmpty()) {
                 taCommentaires.setText("Aucun commentaire trouvé pour cette activité.");
@@ -170,32 +199,123 @@ public class CommentaireViewController implements Initializable {
                 }
             }
         } catch (NumberFormatException ex) {
-            taCommentaires.setText("Veuillez saisir un ID d'activité valide.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Veuillez saisir un ID d'activité valide.");
         }
     }
 
     @FXML
     void handleListen(ActionEvent event) {
+        if (!validerChampId()) {
+            return;
+        }
+
         try {
-            int commentId = Integer.parseInt(tfId.getText());
+            int commentId = Integer.parseInt(tfId.getText().trim());
             String audioFilePath = "uploads/comment_" + commentId + ".ogg";
             File audioFile = new File(audioFilePath);
             if (!audioFile.exists()) {
-                taCommentaires.setText("Fichier audio non trouvé pour le commentaire #" + commentId);
+                afficherAlerte(AlertType.WARNING, "Fichier non trouvé",
+                        "Fichier audio non trouvé pour le commentaire #" + commentId);
                 return;
             }
             Media media = new Media(audioFile.toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setOnEndOfMedia(() -> taCommentaires.setText("Lecture terminée du commentaire #" + commentId));
-            mediaPlayer.setOnError(() -> taCommentaires.setText("Erreur de lecture du fichier audio."));
+            mediaPlayer
+                    .setOnError(() -> afficherAlerte(AlertType.ERROR, "Erreur", "Erreur de lecture du fichier audio."));
             mediaPlayer.play();
             taCommentaires.setText("Lecture du commentaire audio #" + commentId);
         } catch (NumberFormatException ex) {
-            taCommentaires.setText("Veuillez saisir un ID valide.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Veuillez saisir un ID valide.");
         } catch (Exception ex) {
             ex.printStackTrace();
-            taCommentaires.setText("Erreur lors de la lecture du fichier audio.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de la lecture du fichier audio.");
         }
+    }
+
+    // Méthodes de validation
+    private boolean validerChampId() {
+        String id = tfId.getText().trim();
+        if (id.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "L'ID du commentaire ne peut pas être vide.");
+            tfId.requestFocus();
+            return false;
+        }
+        try {
+            int idNumber = Integer.parseInt(id);
+            if (idNumber <= 0) {
+                afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "L'ID doit être un nombre positif.");
+                tfId.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "L'ID doit être un nombre entier.");
+            tfId.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampActivityId() {
+        String activityId = tfActivityId.getText().trim();
+        if (activityId.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "L'ID de l'activité ne peut pas être vide.");
+            tfActivityId.requestFocus();
+            return false;
+        }
+        try {
+            int idNumber = Integer.parseInt(activityId);
+            if (idNumber <= 0) {
+                afficherAlerte(AlertType.WARNING, "Saisie incorrecte",
+                        "L'ID de l'activité doit être un nombre positif.");
+                tfActivityId.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "L'ID de l'activité doit être un nombre entier.");
+            tfActivityId.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampContenu() {
+        String contenu = tfContenu.getText().trim();
+        if (contenu.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "Le contenu du commentaire ne peut pas être vide.");
+            tfContenu.requestFocus();
+            return false;
+        }
+        if (contenu.length() < 3) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte",
+                    "Le commentaire doit contenir au moins 3 caractères.");
+            tfContenu.requestFocus();
+            return false;
+        }
+        if (contenu.length() > 200) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte",
+                    "Le commentaire ne doit pas dépasser 200 caractères.");
+            tfContenu.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerNote() {
+        if (selectedNote <= 0) {
+            afficherAlerte(AlertType.WARNING, "Note manquante", "Veuillez attribuer une note (entre 1 et 5 étoiles).");
+            return false;
+        }
+        return true;
+    }
+
+    // Méthode utilitaire pour afficher des alertes
+    private void afficherAlerte(AlertType type, String titre, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     // Méthode pour définir l'ID de l'activité (utilisée lors de la navigation

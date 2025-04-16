@@ -88,4 +88,18 @@ public class ServiceActivity {
             return false;
         }
     }
+
+    public static boolean updateApprovedStatus(int id, boolean newStatus) {
+        String sql = "UPDATE activity SET is_approved = ? WHERE id = ?";
+        try (Connection conn = DatabaseConnection.connect();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, newStatus);
+            stmt.setInt(2, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

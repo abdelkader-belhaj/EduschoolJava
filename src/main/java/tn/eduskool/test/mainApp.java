@@ -16,10 +16,13 @@ public class mainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/activity_view.fxml"));
+                .getResource("/front_view.fxml"));
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
+
             primaryStage.setScene(scene);
             primaryStage.setTitle("Ajouter Personne");
             primaryStage.show();

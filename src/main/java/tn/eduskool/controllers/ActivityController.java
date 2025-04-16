@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.Parent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import tn.eduskool.entities.Activity;
 import tn.eduskool.services.ServiceActivity;
 
@@ -37,6 +39,8 @@ public class ActivityController {
     private VBox inputBox, listContainer;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button helpBtn;
 
     @FXML
     public void initialize() {
@@ -46,22 +50,22 @@ public class ActivityController {
         refreshBtn.setOnAction(event -> afficherActivites());
         showCommentsBtn.setOnAction(event -> afficherCommentaires());
         chooseImgBtn.setOnAction(event -> choisirImage());
+        helpBtn.setOnAction(event -> ouvrirAide());
 
         afficherActivites(); // Charger dès le démarrage
     }
 
     private void ajouterActivite() {
+        if (!validerTousLesChamps()) {
+            return;
+        }
+
         String titre = titreTXT.getText();
         String description = descriptionTXT.getText();
         LocalDate selectedDate = datePicker.getValue();
         String typesActivity = typeTXT.getText();
         String imageFileName = imgTXT.getText();
         boolean isApproved = apprBOX.isSelected();
-
-        if (selectedDate == null) {
-            System.out.println("Veuillez sélectionner une date.");
-            return;
-        }
 
         try {
             LocalDateTime date = selectedDate.atStartOfDay();
@@ -71,34 +75,56 @@ public class ActivityController {
                     isApproved, typesActivity, createdAt);
 
             if (success) {
-                System.out.println("L'activité a été ajoutée avec succès.");
+                afficherAlerte(AlertType.INFORMATION, "Succès", "L'activité a été ajoutée avec succès.");
                 afficherActivites();
                 viderChamps();
             } else {
-                System.out.println("Erreur lors de l'ajout de l'activité.");
+                afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de l'ajout de l'activité.");
             }
         } catch (DateTimeParseException e) {
-            System.out.println("Format de date invalide.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "Format de date invalide.");
         }
     }
 
     private void supprimerActivite() {
+        if (!validerChampId()) {
+            return;
+        }
+
         try {
             int id = Integer.parseInt(idField.getText());
-            boolean success = ServiceActivity.deleteActivity(id);
-            if (success) {
-                System.out.println("Activité supprimée avec succès.");
-                afficherActivites();
-                viderChamps();
-            } else {
-                System.out.println("Échec de la suppression.");
+
+            // Confirmation de suppression
+            Alert confirmation = new Alert(AlertType.CONFIRMATION);
+            confirmation.setTitle("Confirmation de suppression");
+            confirmation.setHeaderText("Êtes-vous sûr de vouloir supprimer cette activité ?");
+            confirmation.setContentText("Cette action est irréversible.");
+
+            var result = confirmation.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                boolean success = ServiceActivity.deleteActivity(id);
+                if (success) {
+                    afficherAlerte(AlertType.INFORMATION, "Succès", "Activité supprimée avec succès.");
+                    afficherActivites();
+                    viderChamps();
+                } else {
+                    afficherAlerte(AlertType.ERROR, "Erreur", "Échec de la suppression.");
+                }
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID invalide.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "ID invalide. Veuillez entrer un nombre entier.");
         }
     }
 
     private void modifierActivite() {
+        if (!validerTousLesChamps()) {
+            return;
+        }
+
+        if (!validerChampId()) {
+            return;
+        }
+
         try {
             int id = Integer.parseInt(idField.getText());
             String titre = titreTXT.getText();
@@ -108,26 +134,152 @@ public class ActivityController {
             String imageFileName = imgTXT.getText();
             boolean isApproved = apprBOX.isSelected();
 
-            if (selectedDate == null) {
-                System.out.println("Veuillez sélectionner une date.");
-                return;
-            }
-
             LocalDateTime date = selectedDate.atStartOfDay();
 
             boolean success = ServiceActivity.updateActivity(id, titre, description, date,
                     imageFileName, isApproved, typesActivity);
 
             if (success) {
-                System.out.println("Activité mise à jour avec succès.");
+                afficherAlerte(AlertType.INFORMATION, "Succès", "Activité mise à jour avec succès.");
                 afficherActivites();
                 viderChamps();
             } else {
-                System.out.println("Échec de la mise à jour.");
+                afficherAlerte(AlertType.ERROR, "Erreur", "Échec de la mise à jour.");
             }
         } catch (Exception e) {
-            System.out.println("Erreur : " + e.getMessage());
+            afficherAlerte(AlertType.ERROR, "Erreur", e.getMessage());
         }
+    }
+
+    // Méthodes de validation
+    private boolean validerTousLesChamps() {
+        if (!validerChampTitre())
+            return false;
+        if (!validerChampDescription())
+            return false;
+        if (!validerChampDate())
+            return false;
+        if (!validerChampType())
+            return false;
+        if (!validerChampImage())
+            return false;
+        return true;
+    }
+
+    private boolean validerChampTitre() {
+        String titre = titreTXT.getText().trim();
+        if (titre.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "Le titre ne peut pas être vide.");
+            titreTXT.requestFocus();
+            return false;
+        }
+        if (titre.length() < 3) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "Le titre doit contenir au moins 3 caractères.");
+            titreTXT.requestFocus();
+            return false;
+        }
+        if (titre.length() > 50) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "Le titre ne doit pas dépasser 50 caractères.");
+            titreTXT.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampDescription() {
+        String description = descriptionTXT.getText().trim();
+        if (description.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "La description ne peut pas être vide.");
+            descriptionTXT.requestFocus();
+            return false;
+        }
+        if (description.length() < 10) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte",
+                    "La description doit contenir au moins 10 caractères.");
+            descriptionTXT.requestFocus();
+            return false;
+        }
+        if (description.length() > 500) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte",
+                    "La description ne doit pas dépasser 500 caractères.");
+            descriptionTXT.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampDate() {
+        LocalDate selectedDate = datePicker.getValue();
+        if (selectedDate == null) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "Veuillez sélectionner une date.");
+            datePicker.requestFocus();
+            return false;
+        }
+
+        // Validation supplémentaire : vérifier que la date n'est pas dans le passé
+        LocalDate today = LocalDate.now();
+        if (selectedDate.isBefore(today)) {
+            afficherAlerte(AlertType.WARNING, "Date invalide", "La date ne peut pas être dans le passé.");
+            datePicker.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampType() {
+        String type = typeTXT.getText().trim();
+        if (type.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "Le type d'activité ne peut pas être vide.");
+            typeTXT.requestFocus();
+            return false;
+        }
+        if (type.length() < 3) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "Le type doit contenir au moins 3 caractères.");
+            typeTXT.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampImage() {
+        String image = imgTXT.getText().trim();
+        if (image.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "Veuillez sélectionner une image.");
+            chooseImgBtn.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validerChampId() {
+        String id = idField.getText().trim();
+        if (id.isEmpty()) {
+            afficherAlerte(AlertType.WARNING, "Champ manquant", "L'ID de l'activité ne peut pas être vide.");
+            idField.requestFocus();
+            return false;
+        }
+        try {
+            int idNumber = Integer.parseInt(id);
+            if (idNumber <= 0) {
+                afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "L'ID doit être un nombre positif.");
+                idField.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            afficherAlerte(AlertType.WARNING, "Saisie incorrecte", "L'ID doit être un nombre entier.");
+            idField.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    // Méthode utilitaire pour afficher des alertes
+    private void afficherAlerte(AlertType type, String titre, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void afficherActivites() {
@@ -166,7 +318,7 @@ public class ActivityController {
                     if (imageFile.exists()) {
                         imageView.setImage(new Image(imageFile.toURI().toString()));
                     } else {
-                        imageView.setImage(null); // ou une image par défaut
+                        imageView.setImage(null);
                     }
 
                     setGraphic(hbox);
@@ -234,14 +386,13 @@ public class ActivityController {
             File destFile = new File(destDir, imageName);
             try {
                 Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("Image copiée vers : " + destFile.getAbsolutePath());
+                imgTXT.setText(imageName);
+                imageView.setImage(new Image(destFile.toURI().toString()));
+                afficherAlerte(AlertType.INFORMATION, "Image importée",
+                        "Image copiée avec succès vers : " + destFile.getAbsolutePath());
             } catch (IOException e) {
-                System.out.println("Erreur lors de la copie de l'image : " + e.getMessage());
+                afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de la copie de l'image : " + e.getMessage());
             }
-
-            // Mettre à jour le champ et afficher l'image
-            imgTXT.setText(imageName);
-            imageView.setImage(new Image(destFile.toURI().toString()));
         }
     }
 
@@ -261,9 +412,10 @@ public class ActivityController {
                 stage.show();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            afficherAlerte(AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement de la vue des commentaires : " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("ID d'activité invalide.");
+            afficherAlerte(AlertType.ERROR, "Erreur", "ID d'activité invalide.");
         }
     }
 
@@ -281,7 +433,22 @@ public class ActivityController {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            afficherAlerte(AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement de la vue des commentaires : " + e.getMessage());
+        }
+    }
+
+    private void ouvrirAide() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/help.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Aide");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors du chargement de l'aide : " + e.getMessage());
         }
     }
 }

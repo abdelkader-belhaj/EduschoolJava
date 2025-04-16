@@ -48,11 +48,9 @@
                   <Label text="Description :" />
                   <TextField fx:id="descriptionTXT" promptText="Description de l'activité" style="-fx-background-radius: 5; -fx-control-inner-background: white; -fx-font-size: 14px;" />
                   
-                  <!-- Remplacement du champ date par DatePicker -->
                   <Label text="Date :" />
                   <DatePicker fx:id="datePicker" />
                   
-                  <!-- Section Image : champ non modifiable et bouton pour choisir l'image -->
                   <Label text="Nom de l'image :" />
                   <HBox spacing="10">
                      <children>
@@ -60,7 +58,7 @@
                         <Button fx:id="chooseImgBtn" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Choisir image" />
                      </children>
                   </HBox>
-                  <!-- Zone d'affichage de l'image choisie -->
+                  
                   <ImageView fx:id="imageView" fitWidth="150" fitHeight="150" preserveRatio="true" />
                   
                   <CheckBox fx:id="apprBOX" style="-fx-font-size: 14px;" text="Approuvé" />
@@ -70,13 +68,16 @@
                   
                   <HBox spacing="10">
                      <children>
-                        <Button fx:id="addBUTT" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Ajouter" />
-                        <Button fx:id="updateBtn" mnemonicParsing="false" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" text="Modifier" />
-                        <Button fx:id="deleteBtn" mnemonicParsing="false" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="Supprimer" />
-                        <Button fx:id="refreshBtn" mnemonicParsing="false" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-background-radius: 5;" text="Afficher" />
+                        <Button fx:id="addBUTT" text="Ajouter" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" />
+                        <Button fx:id="updateBtn" text="Modifier" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" />
+                        <Button fx:id="deleteBtn" text="Supprimer" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" />
+                        <Button fx:id="refreshBtn" text="Afficher" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-background-radius: 5;" />
                      </children>
                   </HBox>
-                  <Button fx:id="showCommentsBtn" mnemonicParsing="false" text="Ajouter commentaire" />
+
+                  <Button fx:id="showCommentsBtn" text="Ajouter commentaire" />
+                  <!-- Nouveau bouton Aide -->
+                  <Button fx:id="helpBtn" text="Aide" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-background-radius: 5;" />
                </children>
             </VBox>
             
@@ -98,8 +99,6 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <!-- Note : Bien que la ListView ne déclare pas le type en FXML, 
-                       nous allons la déclarer en Java comme ListView<Activity> -->
                   <ListView fx:id="activityListView" prefHeight="600.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>

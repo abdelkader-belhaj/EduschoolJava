@@ -76,6 +76,12 @@ public class Activity {
         this.isApproved = isApproved;
     }
 
+    
+
+    public boolean getApproved() {
+        return isApproved;
+    }
+
     public String getTypesActivity() {
         return typesActivity;
     }
