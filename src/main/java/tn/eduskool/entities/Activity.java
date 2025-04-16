@@ -1,19 +1,26 @@
 package tn.eduskool.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import java.util.List;
 
 public class Activity {
     private int id;
     private String titre;
     private String description;
-    private Date date;
+    private LocalDateTime date;
     private String imageFileName;
     private boolean isApproved;
     private String typesActivity;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    public Activity(int id, String titre, String description, Date date, String imageFileName, boolean isApproved,
-            String typesActivity, Date createdAt) {
+    // Liste des commentaires
+    private List<Commentaire> commentaires = new ArrayList<>();
+
+    public Activity(int id, String titre, String description, LocalDateTime date, String imageFileName,
+            boolean isApproved,
+            String typesActivity, LocalDateTime createdAt) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -24,7 +31,7 @@ public class Activity {
         this.createdAt = createdAt;
     }
 
-    // Getters et setters
+    // Getters et Setters (standard)
     public int getId() {
         return id;
     }
@@ -45,11 +52,11 @@ public class Activity {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -69,6 +76,12 @@ public class Activity {
         this.isApproved = isApproved;
     }
 
+    
+
+    public boolean getApproved() {
+        return isApproved;
+    }
+
     public String getTypesActivity() {
         return typesActivity;
     }
@@ -77,26 +90,47 @@ public class Activity {
         this.typesActivity = typesActivity;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    // Gestion des commentaires
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void addCommentaire(Commentaire commentaire) {
+        commentaire.setActivityId(this.id); // lier le commentaire à l'activité
+        commentaires.add(commentaire);
     }
 
     @Override
     public String toString() {
-        return "----------------------------------------\n" +
-                "ID: " + id + "\n" +
-                "Titre: " + titre + "\n" +
-                "Description: " + description + "\n" +
-                "Date: " + date + "\n" +
-                "Image: " + imageFileName + "\n" +
-                "Approuvé: " + (isApproved ? "Oui" : "Non") + "\n" +
-                "Type d'activité: " + typesActivity + "\n" +
-                "Créée le: " + createdAt + "\n" +
-                "----------------------------------------\n";
-    }
+        StringBuilder sb = new StringBuilder();
+        sb.append("----------------------------------------\n")
+                .append("ID: ").append(id).append("\n")
+                .append("Titre: ").append(titre).append("\n")
+                .append("Description: ").append(description).append("\n")
+                .append("Date: ").append(date).append("\n")
+                .append("Image: ").append(imageFileName).append("\n")
+                .append("Approuvé: ").append(isApproved ? "Oui" : "Non").append("\n")
+                .append("Type d'activité: ").append(typesActivity).append("\n")
+                .append("Créée le: ").append(createdAt).append("\n");
 
+        if (commentaires.isEmpty()) {
+            sb.append("Commentaires: Aucun commentaire\n");
+        } else {
+            sb.append("Commentaires:\n");
+            for (Commentaire c : commentaires) {
+                sb.append("   - ").append(c).append("\n");
+            }
+        }
+
+        sb.append("----------------------------------------\n");
+        return sb.toString();
+    }
 }

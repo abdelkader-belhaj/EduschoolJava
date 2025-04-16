@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduskool.controllers.ActivityDetailController">
+    <top>
+        <VBox spacing="10.0" style="-fx-background-color: #f5f7fa;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="titleLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;">
+                    Détails de l'activité
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button onAction="#closeWindow" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Fermer" />
+            </HBox>
+            <Separator />
+        </VBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+            <VBox spacing="15.0">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                
+                <!-- Informations générales -->
+                <TitledPane animated="false" text="Informations générales" expanded="true">
+                    <GridPane hgap="10" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="NEVER" minWidth="120" />
+                            <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+                        
+                        <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;" />
+                        <Label fx:id="idLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <Label text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;" />
+                        <Label fx:id="activityTitleLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        
+                        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold;" />
+                        <TextArea fx:id="descriptionTextArea" wrapText="true" editable="false" prefHeight="100.0" 
+                                 GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        
+                        <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold;" />
+                        <Label fx:id="dateLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        
+                        <Label text="Statut:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold;" />
+                        <Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        
+                        <Label text="Type d'activité:" GridPane.columnIndex="0" GridPane.rowIndex="5" style="-fx-font-weight: bold;" />
+                        <Label fx:id="typeLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        
+                        <Label text="Créée le:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-font-weight: bold;" />
+                        <Label fx:id="createdAtLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    </GridPane>
+                </TitledPane>
+                
+                <!-- Image de l'activité -->
+                <TitledPane animated="false" text="Image" expanded="true">
+                    <VBox alignment="CENTER">
+                        <Label fx:id="imagePathLabel" />
+                        <ImageView fx:id="activityImageView" fitHeight="200.0" fitWidth="300.0" preserveRatio="true" />
+                    </VBox>
+                </TitledPane>
+                
+                <!-- Commentaires -->
+                <TitledPane animated="false" text="Commentaires" expanded="true">
+                    <VBox spacing="10">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="Total des commentaires:" style="-fx-font-weight: bold;" />
+                            <Label fx:id="commentCountLabel" />
+                        </HBox>
+                        
+                        <TableView fx:id="commentTableView" VBox.vgrow="ALWAYS" prefHeight="200.0">
+                            <columns>
+                                <TableColumn fx:id="colCommentId" prefWidth="50" text="ID" />
+                                <TableColumn fx:id="colCommentContent" prefWidth="350" text="Contenu" />
+                                <TableColumn fx:id="colCommentRating" prefWidth="100" text="Note" />
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </TitledPane>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

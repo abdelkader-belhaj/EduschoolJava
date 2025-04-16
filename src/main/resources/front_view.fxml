@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="tn.eduskool.controllers.FrontController"
+      styleClass="main-container">
+   <top>
+      <HBox id="header" alignment="CENTER_LEFT" spacing="20" styleClass="header">
+         <padding>
+            <Insets bottom="15" left="20" right="20" top="15" />
+         </padding>
+         <children>
+            <ImageView fitHeight="50" fitWidth="150" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+            </ImageView>
+            <HBox HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnNotifications" styleClass="icon-button">
+               <graphic>
+                  <ImageView fitHeight="24" fitWidth="24">
+                     <image>
+                        <Image url="@../images/icons/notification.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnProfile" styleClass="icon-button">
+               <graphic>
+                  <ImageView fitHeight="24" fitWidth="24">
+                     <image>
+                        <Image url="@../images/icons/user.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.15" />
+               </color>
+            </DropShadow>
+         </effect>
+      </HBox>
+   </top>
+   
+   <left>
+      <VBox id="sidebar" styleClass="sidebar" prefWidth="220">
+         <children>
+            <Label styleClass="sidebar-title" text="EduSkool">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="20" left="20" right="20" top="20" />
+               </padding>
+            </Label>
+            <Button fx:id="btnStudents" styleClass="sidebar-button" text="Étudiants">
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20">
+                     <image>
+                        <Image url="@../images/icons/students.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnTeachers" styleClass="sidebar-button" text="Enseignants">
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20">
+                     <image>
+                        <Image url="@../images/icons/teachers.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnCourses" styleClass="sidebar-button" text="Cours">
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20">
+                     <image>
+                        <Image url="@../images/icons/courses.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnActivities" styleClass="sidebar-button, active" text="Activités">
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20">
+                     <image>
+                        <Image url="@../images/icons/activities.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <VBox VBox.vgrow="ALWAYS" />
+            <Button fx:id="btnLogout" styleClass="sidebar-button, logout-button" text="Déconnexion">
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20">
+                     <image>
+                        <Image url="@../images/icons/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="20" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.1" />
+               </color>
+            </DropShadow>
+         </effect>
+      </VBox>
+   </left>
+   
+   <center>
+      <VBox styleClass="content-area">
+         <padding>
+            <Insets bottom="20" left="20" right="20" top="20" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <children>
+                  <Label styleClass="page-title" text="Gestion des Activités">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnAddActivity" styleClass="primary-button" text="Nouvelle Activité">
+                     <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                           <image>
+                              <Image url="@../images/icons/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20" />
+               </VBox.margin>
+            </HBox>
+            
+            <HBox spacing="15">
+               <children>
+                  <TextField fx:id="txtSearch" promptText="Rechercher une activité..." HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="cmbFilter" promptText="Filtrer par type" prefWidth="180" />
+                  <Button fx:id="btnSearch" styleClass="secondary-button" text="Rechercher">
+                     <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                           <image>
+                              <Image url="@../images/icons/search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20" />
+               </VBox.margin>
+            </HBox>
+            
+            <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" styleClass="activities-tabs">
+               <tabs>
+                  <Tab text="Toutes les activités">
+                     <content>
+                        <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="tab-content">
+                           <TableView fx:id="tblActivities" VBox.vgrow="ALWAYS" styleClass="data-table">
+                              <columns>
+                                 <TableColumn fx:id="colId" text="ID" prefWidth="80" />
+                                 <TableColumn fx:id="colName" text="Nom" prefWidth="200" />
+                                 <TableColumn fx:id="colType" text="Type" prefWidth="120" />
+                                 <TableColumn fx:id="colDate" text="Date" prefWidth="120" />
+                                 <TableColumn fx:id="colStatus" text="Statut" prefWidth="120" />
+                                 <TableColumn fx:id="colActions" text="Actions" prefWidth="150" />
+                              </columns>
+                           </TableView>
+                        </VBox>
+                     </content>
+                  </Tab>
+                  <Tab text="En cours">
+                     <content>
+                        <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="tab-content">
+                           <TableView fx:id="tblActiveActivities" styleClass="data-table">
+                              <columns>
+                                 <TableColumn fx:id="colActiveId" text="ID" prefWidth="80" />
+                                 <TableColumn fx:id="colActiveName" text="Nom" prefWidth="200" />
+                                 <TableColumn fx:id="colActiveType" text="Type" prefWidth="120" />
+                                 <TableColumn fx:id="colActiveDate" text="Date" prefWidth="120" />
+                                 <TableColumn fx:id="colActiveStatus" text="Statut" prefWidth="120" />
+                                 <TableColumn fx:id="colActiveActions" text="Actions" prefWidth="150" />
+                              </columns>
+                           </TableView>
+                        </VBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Programmées">
+                     <content>
+                        <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="tab-content">
+                           <TableView fx:id="tblScheduledActivities" styleClass="data-table">
+                              <columns>
+                                 <TableColumn fx:id="colSchId" text="ID" prefWidth="80" />
+                                 <TableColumn fx:id="colSchName" text="Nom" prefWidth="200" />
+                                 <TableColumn fx:id="colSchType" text="Type" prefWidth="120" />
+                                 <TableColumn fx:id="colSchDate" text="Date" prefWidth="120" />
+                                 <TableColumn fx:id="colSchStatus" text="Statut" prefWidth="120" />
+                                 <TableColumn fx:id="colSchActions" text="Actions" prefWidth="150" />
+                              </columns>
+                           </TableView>
+                        </VBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Terminées">
+                     <content>
+                        <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="tab-content">
+                           <TableView fx:id="tblCompletedActivities" VBox.vgrow="ALWAYS" styleClass="data-table">
+                              <columns>
+                                 <TableColumn fx:id="colCompId" text="ID" prefWidth="80" />
+                                 <TableColumn fx:id="colCompName" text="Nom" prefWidth="200" />
+                                 <TableColumn fx:id="colCompType" text="Type" prefWidth="120" />
+                                 <TableColumn fx:id="colCompDate" text="Date" prefWidth="120" />
+                                 <TableColumn fx:id="colCompStatus" text="Statut" prefWidth="120" />
+                                 <TableColumn fx:id="colCompActions" text="Actions" prefWidth="150" />
+                              </columns>
+                           </TableView>
+                        </VBox>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+               <children>
+                  <Label fx:id="lblPageInfo" text="Page 1 sur 5" />
+                  <Button fx:id="btnPrevPage" styleClass="pagination-button" text="Précédent">
+                     <graphic>
+                        <ImageView fitHeight="12" fitWidth="12">
+                           <image>
+                              <Image url="@../images/icons/arrow-left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnNextPage" styleClass="pagination-button" text="Suivant">
+                     <graphic>
+                        <ImageView fitHeight="12" fitWidth="12">
+                           <image>
+                              <Image url="@../images/icons/arrow-right.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="15" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+
+   <right>
+      <VBox fx:id="activityDetailsPane" styleClass="details-panel" prefWidth="330">
+         <padding>
+            <Insets bottom="20" left="20" right="20" top="20" />
+         </padding>
+         <children>
+            <Label styleClass="section-title" text="Détails de l'activité">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15" />
+               </VBox.margin>
+            </Label>
+            
+            <!-- Image de l'activité -->
+            <VBox alignment="CENTER" styleClass="image-container">
+               <ImageView fx:id="activityImageView" fitWidth="280" fitHeight="180" preserveRatio="true" />
+               <Label fx:id="imagePathLabel" styleClass="image-path-label" text="Aucune image disponible" 
+                      alignment="CENTER"/>
+            </VBox>
+            
+            <Separator>
+               <VBox.margin>
+                  <Insets top="15" bottom="15" />
+               </VBox.margin>
+            </Separator>
+            
+            <GridPane hgap="10" vgap="15">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="30" prefHeight="30" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30" prefHeight="30" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30" prefHeight="30" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30" prefHeight="30" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30" prefHeight="30" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="ID:" styleClass="detail-label" />
+                  <Label fx:id="lblId" text="ACT-2023-001" GridPane.columnIndex="1" styleClass="detail-value" />
+                  
+                  <Label text="Nom:" styleClass="detail-label" GridPane.rowIndex="1" />
+                  <Label fx:id="lblName" text="Atelier de programmation" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="detail-value" />
+                  
+                  <Label text="Type:" styleClass="detail-label" GridPane.rowIndex="2" />
+                  <Label fx:id="lblType" text="Académique" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="detail-value" />
+                  
+                  <Label text="Date:" styleClass="detail-label" GridPane.rowIndex="3" />
+                  <Label fx:id="lblDate" text="12/05/2025" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="detail-value" />
+                  
+                  <Label text="Statut:" styleClass="detail-label" GridPane.rowIndex="4" />
+                  <Label fx:id="lblStatus" text="En cours" styleClass="status-active" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15" />
+               </VBox.margin>
+            </GridPane>
+            
+            <Label styleClass="section-title" text="Description">
+               <VBox.margin>
+                  <Insets bottom="10" />
+               </VBox.margin>
+            </Label>
+            <ScrollPane fitToWidth="true" prefHeight="200" styleClass="description-scroll">
+               <content>
+                  <Label fx:id="lblDescription" wrapText="true" text="Atelier pratique pour apprendre les bases de la programmation. Les étudiants travailleront sur des projets réels et développeront leurs compétences techniques." styleClass="description-text" />
+               </content>
+            </ScrollPane>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.1" />
+               </color>
+            </DropShadow>
+         </effect>
+      </VBox>
+   </right>
+</BorderPane>

@@ -6,6 +6,10 @@ public class Commentaire {
     private String contenu;
     private int note;
 
+    public Commentaire() {
+        // Constructeur par défaut, éventuellement initialiser des valeurs par défaut
+    }
+
     public Commentaire(int id, int activityId, String contenu, int note) {
         this.id = id;
         this.activityId = activityId;
@@ -16,6 +20,10 @@ public class Commentaire {
     // Getters
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getActivityId() {
