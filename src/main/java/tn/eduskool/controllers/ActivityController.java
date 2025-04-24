@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -18,12 +19,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.Parent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import tn.eduskool.entities.Activity;
+import tn.eduskool.entities.Utilisateur;
 import tn.eduskool.services.ServiceActivity;
 
-public class ActivityController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ActivityController implements Initializable, BaseController {
+    private Utilisateur utilisateur;
 
     @FXML
     private ListView<Activity> activityListView;
@@ -43,7 +48,7 @@ public class ActivityController {
     private Button helpBtn;
 
     @FXML
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         addBUTT.setOnAction(event -> ajouterActivite());
         deleteBtn.setOnAction(event -> supprimerActivite());
         updateBtn.setOnAction(event -> modifierActivite());
@@ -450,5 +455,16 @@ public class ActivityController {
         } catch (IOException e) {
             afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors du chargement de l'aide : " + e.getMessage());
         }
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+        // Mettre à jour l'interface si nécessaire avec les informations de
+        // l'utilisateur
+    }
+
+    @Override
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 }

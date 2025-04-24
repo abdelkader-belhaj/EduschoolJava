@@ -16,12 +16,12 @@ public class mainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/front_view.fxml"));
+                .getResource("/login_view.fxml"));
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Ajouter Personne");

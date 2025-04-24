@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import tn.eduskool.entities.Activity;
+import tn.eduskool.entities.Utilisateur;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -39,8 +40,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.fxml.Initializable;
+import tn.eduskool.entities.Utilisateur;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 @SuppressWarnings("unused")
-public class DashboardController implements Initializable {
+public class DashboardController implements Initializable, BaseController {
 
     @FXML
     private VBox activitiesView;
@@ -523,5 +530,18 @@ public class DashboardController implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private Utilisateur utilisateur;
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+        // Mettre à jour l'interface si nécessaire avec les informations de
+        // l'utilisateur
+    }
+
+    @Override
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 }

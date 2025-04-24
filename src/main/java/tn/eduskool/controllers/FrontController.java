@@ -18,10 +18,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import tn.eduskool.entities.Activity;
+import tn.eduskool.entities.Utilisateur;
 import tn.eduskool.services.ServiceActivity;
 
 import java.io.File;
@@ -30,7 +32,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class FrontController implements Initializable {
+public class FrontController implements Initializable, BaseController {
 
     @FXML
     private VBox activityDetailsPane;
@@ -661,5 +663,18 @@ public class FrontController implements Initializable {
     private void showProfile() {
         System.out.println("Showing profile...");
         // TODO: Implémenter l'affichage du profil
+    }
+
+    private Utilisateur utilisateur;
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+        // Mettre à jour l'interface si nécessaire avec les informations de
+        // l'utilisateur
+    }
+
+    @Override
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 }

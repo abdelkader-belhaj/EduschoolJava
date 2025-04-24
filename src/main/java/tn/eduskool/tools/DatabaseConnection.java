@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+import tn.eduskool.controllers.BaseController;
+import tn.eduskool.entities.Utilisateur;
+
+public class DatabaseConnection implements BaseController {
 
     public static Connection connect() {
         String url = "jdbc:mysql://127.0.0.1:3306/eduskool";
@@ -20,5 +23,17 @@ public class DatabaseConnection {
             e.printStackTrace();
             return null;
         }
+    }
+
+    protected Utilisateur utilisateur;
+
+    @Override
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    @Override
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 }
