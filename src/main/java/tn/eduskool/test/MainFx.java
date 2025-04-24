@@ -6,29 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class MainFx extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            // Charge d'abord la liste des devoirs
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeDevoirs.fxml"));
-            Parent root = loader.load();
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/DashboardTemplate.fxml"));
+        primaryStage.setTitle("Dashboard");
+        primaryStage.setScene(new Scene(root, 300, 200));
+        primaryStage.show();
+    }
 
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Liste des Devoirs");
-            primaryStage.show();
-
-        } catch (IOException e) {
-            System.err.println("Erreur de chargement de la liste: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(1);
-        }
+    public static void main(String[] args) {
+        launch(args);
     }
 }

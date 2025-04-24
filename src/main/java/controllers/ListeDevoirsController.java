@@ -67,8 +67,14 @@ public class ListeDevoirsController {
             private final HBox container = new HBox(10, modifierBtn, supprimerBtn);
 
             {
-                modifierBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-                supprimerBtn.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+                // Supprimer les classes par défaut
+                modifierBtn.getStyleClass().removeAll("button");
+                supprimerBtn.getStyleClass().removeAll("button");
+
+                // Ajouter nos classes personnalisées
+                modifierBtn.getStyleClass().add("action-button-modifier");
+                supprimerBtn.getStyleClass().add("action-button-supprimer");
+
                 container.setStyle("-fx-padding: 5;");
 
                 modifierBtn.setOnAction(event -> modifierDevoir(getTableView().getItems().get(getIndex())));
@@ -88,7 +94,7 @@ public class ListeDevoirsController {
             private final Button btnVoir = new Button("Voir Soumissions");
 
             {
-                btnVoir.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+                btnVoir.getStyleClass().add("action-button-soumettre"); // ou une classe personnalisée si tu veux
                 btnVoir.setOnAction(event -> {
                     Devoir devoir = getTableView().getItems().get(getIndex());
                     afficherSoumissions(devoir);
@@ -102,6 +108,7 @@ public class ListeDevoirsController {
             }
         });
     }
+
 
     private void modifierDevoir(Devoir devoir) {
         try {

@@ -1,65 +1,149 @@
-/* Style général */
+/* ========== STYLE GÉNÉRAL ========== */
 .root {
-    -fx-font-family: 'Segoe UI', Arial;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
     -fx-background-color: #f5f5f5;
+    -fx-accent: #81C784;
+    -fx-focus-color: #81C784;
 }
 
-/* Boutons */
-.button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 8 16;
-    -fx-cursor: hand;
-}
-
-.button:hover {
-    -fx-background-color: #45a049;
-}
-
-/* TableView */
-.table-view {
+/* ========== EN-TÊTE ========== */
+.header-container {
+    -fx-padding: 20 25 15 25;
     -fx-background-color: white;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2);
 }
 
-.table-row-cell {
-    -fx-cell-size: 40px;
+.header-label {
+    -fx-text-fill: #2E7D32;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
 }
 
-.table-row-cell:odd {
-    -fx-background-color: #f9f9f9;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #b3e5fc;
-    -fx-text-background-color: #000;
-}
-
-/* Colonnes */
-.table-column {
-    -fx-alignment: CENTER_LEFT;
+.header-separator {
+    -fx-padding: 5 0 5 0;
     -fx-border-color: #e0e0e0;
 }
 
-/* Zone des boutons en bas */
-HBox {
-    -fx-background-color: #e8f5e9;
-    -fx-border-color: #ddd;
-    -fx-border-width: 1 0 0 0;
-}
-.button-download {
-    -fx-background-color: #2196F3;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 5 10;
+/* ========== TABLEVIEW ========== */
+.custom-table {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.03), 6, 0, 0, 1);
 }
 
-.button-submit {
-    -fx-background-color: #4CAF50;
+.custom-table .column-header-background {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.custom-table .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 8 5;
+    -fx-font-size: 13px;
+    -fx-text-fill: #555;
+}
+
+.custom-table .table-row-cell {
+    -fx-cell-size: 40px;
+    -fx-border-color: transparent transparent #f5f5f5 transparent;
+}
+
+.custom-table .table-row-cell:odd {
+    -fx-background-color: #fefefe;
+}
+
+.custom-table .table-row-cell:even {
+    -fx-background-color: white;
+}
+
+.custom-table .table-row-cell:hover {
+    -fx-background-color: #f8f8f8;
+}
+
+.custom-table .table-row-cell:selected {
+    -fx-background-color: #e8f5e9;
+}
+
+/* ========== COLONNES ========== */
+.table-column {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10;
+    -fx-font-size: 13px;
+}
+
+.centered-column {
+    -fx-alignment: CENTER;
+}
+
+/* ========== BOUTONS D'ACTION (MODIFIER/SUPPRIMER) ========== */
+/* Styles spécifiques pour les boutons dans les cellules du tableau */
+.action-button-modifier {
+    -fx-background-color: #4CAF50 !important; /* Vert */
+    -fx-text-fill: white !important;
+    -fx-background-radius: 4;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+
+.action-button-supprimer {
+    -fx-background-color: #f44336 !important; /* Rouge */
+    -fx-text-fill: white !important;
+    -fx-background-radius: 4;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+
+.action-button-modifier:hover {
+    -fx-background-color: #3e8e41 !important; /* Vert foncé */
+}
+
+.action-button-supprimer:hover {
+    -fx-background-color: #d32f2f !important; /* Rouge foncé */
+}
+
+
+.primary-button {
+    -fx-background-color: #9fd8a7; /* Vert pastel */
+    -fx-text-fill: #2d6a4f;
+}
+
+.secondary-button {
+    -fx-background-color: #b5ead7; /* Vert menthe */
+    -fx-text-fill: #1b4332;
+}
+
+/* ========== BARRE D'ACTIONS ========== */
+.action-bar {
+    -fx-padding: 15;
+    -fx-spacing: 20;
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1 0 0 0;
+}
+.nav-button {
+    -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 5 10;
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 20;
+}
+.nav-button:hover {
+    -fx-background-color: #1abc9c;
+    -fx-cursor: hand;
+}
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.nav-sub-button {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
 }

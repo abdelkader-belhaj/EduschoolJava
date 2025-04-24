@@ -91,21 +91,41 @@ public class ModifierDevoirController {
     @FXML
     private void handleModifier() {
         try {
-            if (titreField.getText().isEmpty() || descriptionField.getText().isEmpty()) {
+            String titre = titreField.getText().trim(); // Supprimer les espaces inutiles en début et fin
+            String description = descriptionField.getText().trim();
+
+            // Vérifier si les champs sont vides
+            if (titre.isEmpty() || description.isEmpty()) {
                 showAlert("Erreur", "Tous les champs sont obligatoires");
                 return;
             }
 
+            // Vérifier que le titre ne contient que des lettres et des espaces
+            if (!titre.matches("[a-zA-Z\\s]+")) {
+                showAlert("Erreur", "Le titre doit être composé uniquement de lettres et d'espaces");
+                return;
+            }
+
+            // Vérifier que la date limite n'est pas dans le passé
+            LocalDate selectedDate = datePicker.getValue();
+            if (selectedDate.isBefore(LocalDate.now())) {
+                showAlert("Erreur", "La date limite ne peut pas être antérieure à la date actuelle");
+                return;
+            }
+
+            // Créer la nouvelle date limite
             LocalDateTime nouvelleDateLimite = LocalDateTime.of(
-                    datePicker.getValue(),
+                    selectedDate,
                     LocalTime.of(hourCombo.getValue(), minuteCombo.getValue())
             );
 
-            devoirToModify.setTitre(titreField.getText());
-            devoirToModify.setDescription(descriptionField.getText());
+            // Mettre à jour l'objet Devoir
+            devoirToModify.setTitre(titre);
+            devoirToModify.setDescription(description);
             devoirToModify.setDatelimite(nouvelleDateLimite);
             devoirToModify.setFichier(fichierField.getText());
 
+            // Essayer de modifier le devoir
             if (devoirService.modifier(devoirToModify)) {
                 showAlert("Succès", "Devoir modifié avec succès");
                 closeWindow();
@@ -116,6 +136,8 @@ public class ModifierDevoirController {
             showAlert("Erreur", e.getMessage());
         }
     }
+
+
 
     @FXML
     private void handleAnnuler() {
