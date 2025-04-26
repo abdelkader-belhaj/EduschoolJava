@@ -354,7 +354,7 @@ public class ActivityController implements Initializable, BaseController {
 
                 // Double-clic pour naviguer vers la vue des commentaires
                 if (event.getClickCount() == 2) {
-                    openCommentViewForActivity(selectedActivity.getId());
+                    showComments(selectedActivity);
                 }
             }
         });
@@ -443,6 +443,34 @@ public class ActivityController implements Initializable, BaseController {
         }
     }
 
+    private void showComments(Activity activity) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/commentaire_view.fxml"));
+            Parent root = loader.load();
+
+            // Get current scene for its styles
+            Scene currentScene = activityListView.getScene();
+            Scene scene = new Scene(root);
+
+            // Apply same styles
+            if (currentScene != null && !currentScene.getStylesheets().isEmpty()) {
+                scene.getStylesheets().addAll(currentScene.getStylesheets());
+            }
+
+            CommentaireViewController controller = loader.getController();
+            controller.setActivityId(activity.getId());
+
+            Stage stage = new Stage();
+            stage.setTitle("Commentaires - " + activity.getTitre());
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            afficherAlerte(AlertType.ERROR, "Erreur",
+                    "Impossible d'ouvrir la vue des commentaires: " + e.getMessage());
+        }
+    }
+
     private void ouvrirAide() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/help.fxml"));
@@ -453,7 +481,7 @@ public class ActivityController implements Initializable, BaseController {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors du chargement de l'aide : " + e.getMessage());
+            afficherAlerte(AlertType.ERROR, "Erreur", "Erreur lors de le chargement de l'aide : " + e.getMessage());
         }
     }
 

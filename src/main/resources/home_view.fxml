@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" style="-fx-background: white;" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.eduskool.controllers.HomeViewController">
+    <VBox spacing="40" style="-fx-background-color: white;">
+        <!-- Hero Section -->
+        <VBox styleClass="hero-section" style="-fx-background-color: #ff4d79; -fx-padding: 60 40;">
+            <VBox maxWidth="800" spacing="20">
+                <Label text="Bienvenue à EduSkool" style="-fx-font-size: 48px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Façonnons ensemble l'avenir de l'éducation" 
+                       style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: 300;"/>
+                <Text wrappingWidth="600" 
+                      style="-fx-fill: white; -fx-font-size: 16px;">
+                    Notre école offre un environnement d'apprentissage stimulant et innovant où chaque étudiant peut s'épanouir et développer son plein potentiel.
+                </Text>
+            </VBox>
+        </VBox>
+
+        <!-- Features Section -->
+        <VBox spacing="20" style="-fx-padding: 40;">
+            <Label text="Pourquoi choisir EduSkool ?" 
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <FlowPane hgap="20" vgap="20">
+                <!-- Feature 1 -->
+                <VBox styleClass="feature-card" prefWidth="300" spacing="15" 
+                      style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                    <Label text="Excellence Académique" 
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ff4d79;"/>
+                    <Text wrappingWidth="260">
+                        Des programmes d'études innovants et des enseignants qualifiés pour assurer la réussite de chaque élève.
+                    </Text>
+                </VBox>
+
+                <!-- Feature 2 -->
+                <VBox styleClass="feature-card" prefWidth="300" spacing="15"
+                      style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                    <Label text="Activités Enrichissantes" 
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ff4d79;"/>
+                    <Text wrappingWidth="260">
+                        Un large éventail d'activités parascolaires pour développer les talents et la créativité.
+                    </Text>
+                </VBox>
+
+                <!-- Feature 3 -->
+                <VBox styleClass="feature-card" prefWidth="300" spacing="15"
+                      style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                    <Label text="Environnement Moderne" 
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ff4d79;"/>
+                    <Text wrappingWidth="260">
+                        Des installations modernes et un environnement sécurisé propice à l'apprentissage.
+                    </Text>
+                </VBox>
+            </FlowPane>
+        </VBox>
+
+        <!-- Activities Preview Section -->
+        <VBox spacing="20" style="-fx-padding: 40; -fx-background-color: #f8f9fa;">
+            <Label text="Découvrez Nos Activités" 
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <Text wrappingWidth="800" 
+                  style="-fx-font-size: 16px; -fx-fill: #666666;">
+                Explorez notre gamme variée d'activités éducatives et parascolaires conçues pour enrichir l'expérience d'apprentissage de nos étudiants.
+            </Text>
+
+            <Button text="Voir toutes les activités" 
+                    style="-fx-background-color: #ff4d79; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 5;"
+                    onAction="#navigateToActivities"/>
+        </VBox>
+
+        <!-- Contact Section -->
+        <VBox spacing="20" style="-fx-padding: 40;">
+            <Label text="Contactez-nous" 
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <VBox spacing="10" style="-fx-font-size: 16px;">
+                <Label text="📍 123 Avenue Principale, Ariana, Tunisie" />
+                <Label text="📞 +216 XX XXX XXX" />
+                <Label text="✉ contact@eduskool.tn" />
+            </VBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

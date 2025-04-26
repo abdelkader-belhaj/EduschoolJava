@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 06 avr. 2025 à 17:52
+-- Généré le : dim. 27 avr. 2025 à 01:16
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.1.25
 
@@ -43,9 +43,19 @@ CREATE TABLE `activity` (
 --
 
 INSERT INTO `activity` (`id`, `titre`, `description`, `date`, `image_file_name`, `is_approved`, `types_activity`, `created_at`) VALUES
-(77, 'aa', 'aa', '2025-04-19 00:00:00', 'C:\\Users\\21658\\Desktop\\plage.png', 1, 'aaa', '2025-04-04 23:16:21'),
-(78, 'hhhhhh', 'jhhhhh', '2025-05-10 00:00:00', 'C:\\Users\\21658\\Desktop\\364549317_1301169150494018_440304093175356292_n.jpg', 1, 'hjhjhj', '2025-04-05 00:07:38'),
-(79, 'bbbbbbb', 'bbbbbbbbbbbbb', '2025-04-05 19:11:00', '[\"67f1725b303b0.jpg\"]', 0, 'culture', '2025-04-05 18:11:39');
+(86, 'hobo', 'hobo', '2589-01-25 00:00:00', '', 1, 'aaaa', '2025-04-09 13:50:03'),
+(87, 'qqqqqqqqqqqq', 'qqqqqqqqqqqqqqqqq', '2000-04-02 00:00:00', '', 1, 'ssssssssssss', '2025-04-11 17:16:52'),
+(88, 'gadourheee', 'heeeeeeeeeeeeeee', '2025-04-25 00:00:00', 'soutenance.jpg', 1, 'aaaaaaaa', '2025-04-11 17:22:00'),
+(101, 'exemple', 'description exemple .........................', '2025-04-12 20:49:00', '[\"67fac3eedd611.jpg\"]', 0, 'sport', '2025-04-12 19:50:06'),
+(102, 'abdelkader', 'bonjour', '2025-04-12 00:00:00', 'img_1744804291360.png', 0, 'aaaaaaaa', '2025-04-16 12:51:38'),
+(103, '', 'bonjour', '2025-04-12 00:00:00', 'img_1744804291360.png', 0, 'aaaaaaaa', '2025-04-16 12:52:02'),
+(104, 'a', 's', '2025-04-18 00:00:00', '', 1, 's', '2025-04-16 13:08:45'),
+(105, 'ssq', 'sqsq', '2025-04-25 00:00:00', '', 0, '', '2025-04-16 13:11:22'),
+(106, 'sqs', 'sqs', '2025-04-11 00:00:00', '', 0, '', '2025-04-16 13:12:10'),
+(107, 'aaaa', 'aaaaaaaaaaaaaaaaaa', '2027-04-10 00:00:00', 'img_1744805879632.jpg', 0, 'aaaaa', '2025-04-16 13:18:14'),
+(108, 'aaaa', 'aaaaaaaaaaaaaaaaa', '2026-04-10 00:00:00', 'img_1744883580583.jpg', 0, 'sport', '2025-04-17 10:53:07'),
+(109, 'exempleaaaaaaaaaaaa', 'description exemple .........................', '2028-04-22 00:00:00', 'img_1745698491060.png', 1, 'sport', '2025-04-26 21:14:59'),
+(110, 'wwwwwwwwww', 'wwwwwwwwwwwww', '2028-04-21 00:00:00', 'img_1745703365845.jpg', 0, 'wwww', '2025-04-26 22:36:49');
 
 -- --------------------------------------------------------
 
@@ -65,8 +75,21 @@ CREATE TABLE `commentaire` (
 --
 
 INSERT INTO `commentaire` (`id`, `activity_id`, `contenu`, `note`) VALUES
-(75, 77, 'hello word', 3),
-(76, 77, 'hhhhhhhhhhhhhh', 0);
+(87, 101, 'hello word', 3),
+(88, 86, 'aaaaaaa', 3),
+(89, 86, 'aaaaaaaa', 4),
+(91, 107, '', 0),
+(92, 107, '', 0),
+(93, 107, '', 0),
+(94, 107, '', 0),
+(95, 107, 'bonjour', 2),
+(96, 107, 'aaaaaaaa', 2),
+(97, 103, 'dfsdf', 2),
+(98, 102, 'qsdssq', 4),
+(99, 102, 'fgsgf', 3),
+(100, 103, 'dsdsq', 4),
+(101, 101, 'ththttrh', 4),
+(102, 101, 'sgrgerrer', 4);
 
 -- --------------------------------------------------------
 
@@ -122,6 +145,13 @@ CREATE TABLE `pack` (
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `pack`
+--
+
+INSERT INTO `pack` (`id`, `name`, `price`, `duration`, `description`) VALUES
+(1, 'qqq', 111, 111, 'qqqq');
+
 -- --------------------------------------------------------
 
 --
@@ -139,6 +169,13 @@ CREATE TABLE `payment` (
   `card_expiration` varchar(10) DEFAULT NULL,
   `card_cvv` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `payment`
+--
+
+INSERT INTO `payment` (`id`, `stripe_session_id`, `amount`, `payment_date`, `payment_method`, `status`, `card_number`, `card_expiration`, `card_cvv`) VALUES
+(1, '', 4445, '2025-04-15 13:45:00', 'hhjh', 'kjjkj', '6555', '685', '6853');
 
 -- --------------------------------------------------------
 
@@ -223,6 +260,41 @@ CREATE TABLE `user` (
   `roles` varchar(255) DEFAULT NULL,
   `is_verified` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `id_utilisateur` int(11) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `prenom` varchar(50) NOT NULL,
+  `cin` int(8) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
+  `adresse` varchar(50) NOT NULL,
+  `date_naissance` date NOT NULL,
+  `telephone` int(8) NOT NULL,
+  `type_Utilisateur` enum('admin','etudiant','enseiagnt') NOT NULL,
+  `is_verified` tinyint(1) DEFAULT 0,
+  `date_creation` timestamp NOT NULL DEFAULT current_timestamp(),
+  `photo` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id_utilisateur`, `nom`, `prenom`, `cin`, `email`, `mot_de_passe`, `adresse`, `date_naissance`, `telephone`, `type_Utilisateur`, `is_verified`, `date_creation`, `photo`) VALUES
+(1, 'gadour', 'gaodur', 55332255, 'gadour@gmail.com', 'gadour', 'korba', '2000-04-13', 58069420, 'enseiagnt', 1, '2025-04-23 21:07:08', 'uploads\\profils\\user_1_75a65d57-01bc-4bc4-82d8-7c1202db9c3f.png'),
+(2, 'aymen', 'aymen', 22335544, 'aymen@gmailc.om', 'aymen', 'korba', '1999-04-23', 58069420, 'etudiant', 0, '2025-04-23 23:25:02', 'uploads\\profils\\user_2_111e8140-4db5-4a4e-b40c-153d8de57fd6.jpg'),
+(99, 'admin', 'admin', 0, 'admin@gmail.com', 'admin', 'admin', '2000-04-02', 21365355, 'admin', 1, '2025-04-23 23:27:40', NULL),
+(100, 'rayen', 'rayen', 653336633, 'rayen@gmail.com', 'rayen', 'rayen', '1999-04-23', 58695869, 'etudiant', 0, '2025-04-24 00:52:22', 'uploads\\profils\\user_100_be1db691-7a55-4819-8d7a-e7d62dce7277.jpg'),
+(101, 'maryem', 'maryeeeem', 55334466, 'maryem@gmail.com', 'maryem', 'korba', '1998-04-17', 99665588, 'enseiagnt', 0, '2025-04-24 08:33:38', 'uploads\\profils\\user_101_3a46a2aa-e85c-4239-bbe9-e303e732f9b6.png'),
+(102, 'omar', 'omar', 55223355, 'omar@gmail.com', 'omar', 'nabeul', '1999-04-15', 21356999, 'enseiagnt', 0, '2025-04-24 08:52:15', 'uploads\\profils\\user_102_b3fb7b14-86e6-4bbe-8dc0-9aadccebed52.jpg'),
+(103, 'etudiant', 'etudiant', 55555544, 'etudiant@gmail.com', 'etudiant', 'FH', '2000-04-15', 99999999, 'etudiant', 0, '2025-04-26 19:22:25', 'uploads\\profils\\user_103_e410a32d-19b6-45df-b623-9dd9f354dfcb.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -309,6 +381,12 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`id_utilisateur`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -316,13 +394,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT pour la table `cours`
@@ -340,13 +418,13 @@ ALTER TABLE `devoirs`
 -- AUTO_INCREMENT pour la table `pack`
 --
 ALTER TABLE `pack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `seance_psychologique`
@@ -383,6 +461,12 @@ ALTER TABLE `theme`
 --
 ALTER TABLE `user`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- Contraintes pour les tables déchargées

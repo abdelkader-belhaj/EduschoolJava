@@ -76,8 +76,6 @@ public class Activity {
         this.isApproved = isApproved;
     }
 
-    
-
     public boolean getApproved() {
         return isApproved;
     }
@@ -132,5 +130,9 @@ public class Activity {
 
         sb.append("----------------------------------------\n");
         return sb.toString();
+    }
+
+    public String getImagePath() {
+        return "uploads-img/" + this.getImageFileName();
     }
 }

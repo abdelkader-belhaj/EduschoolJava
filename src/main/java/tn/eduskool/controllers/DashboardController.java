@@ -1,138 +1,65 @@
 package tn.eduskool.controllers;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.Parent;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import tn.eduskool.entities.Activity;
-import tn.eduskool.entities.Utilisateur;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import tn.eduskool.entities.Utilisateur;
 
-import tn.eduskool.entities.Activity;
-import tn.eduskool.services.ServiceActivity;
-
-import java.util.List;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.fxml.Initializable;
-import tn.eduskool.entities.Utilisateur;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
-@SuppressWarnings("unused")
 public class DashboardController implements Initializable, BaseController {
 
     @FXML
     private VBox activitiesView;
-
     @FXML
     private Button btnActivities;
-
     @FXML
     private Button btnComments;
-
     @FXML
     private Button btnCourses;
-
-    @FXML
-    private Button btnCreate;
-
     @FXML
     private Button btnDashboard;
-
-    @FXML
-    private Button btnDelete;
-
-    @FXML
-    private Button btnListen;
-
-    @FXML
-    private Button btnLoad;
-
     @FXML
     private Button btnLogout;
-
     @FXML
     private Button btnReports;
-
     @FXML
     private Button btnSettings;
-
-    @FXML
-    private Button btnUpdate;
-
     @FXML
     private Button btnUsers;
-
+    // Nous supprimons la référence à btnCreate qui n'est pas dans le FXML
     @FXML
     private Button minimizeButton;
-
     @FXML
     private Button maximizeButton;
-
     @FXML
     private Button closeButton;
-
     @FXML
     private VBox commentsView;
-
     @FXML
     private StackPane contentArea;
-
     @FXML
     private VBox coursesView;
-
     @FXML
     private VBox dashboardView;
-
     @FXML
     private Label lblPageTitle;
-
     @FXML
     private VBox reportsView;
-
     @FXML
     private VBox settingsView;
-
-    @FXML
-    private HBox starBox;
-
-    @FXML
-    private TextField tfActivityId;
-
-    @FXML
-    private TextArea tfContenu;
-
-    @FXML
-    private TextField tfId;
-
     @FXML
     private VBox usersView;
 
@@ -140,27 +67,15 @@ public class DashboardController implements Initializable, BaseController {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    @FXML
-    private TableView<Activity> activityTableView;
-
-    @FXML
-    private TableColumn<Activity, Integer> colId;
-
-    @FXML
-    private TableColumn<Activity, String> colTitre;
-
-    @FXML
-    private TableColumn<Activity, String> colDescription;
-
-    @FXML
-    private TableColumn<Activity, String> colDate;
-
-    @FXML
-    private TableColumn<Activity, Boolean> colIsApproved;
+    // User instance
+    private Utilisateur utilisateur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Initialisation du contrôleur...");
+        System.out.println("Initialisation du contrôleur Dashboard...");
+
+        // Vérifier que tous les composants sont correctement chargés
+        checkComponents();
 
         // Configuration des contrôles de fenêtre
         setupWindowControls();
@@ -170,67 +85,6 @@ public class DashboardController implements Initializable, BaseController {
 
         // Afficher le tableau de bord par défaut
         showDashboardView();
-
-        // Debug: vérifier que tous les composants sont correctement chargés
-        checkComponents();
-
-        // Debug: ajouter des bordures de couleur pour visualiser les composants
-        addDebugBorders();
-
-        // Configure les colonnes
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate().toString()));
-        colIsApproved.setCellValueFactory(new PropertyValueFactory<>("approved"));
-        colIsApproved.setCellFactory(column -> new TableCell<Activity, Boolean>() {
-            private final Button btn = new Button();
-
-            @Override
-            protected void updateItem(Boolean approved, boolean empty) {
-                super.updateItem(approved, empty);
-
-                if (empty || approved == null) {
-                    setGraphic(null);
-                } else {
-                    btn.setText(approved ? "Désapprouver" : "Approuver");
-                    btn.setStyle(
-                            "-fx-background-color: " + (approved ? "#ff4d4d" : "#4CAF50") + "; -fx-text-fill: white");
-
-                    btn.setOnAction(event -> {
-                        Activity activity = getTableView().getItems().get(getIndex());
-                        boolean newStatus = !approved;
-                        activity.setApproved(newStatus); // Toggle local object
-                        getTableView().refresh(); // UI refresh
-
-                        boolean success = ServiceActivity.updateApprovedStatus(activity.getId(), newStatus);
-                        if (success) {
-                            System.out.println("✅ Statut mis à jour dans la base !");
-                        } else {
-                            System.err.println("❌ Échec de la mise à jour du statut !");
-                        }
-                    });
-
-                    setGraphic(btn);
-                }
-            }
-        });
-
-        // Écouteur pour afficher les détails de l'activité sélectionnée
-        activityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                showActivityDetails(newSelection);
-            }
-        });
-
-        // Charger les activités
-        afficherActivites();
-    }
-
-    private void afficherActivites() {
-        // Récupérer les activités depuis le service
-        List<Activity> activities = ServiceActivity.getAllActivities();
-        activityTableView.getItems().setAll(activities);
     }
 
     /**
@@ -243,6 +97,8 @@ public class DashboardController implements Initializable, BaseController {
                 Stage stage = (Stage) minimizeButton.getScene().getWindow();
                 stage.setIconified(true);
             });
+        } else {
+            System.out.println("Warning: minimizeButton is null");
         }
 
         if (maximizeButton != null) {
@@ -251,6 +107,8 @@ public class DashboardController implements Initializable, BaseController {
                 Stage stage = (Stage) maximizeButton.getScene().getWindow();
                 stage.setMaximized(!stage.isMaximized());
             });
+        } else {
+            System.out.println("Warning: maximizeButton is null");
         }
 
         if (closeButton != null) {
@@ -259,6 +117,8 @@ public class DashboardController implements Initializable, BaseController {
                 Stage stage = (Stage) closeButton.getScene().getWindow();
                 stage.close();
             });
+        } else {
+            System.out.println("Warning: closeButton is null");
         }
     }
 
@@ -266,21 +126,56 @@ public class DashboardController implements Initializable, BaseController {
      * Configure les boutons de navigation
      */
     private void setupNavigationButtons() {
-        btnDashboard.setOnAction(this::showDashboard);
-        btnUsers.setOnAction(this::showUsers);
-        btnActivities.setOnAction(this::showActivities);
-        btnComments.setOnAction(this::showComments);
-        btnCourses.setOnAction(this::showCourses);
-        btnReports.setOnAction(this::showReports);
-        btnSettings.setOnAction(this::showSettings);
-        btnLogout.setOnAction(this::handleLogout);
+        // Vérification des boutons avant d'assigner les actions
+        if (btnDashboard != null) {
+            btnDashboard.setOnAction(this::showDashboard);
+        } else {
+            System.out.println("Warning: btnDashboard is null");
+        }
 
-        // Configuration des boutons d'action
-        btnCreate.setOnAction(this::handleCreate);
-        btnUpdate.setOnAction(this::handleUpdate);
-        btnDelete.setOnAction(this::handleDelete);
-        btnLoad.setOnAction(this::handleLoad);
-        btnListen.setOnAction(this::handleListen);
+        if (btnUsers != null) {
+            btnUsers.setOnAction(this::showUsers);
+        } else {
+            System.out.println("Warning: btnUsers is null");
+        }
+
+        if (btnActivities != null) {
+            btnActivities.setOnAction(this::showActivities);
+        } else {
+            System.out.println("Warning: btnActivities is null");
+        }
+
+        if (btnComments != null) {
+            btnComments.setOnAction(this::showComments);
+        } else {
+            System.out.println("Warning: btnComments is null");
+        }
+
+        if (btnCourses != null) {
+            btnCourses.setOnAction(this::showCourses);
+        } else {
+            System.out.println("Warning: btnCourses is null");
+        }
+
+        if (btnReports != null) {
+            btnReports.setOnAction(this::showReports);
+        } else {
+            System.out.println("Warning: btnReports is null");
+        }
+
+        if (btnSettings != null) {
+            btnSettings.setOnAction(this::showSettings);
+        } else {
+            System.out.println("Warning: btnSettings is null");
+        }
+
+        if (btnLogout != null) {
+            btnLogout.setOnAction(this::handleLogout);
+        } else {
+            System.out.println("Warning: btnLogout is null");
+        }
+
+        // Nous ne référençons plus btnCreate ici
     }
 
     /**
@@ -297,26 +192,6 @@ public class DashboardController implements Initializable, BaseController {
         System.out.println("settingsView: " + (settingsView != null ? "OK" : "NULL"));
         System.out.println("contentArea: " + (contentArea != null ? "OK" : "NULL"));
         System.out.println("lblPageTitle: " + (lblPageTitle != null ? "OK" : "NULL"));
-    }
-
-    /**
-     * Ajoute des bordures colorées pour visualiser les composants (debug)
-     */
-    private void addDebugBorders() {
-        if (dashboardView != null)
-            dashboardView.setStyle("-fx-border-color: red; -fx-border-width: 1;");
-        if (usersView != null)
-            usersView.setStyle("-fx-border-color: blue; -fx-border-width: 1;");
-        if (activitiesView != null)
-            activitiesView.setStyle("-fx-border-color: green; -fx-border-width: 1;");
-        if (commentsView != null)
-            commentsView.setStyle("-fx-border-color: purple; -fx-border-width: 1;");
-        if (coursesView != null)
-            coursesView.setStyle("-fx-border-color: orange; -fx-border-width: 1;");
-        if (reportsView != null)
-            reportsView.setStyle("-fx-border-color: brown; -fx-border-width: 1;");
-        if (settingsView != null)
-            settingsView.setStyle("-fx-border-color: cyan; -fx-border-width: 1;");
     }
 
     /**
@@ -370,34 +245,6 @@ public class DashboardController implements Initializable, BaseController {
         });
     }
 
-    /**
-     * Configure la scène principale
-     */
-
-    @FXML
-    void handleCreate(ActionEvent event) {
-        System.out.println("Create button clicked");
-        // Implémentation de la création
-    }
-
-    @FXML
-    void handleDelete(ActionEvent event) {
-        System.out.println("Delete button clicked");
-        // Implémentation de la suppression
-    }
-
-    @FXML
-    void handleListen(ActionEvent event) {
-        System.out.println("Listen button clicked");
-        // Implémentation de l'écoute
-    }
-
-    @FXML
-    void handleLoad(ActionEvent event) {
-        System.out.println("Load button clicked");
-        // Implémentation du chargement
-    }
-
     @FXML
     void handleLogout(ActionEvent event) {
         System.out.println("Logout button clicked");
@@ -405,19 +252,21 @@ public class DashboardController implements Initializable, BaseController {
     }
 
     @FXML
-    void handleUpdate(ActionEvent event) {
-        System.out.println("Update button clicked");
-        // Implémentation de la mise à jour
-    }
-
-    @FXML
     void showActivities(ActionEvent event) {
         System.out.println("Showing Activities view");
         hideAllViews();
         if (activitiesView != null) {
-            activitiesView.setVisible(true);
-            if (lblPageTitle != null)
-                lblPageTitle.setText("Activities Management");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActivityGridVIew.fxml"));
+                Parent gridView = loader.load();
+                activitiesView.getChildren().setAll(gridView);
+                activitiesView.setVisible(true);
+                if (lblPageTitle != null)
+                    lblPageTitle.setText("Our Activities");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Error loading activities grid view: " + e.getMessage());
+            }
         }
     }
 
@@ -500,48 +349,14 @@ public class DashboardController implements Initializable, BaseController {
         stage.setY((screenBounds.getHeight() - height) / 2);
     }
 
-    // 2. Méthode pour afficher les détails de l'activité sélectionnée
-    private void showActivityDetails(Activity selectedActivity) {
-        try {
-            // Charger le FXML pour la vue des détails
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/details_view.fxml"));
-            Parent detailsView = loader.load();
-
-            // Obtenir le contrôleur et passer l'activité sélectionnée
-            ActivityDetailController detailsController = loader.getController();
-            detailsController.setActivity(selectedActivity);
-
-            // Créer une nouvelle fenêtre pour afficher les détails
-            Stage detailsStage = new Stage();
-            detailsStage.setTitle("Détails de l'activité: " + selectedActivity.getTitre());
-            detailsStage.setScene(new Scene(detailsView));
-            detailsStage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
-            detailsStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Impossible d'afficher les détails de l'activité", e.getMessage());
-        }
+    @Override
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
-
-    // Méthode utilitaire pour afficher des alertes
-    private void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    private Utilisateur utilisateur;
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
         // Mettre à jour l'interface si nécessaire avec les informations de
         // l'utilisateur
-    }
-
-    @Override
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
     }
 }

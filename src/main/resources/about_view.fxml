@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" style="-fx-background: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox spacing="40" style="-fx-background-color: white;">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+
+        <VBox spacing="20">
+            <Label text="About EduSkool" styleClass="section-title">
+                <style>
+                    -fx-font-size: 48px;
+                    -fx-font-weight: bold;
+                    -fx-text-fill: #2c3e50;
+                </style>
+            </Label>
+            
+            <Text wrappingWidth="800" styleClass="about-description">
+                <style>
+                    -fx-font-size: 16px;
+                    -fx-fill: #666666;
+                </style>
+                EduSkool is a premier educational institution dedicated to providing exceptional learning experiences for students of all ages. Founded with the vision of nurturing future leaders, we combine traditional educational values with innovative teaching methods.
+            </Text>
+        </VBox>
+
+        <VBox spacing="20">
+            <Label text="Our Mission" styleClass="section-subtitle">
+                <style>
+                    -fx-font-size: 36px;
+                    -fx-font-weight: bold;
+                    -fx-text-fill: #ff4d79;
+                </style>
+            </Label>
+            
+            <Text wrappingWidth="800">
+                To empower students with knowledge, skills, and values that prepare them for future success while fostering creativity, critical thinking, and personal growth.
+            </Text>
+        </VBox>
+
+        <VBox spacing="20">
+            <Label text="Contact Us" styleClass="section-subtitle">
+                <style>
+                    -fx-font-size: 36px;
+                    -fx-font-weight: bold;
+                    -fx-text-fill: #ff4d79;
+                </style>
+            </Label>
+            
+            <VBox spacing="10">
+                <Label text="Address: 123 Ariana, Tunisie"/>
+                <Label text="Email: contact@eduskool.tn"/>
+                <Label text="Phone: +216 XX XXX XXX"/>
+            </VBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<VBox spacing="0" styleClass="main-container" xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="tn.eduskool.controllers.ActivitiesGridViewController">
+    
+    <VBox styleClass="header-section">
+        <padding>
+            <Insets top="25" right="30" bottom="25" left="30"/>
+        </padding>
+        
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <VBox spacing="8">
+                <Label text="Nos Activités" styleClass="page-title"/>
+                <Label text="Découvrez toutes nos activités" styleClass="subtitle-label"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox spacing="10">
+                <Button fx:id="addActivityButton" text="+ Nouvelle Activité" 
+                        styleClass="fancy-button"/>
+                <Button fx:id="helpButton" text="? Aide" 
+                        styleClass="help-button"/>
+            </HBox>
+        </HBox>
+    </VBox>
+    
+    <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+        <FlowPane fx:id="activitiesGrid" styleClass="activities-grid"/>
+    </ScrollPane>
+</VBox>

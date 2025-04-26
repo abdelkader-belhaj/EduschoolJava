@@ -105,17 +105,18 @@ public class LoginController implements Initializable, BaseController {
     private void ouvrirEcranSelonRole(Utilisateur utilisateur) {
         try {
             String fxmlFile;
+            String title;
 
             // Déterminer quel écran ouvrir selon le rôle
             switch (utilisateur.getTypeUtilisateur()) {
                 case ADMIN:
                     fxmlFile = "/dashbord_view.fxml";
+                    title = "Dashboard Admin";
                     break;
                 case ENSEIGNANT:
-                    fxmlFile = "/front_view.fxml";
-                    break;
                 case ETUDIANT:
                     fxmlFile = "/front_view.fxml";
+                    title = "EduSkool - Accueil";
                     break;
                 default:
                     errorLabel.setText("Type d'utilisateur non pris en charge");
@@ -125,28 +126,33 @@ public class LoginController implements Initializable, BaseController {
             // Charger le fichier FXML approprié
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-
-            // Transmettre l'utilisateur connecté au controller de la nouvelle vue
-            Object controller = loader.getController();
-
-            // Vérifier le type du contrôleur et appeler la méthode setUtilisateur
-            if (controller instanceof BaseController) {
-                ((BaseController) controller).setUtilisateur(utilisateur);
-            } else {
-                errorLabel.setText("Erreur: Le contrôleur n'implémente pas BaseController");
-                return;
-            }
-
-            // Créer une nouvelle scène et l'afficher
-            Stage stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = new Scene(root);
+
+            // Maintenir les styles CSS
+            scene.getStylesheets().addAll(
+                    getClass().getResource("/activities.css").toExternalForm(),
+                    getClass().getResource("/front.css").toExternalForm(),
+                    getClass().getResource("/dashboard.css").toExternalForm(),
+                    getClass().getResource("/style.css").toExternalForm());
+
+            // Récupérer le contrôleur et définir l'utilisateur
+            BaseController controller = loader.getController();
+            controller.setUtilisateur(utilisateur);
+
+            // Configurer et afficher la nouvelle fenêtre
+            Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("EduSkool - " + utilisateur.getNom() + " " + utilisateur.getPrenom());
+            stage.setTitle("EduSkool - " + utilisateur.getRole());
+            stage.setMaximized(true);
             stage.show();
 
+            // Fermer la fenêtre de connexion
+            ((Stage) loginButton.getScene().getWindow()).close();
+
         } catch (IOException e) {
-            errorLabel.setText("Erreur lors du chargement de l'interface: " + e.getMessage());
+            System.err.println("Erreur lors du chargement de la vue principale: " + e.getMessage());
             e.printStackTrace();
+            showError("Erreur lors du chargement de l'application.");
         }
     }
 
@@ -174,5 +180,9 @@ public class LoginController implements Initializable, BaseController {
     @Override
     public Utilisateur getUtilisateur() {
         return utilisateur;
+    }
+
+    private void showError(String message) {
+        errorLabel.setText(message);
     }
 }

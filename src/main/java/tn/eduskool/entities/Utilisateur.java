@@ -173,6 +173,10 @@ public class Utilisateur {
         this.photo = photo;
     }
 
+    public String getRole() {
+        return this.typeUtilisateur.toString();
+    }
+
     @Override
     public String toString() {
         return "Utilisateur{" +

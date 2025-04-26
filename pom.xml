@@ -24,7 +24,20 @@
             <artifactId>javafx-controls</artifactId>
             <version>17.0.2</version>
         </dependency>
-
+<!-- Ajoutez la dépendance org.json ici -->
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20231013</version>
+    </dependency>
+    
+    <!-- Vos autres dépendances existantes -->
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>17.0.2</version>
+    </dependency>
+    
         <!-- JavaFX Media -->
         <dependency>
             <groupId>org.openjfx</groupId>
