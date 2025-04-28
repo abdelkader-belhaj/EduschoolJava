@@ -2,7 +2,6 @@ package tn.eduskool.entities;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,23 +13,16 @@ public class Devoir {
     private String description;
     private LocalDateTime datelimite;
     private String fichier;
+    private int idEnseignant;
+    private transient Utilisateur enseignant;
     private List<SoumissionDevoir> soumissions = new ArrayList<>();
 
-    public List<SoumissionDevoir> getSoumissions() {
-        return soumissions;
+    // Constructeurs
+    public Devoir() {
     }
+
     public Devoir(int id) {
         this.id = id;
-    }
-
-    public void setSoumissions(List<SoumissionDevoir> soumissions) {
-        this.soumissions = soumissions;
-    }
-
-
-    // Constructeurs
-
-    public Devoir() {
     }
 
     public Devoir(String titre, String description, LocalDateTime datelimite, String fichier) {
@@ -49,7 +41,6 @@ public class Devoir {
     }
 
     // Getters et Setters
-
     public int getId() {
         return id;
     }
@@ -90,21 +81,46 @@ public class Devoir {
         this.fichier = fichier;
     }
 
-    // Ajoutez ces nouvelles méthodes
+    public int getIdEnseignant() {
+        return idEnseignant;
+    }
+
+    public void setIdEnseignant(int idEnseignant) {
+        this.idEnseignant = idEnseignant;
+    }
+
+    public Utilisateur getEnseignant() {
+        return enseignant;
+    }
+
+    public void setEnseignant(Utilisateur enseignant) {
+        if (enseignant == null || !enseignant.getTypeUtilisateur().equals(Utilisateur.TypeUtilisateur.ENSEIGNANT)) {
+            throw new IllegalArgumentException("L'utilisateur doit être un enseignant");
+        }
+        this.enseignant = enseignant;
+        this.idEnseignant = enseignant.getIdUtilisateur();
+    }
+
+    public List<SoumissionDevoir> getSoumissions() {
+        return soumissions;
+    }
+
+    public void setSoumissions(List<SoumissionDevoir> soumissions) {
+        this.soumissions = soumissions;
+    }
+
+    // Méthodes pour JavaFX
     public StringProperty titreProperty() {
         return new SimpleStringProperty(titre);
     }
 
     public StringProperty dateLimiteStringProperty() {
-        return new SimpleStringProperty(datelimite.toString()); // Ou formater comme vous voulez
+        return new SimpleStringProperty(getFormattedDate());
     }
 
-    // Optionnel : Pour un meilleur affichage de la date
     public String getFormattedDate() {
         return datelimite.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
-
-    // toString
 
     @Override
     public String toString() {
@@ -114,7 +130,7 @@ public class Devoir {
                 ", description='" + description + '\'' +
                 ", datelimite=" + datelimite +
                 ", fichier='" + fichier + '\'' +
+                ", idEnseignant=" + idEnseignant +
                 '}';
     }
-
 }

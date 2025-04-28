@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ListeSoumissionsEnseignantController">
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="tn.eduskool.controllers.ListeSoumissionsEnseignantController"
+      styleClass="custom-table">
     <TableView fx:id="tableSoumissions" editable="true" prefWidth="800" prefHeight="600" styleClass="custom-table">
 
     <columns>

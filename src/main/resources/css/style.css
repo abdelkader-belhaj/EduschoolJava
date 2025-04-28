@@ -104,6 +104,12 @@
     -fx-background-color: #d32f2f !important; /* Rouge foncé */
 }
 
+.action-button-modifier, .action-button-supprimer {
+    -fx-font-size: 12px;
+    -fx-min-width: 70px;
+    -fx-max-width: 70px;
+    -fx-min-height: 25px;
+}
 
 .primary-button {
     -fx-background-color: #9fd8a7; /* Vert pastel */
@@ -123,22 +129,18 @@
     -fx-border-color: #e0e0e0;
     -fx-border-width: 1 0 0 0;
 }
-.nav-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 10 20;
-}
-.nav-button:hover {
-    -fx-background-color: #1abc9c;
-    -fx-cursor: hand;
-}
+
 .nav-button {
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-size: 14px;
+    -fx-padding: 10 20;
     -fx-alignment: CENTER_LEFT;
+    -fx-min-width: 200;
+}
+
+.nav-button:hover {
+    -fx-background-color: #3498db;
 }
 
 .nav-sub-button {
@@ -146,4 +148,65 @@
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-alignment: CENTER_LEFT;
+}
+
+/* ========== TABLE-VIEW ========== */
+.table-view {
+    -fx-background-color: white;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.table-view .table-cell {
+    -fx-padding: 10 5;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-cell .hbox {
+    -fx-alignment: center;
+    -fx-spacing: 5;
+}
+
+/* ========== BUTTON ========== */
+.button {
+    -fx-cursor: hand;
+}
+
+/* ========== FORMULAIRE DE MODIFICATION ========== */
+.edit-form {
+    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);
+    -fx-background-radius: 5;
+}
+
+.edit-form .text-field, 
+.edit-form .text-area,
+.edit-form .date-picker,
+.edit-form .combo-box {
+    -fx-pref-width: 300;
+}
+
+.edit-form .text-area {
+    -fx-pref-height: 100;
+}
+
+/* ========== SOUMISSION DEVOIRS ========== */
+.notification-button {
+    -fx-background-color: #0b84ff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.content-pane {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-background-radius: 5;
 }

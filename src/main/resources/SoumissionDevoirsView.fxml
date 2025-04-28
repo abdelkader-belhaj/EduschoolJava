@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SoumissionDevoirsController" prefWidth="800" prefHeight="500">
-    <children>
-        <TableView fx:id="tableDevoirs" layoutX="14" layoutY="14" prefHeight="472" prefWidth="770">
-            <columns>
-                <TableColumn fx:id="colTitre" text="Titre" prefWidth="200"/>
-                <TableColumn fx:id="colDescription" text="Description" prefWidth="200"/>
-                <TableColumn fx:id="colDate" text="Date Limite" prefWidth="150"/>
-                <TableColumn fx:id="colTelecharger" text="Télécharger" prefWidth="100"/>
-                <TableColumn fx:id="colSoumettre" text="Soumettre" prefWidth="100"/>
-            </columns>
-        </TableView>
-        <Button fx:id="btnVoirSoumissions" layoutX="14" layoutY="490" text="SOUMISSIONS" prefWidth="150" onAction="#ouvrirListeSoumissions"/>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.eduskool.controllers.SoumissionDevoirsController"
+            styleClass="content-pane"
+            stylesheets="@css/style.css">
 
-    </children>
+    <VBox spacing="20" AnchorPane.topAnchor="10.0" 
+          AnchorPane.rightAnchor="10.0" 
+          AnchorPane.bottomAnchor="10.0" 
+          AnchorPane.leftAnchor="10.0">
+        
+        <Button fx:id="btnNotifications"
+                text="🔔 Notifications"
+                styleClass="notification-button"
+                onAction="#afficherNotifications"/>
+
+        <TableView fx:id="tableDevoirs" styleClass="custom-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colTitre" text="Titre"/>
+                <TableColumn fx:id="colDescription" text="Description"/>
+                <TableColumn fx:id="colDate" text="Date Limite"/>
+                <TableColumn fx:id="colTelecharger" text="Télécharger"/>
+                <TableColumn fx:id="colSoumettre" text="Soumettre"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+
+        <Button fx:id="btnVoirSoumissions"
+                text="Voir mes soumissions"
+                styleClass="action-button-modifier"
+                onAction="#ouvrirListeSoumissions"/>
+    </VBox>
 </AnchorPane>

@@ -4,12 +4,12 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.DashboardController"
+            fx:controller="tn.eduskool.controllers.DashboardController"
             stylesheets="@css/style.css">
 
     <top>
         <HBox style="-fx-background-color: #34495e; -fx-padding: 15;">
-            <Label text="Dashboard" style="-fx-text-fill: white; -fx-font-size: 20px;"/>
+            <Label text="Dashboard Enseignant" style="-fx-text-fill: white; -fx-font-size: 20px;"/>
         </HBox>
     </top>
 
@@ -19,12 +19,10 @@
             <Button fx:id="profileBtn" text="👤 Profil" styleClass="nav-button"/>
 
             <!-- Section Devoirs avec sous-boutons -->
-            <TitledPane text="📄 Devoirs" expanded="false" styleClass="nav-button">
-                <VBox spacing="10" style="-fx-padding: 10;">
-                    <Button fx:id="devoirsBtn" text="📄 Gérer Devoirs" styleClass="nav-sub-button"/>
-                    <Button fx:id="soumissionsBtn" text="📬 Soumissions Devoirs" styleClass="nav-sub-button"/>
-                </VBox>
-            </TitledPane>
+            <Button fx:id="devoirsBtn"
+                    text="📄 Devoirs"
+                    styleClass="nav-button"
+                    onAction="#handleDevoirsClick"/>
 
             <Button fx:id="settingsBtn" text="⚙️ Paramètres" styleClass="nav-button"/>
         </VBox>

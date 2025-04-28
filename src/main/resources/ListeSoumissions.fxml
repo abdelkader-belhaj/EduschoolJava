@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ListeSoumissionsController" prefWidth="800" prefHeight="500">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.eduskool.controllers.ListeSoumissionsController" prefWidth="800" prefHeight="500">
     <children>
         <TableView fx:id="tableSoumissions" layoutX="14" layoutY="14" prefHeight="460" prefWidth="770">
             <columns>

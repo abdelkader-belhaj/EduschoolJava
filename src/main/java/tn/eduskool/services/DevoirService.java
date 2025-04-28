@@ -22,12 +22,13 @@ public class DevoirService implements IService<Devoir> {
     }
 
     public boolean ajouter(Devoir devoir) {
-        String query = "INSERT INTO devoirs (titre, description, datelimite, fichier) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO devoirs (titre, description, datelimite, fichier, idEnseignant) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = cnx.prepareStatement(query)) {
             stmt.setString(1, devoir.getTitre());
             stmt.setString(2, devoir.getDescription());
             stmt.setTimestamp(3, Timestamp.valueOf(devoir.getDatelimite()));
             stmt.setString(4, devoir.getFichier());
+            stmt.setInt(5, devoir.getEnseignant().getIdUtilisateur()); // <<< ici on insère l'ID de l'enseignant
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -152,5 +153,29 @@ public class DevoirService implements IService<Devoir> {
         }
         return devoir;
     }
+    public List<Devoir> recupererParEnseignant(int enseignantId) {
+        List<Devoir> devoirs = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM devoirs WHERE idEnseignant = ?";
+            PreparedStatement ps = DatabaseConnection.getInstance().getCnx().prepareStatement(sql);
+            ps.setInt(1, enseignantId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Devoir devoir = new Devoir();
+                devoir.setId(rs.getInt("id"));
+                devoir.setTitre(rs.getString("titre"));
+                devoir.setDescription(rs.getString("description"));
+                devoir.setDatelimite(rs.getTimestamp("datelimite").toLocalDateTime());
+                devoir.setFichier(rs.getString("fichier"));
+                devoir.setIdEnseignant(rs.getInt("idEnseignant")); // correct maintenant
+                devoirs.add(devoir);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return devoirs;
+    }
+
 
 }
