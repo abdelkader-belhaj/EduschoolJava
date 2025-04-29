@@ -1,0 +1,5 @@
+<!-- Ajouter ce bouton dans la section des boutons existants -->
+<Button fx:id="calendarButton" 
+        text="📅 Voir Calendrier" 
+        styleClass="calendar-button"
+        onAction="#handleShowCalendar"/>
