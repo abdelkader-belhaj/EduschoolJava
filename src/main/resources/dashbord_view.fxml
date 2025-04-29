@@ -2,648 +2,189 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-
-<BorderPane style="-fx-background-color: #f4f4f4;"  xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduskool.controllers.DashboardController">    
-    <!-- Barre latérale de navigation - Design raffiné -->
-
-
-  <left>
-        <VBox alignment="TOP_CENTER" prefWidth="270" style="-fx-background-color: linear-gradient(to bottom,rgb(246, 7, 202),rgb(58, 22, 204));">
-            <padding>
-                <Insets bottom="25" left="15" right="15" top="25" />
-            </padding>
-            <children>
-                <!-- Logo et titre améliorés -->
-                <HBox alignment="CENTER" spacing="12" style="-fx-padding: 0 0 25 0;">
-                    <ImageView fitHeight="55" fitWidth="55" preserveRatio="true">
-                     <!--   <Image url="@/images/logo.png" /> -->
-                    </ImageView>
-                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold';" text="EduSkool Admin" />
-                </HBox>
-                
-                <!-- Séparateur élégant -->
-                <Separator style="-fx-background-color: rgba(255, 255, 255, 0.2);">
-                    <VBox.margin>
-                        <Insets bottom="25" />
-                    </VBox.margin>
-                </Separator>
-                
-                <!-- Menu items avec effet de survol et sélection -->
-                <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showDashboard" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="📊" />
-                            <Label text="Tableausssssss de Bord" />
-                        </HBox>
-                    </graphic>
-                </Button>
-                
-                <Button fx:id="btnUsers" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showUsers" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="👥" />
-                            <Label text="Gestion Utilisateurs" />
-                        </HBox>
-                    </graphic>
-                    <VBox.margin>
-                        <Insets top="8" />
-                    </VBox.margin>
-                </Button>
-                
-                <Button fx:id="btnActivities" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showActivities" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="📝" />
-                            <Label text="Gestion Activités" />
-                        </HBox>
-                    </graphic>
-                    <VBox.margin>
-                        <Insets top="8" />
-                    </VBox.margin>
-                </Button>
-                
-                <Button fx:id="btnComments" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showComments" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="💬" />
-                            <Label text="Gestion Commentaires" />
-                        </HBox>
-                    </graphic>
-                    <VBox.margin>
-                        <Insets top="8" />
-                    </VBox.margin>
-                </Button>
-                
-                <Button fx:id="btnCourses" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showCourses" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="📚" />
-                            <Label text="Gestion Cours" />
-                        </HBox>
-                    </graphic>
-                    <VBox.margin>
-                        <Insets top="8" />
-                    </VBox.margin>
-                </Button>
-                
-                <Button fx:id="btnReports" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showReports" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="📈" />
-                            <Label text="Rapports" />
-                        </HBox>
-                    </graphic>
-                    <VBox.margin>
-                        <Insets top="8" />
-                    </VBox.margin>
-                </Button>
-                
-                <!-- Espace flexible -->
-                <Region VBox.vgrow="ALWAYS" />
-                
-                <!-- Menu du bas -->
-                <Button fx:id="btnSettings" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#showSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="⚙️" />
-                            <Label text="Paramètres" />
-                        </HBox>
-                    </graphic>
-                </Button>
-                
-                <Button fx:id="btnLogout" alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#handleLogout" style="-fx-background-color: rgba(255, 255, 255, 0.08); -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-padding: 12 16;">
-                    <graphic>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label style="-fx-font-size: 18px;" text="🚪" />
-                            <Label text="Déconnexion" />
-                        </HBox>
-                    </graphic>
-                    <VBox.margin>
-                        <Insets top="8" />
-                    </VBox.margin>
-                </Button>
-            </children>
-        </VBox>
-    </left>
-    
-    <!-- Contenu principal -->
-    <center>
-        <VBox style="-fx-background-color: #f5f7fa;">
-            <!-- Barre supérieure élégante -->
-            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 15 25;">
-                <effect>
-                    <DropShadow color="rgba(0, 0, 0, 0.08)" offsetY="2" radius="3" spread="0.05" />
-                </effect>
-                <children>
-                    <Label fx:id="lblPageTitle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Tableau de Bord" />
-                    <Region HBox.hgrow="ALWAYS" />
-                    <HBox alignment="CENTER" spacing="8" style="-fx-background-color: #f5f7fa; -fx-background-radius: 20; -fx-padding: 5 15;">
-                        <Label style="-fx-font-size: 16px;" text="🔍" />
-                        <TextField prefWidth="250" promptText="Rechercher..." style="-fx-background-color: transparent; -fx-font-family: 'Segoe UI';" />
-                    </HBox>
-                    <Button style="-fx-background-color: transparent; -fx-background-radius: 50;">
-                        <graphic>
-                            <Label style="-fx-font-size: 18px;" text="🔔" />
-                        </graphic>
-                        <HBox.margin>
-                            <Insets left="15" />
-                        </HBox.margin>
-                    </Button>
-                    <Button style="-fx-background-color: rgba(30, 60, 114, 0.1); -fx-background-radius: 50; -fx-padding: 8;">
-                        <graphic>
-                            <Label style="-fx-font-size: 16px;" text="👤" />
-                        </graphic>
-                        <HBox.margin>
-                            <Insets left="5" />
-                        </HBox.margin>
-                    </Button>
-                </children>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="700.0"
+ prefWidth="1000.0"
+  stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduskool.controllers.DashboardController">
+   <left>
+      <VBox prefWidth="200.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="200.0" styleClass="app-title" text="EduSkool">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnDashboard" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Dashboard">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <Button fx:id="btnUsers" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Users">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <Button fx:id="btnActivities" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Activities">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <Button fx:id="btnComments" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Comments">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <Button fx:id="btnCourses" layoutX="10.0" layoutY="160.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Courses">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <Button fx:id="btnReports" layoutX="10.0" layoutY="210.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Reports">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <Button fx:id="btnSettings" layoutX="10.0" layoutY="260.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="nav-button" text="Settings">
+               <graphic>
+                  <!-- Add icon here if needed -->
+               </graphic>
+            </Button>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="logout-button" text="Logout">
+                     <graphic>
+                        <!-- Add icon here if needed -->
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="titleBar" alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" styleClass="title-bar">
+               <children>
+                  <Label fx:id="lblPageTitle" styleClass="page-title" text="Dashboard">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="window-control" text="_">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="maximizeButton" mnemonicParsing="false" styleClass="window-control" text="□">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="closeButton" mnemonicParsing="false" styleClass="window-control, close-button" text="X">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
             </HBox>
-            
-            <!-- Contenu dynamique avec espace amélioré -->
-            <StackPane fx:id="contentArea" style="-fx-padding: 30 35;" VBox.vgrow="ALWAYS">
-                
-                <!-- Vue des commentaires (revisitée) -->
-                <VBox fx:id="commentsView" spacing="25" visible="false">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Gestion des Commentaires" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button style="-fx-background-color: #1e3c72; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 10 20;">
-                            <graphic>
-                                <HBox alignment="CENTER" spacing="8">
-                                    <Label style="-fx-font-size: 18px; -fx-text-fill: white;" text="+" />
-                                    <Label style="-fx-text-fill: white; -fx-font-family: 'Segoe UI';" text="Nouveau Commentaire" />
-                                </HBox>
-                            </graphic>
-                        </Button>
-                    </HBox>
-                    
-                    <!-- Formulaire redesigné -->
-                    <VBox alignment="CENTER_LEFT" spacing="18" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25;">
-                        <effect>
-                            <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                        </effect>
-                        <children>
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Ajouter/Modifier un Commentaire" />
-                            
-                            <HBox alignment="CENTER_LEFT" spacing="15">
-                                <VBox spacing="8" HBox.hgrow="ALWAYS">
-                                    <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="ID de l'activité" />
-                                    <TextField fx:id="tfActivityId" promptText="Entrez l'ID de l'activité" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" />
-                                </VBox>
-                                
-                                <VBox spacing="8" HBox.hgrow="ALWAYS">
-                                    <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="ID de l'activité" />
-                                    <TextField fx:id="tfActivityId" promptText="Entrez l'ID de l'activité" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" />
-                                </VBox>
-                                
-                                <VBox spacing="8" HBox.hgrow="ALWAYS">
-                                    <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="ID (pour actions)" />
-                                    <TextField fx:id="tfId" promptText="ID pour modifications" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" />
-                                </VBox>
-                            </HBox>
-                            
-                            <VBox spacing="8">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Contenu du commentaire" />
-                                <TextArea fx:id="tfContenu" prefHeight="80" promptText="Entrez le contenu du commentaire" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10; -fx-font-family: 'Segoe UI';" wrapText="true" />
-                            </VBox>
-                            
-                            <VBox spacing="8">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Note" />
-                                <HBox fx:id="starBox" alignment="CENTER_LEFT" spacing="8" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-padding: 10 15;">
-                                    <Label style="-fx-text-fill: #f39c12; -fx-font-size: 18px;" text="⭐⭐⭐⭐⭐" />
-                                </HBox>
-                            </VBox>
-                            
-                            <!-- Boutons d'actions stylisés -->
-                            <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 10 0 0 0;">
-                                <Button fx:id="btnCreate" onAction="#handleCreate" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Créer" />
-                                <Button fx:id="btnUpdate" onAction="#handleUpdate" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Modifier" />
-                                <Button fx:id="btnLoad" onAction="#handleLoad" style="-fx-background-color: #1e3c72; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Charger" />
-                                <Button fx:id="btnListen" onAction="#handleListen" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Écouter" />
-                                <Button fx:id="btnDelete" onAction="#handleDelete" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Supprimer" />
-                            </HBox>
-                        </children>
-                    </VBox>
-                    
-                    <!-- Tableau de commentaires amélioré -->
-                    <VBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25;" VBox.vgrow="ALWAYS">
-                        <effect>
-                            <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                        </effect>
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Liste des Commentaires" />
-                                <Region HBox.hgrow="ALWAYS" />
-                                <TextField prefWidth="250" promptText="Rechercher un commentaire..." style="-fx-background-color: #f5f7fa; -fx-background-radius: 20; -fx-padding: 8 15; -fx-font-family: 'Segoe UI';" />
-                            </HBox>
-                            
-                            <TableView style="-fx-background-color: white; -fx-border-color: transparent; -fx-font-family: 'Segoe UI';" VBox.vgrow="ALWAYS">
-                                <columns>
-                                    <TableColumn prefWidth="60" text="ID" />
-                                    <TableColumn prefWidth="90" text="Activity ID" />
-                                    <TableColumn prefWidth="320" text="Contenu" />
-                                    <TableColumn prefWidth="80" text="Note" />
-                                    <TableColumn prefWidth="150" text="Date" />
-                                    <TableColumn prefWidth="150" text="Actions" />
-                                </columns>
-                            </TableView>
-                            
-                            <!-- Pagination -->
-                            <HBox alignment="CENTER" spacing="10">
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="«" />
-                                <Button style="-fx-background-color: #1e3c72; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10;" text="1" />
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="2" />
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="3" />
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="»" />
-                            </HBox>
-                        </children>
-                    </VBox>
-                </VBox>
-                
-                <!-- Vue des utilisateurs -->
-                <VBox fx:id="usersView" spacing="25" visible="false">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Gestion des Utilisateurs" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button style="-fx-background-color: #1e3c72; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 10 20;">
-                            <graphic>
-                                <HBox alignment="CENTER" spacing="8">
-                                    <Label style="-fx-font-size: 18px; -fx-text-fill: white;" text="+" />
-                                    <Label style="-fx-text-fill: white; -fx-font-family: 'Segoe UI';" text="Nouvel Utilisateur" />
-                                </HBox>
-                            </graphic>
-                        </Button>
-                    </HBox>
-                    
-                    <!-- Statistiques utilisateurs -->
-                    <HBox spacing="25">
-                        <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;" HBox.hgrow="ALWAYS">
-                            <effect>
-                                <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                            </effect>
-                            <children>
-                                <Label style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #777;" text="Total Utilisateurs" />
-                                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Bold';" text="1,254" />
-                            </children>
-                        </VBox>
-                        
-                        <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;" HBox.hgrow="ALWAYS">
-                            <effect>
-                                <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                            </effect>
-                            <children>
-                                <Label style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #777;" text="Nouveaux ce mois" />
-                                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2ecc71; -fx-font-family: 'Segoe UI Bold';" text="152" />
-                            </children>
-                        </VBox>
-                        
-                        <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;" HBox.hgrow="ALWAYS">
-                            <effect>
-                                <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                            </effect>
-                            <children>
-                                <Label style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #777;" text="Actifs aujourd'hui" />
-                                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #3498db; -fx-font-family: 'Segoe UI Bold';" text="487" />
-                            </children>
-                        </VBox>
-                        
-                        <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;" HBox.hgrow="ALWAYS">
-                            <effect>
-                                <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                            </effect>
-                            <children>
-                                <Label style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #777;" text="Premium" />
-                                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #f39c12; -fx-font-family: 'Segoe UI Bold';" text="328" />
-                            </children>
-                        </VBox>
-                    </HBox>
-                    
-                    <!-- Tableau des utilisateurs -->
-                    <VBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25;" VBox.vgrow="ALWAYS">
-                        <effect>
-                            <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                        </effect>
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Liste des Utilisateurs" />
-                                <Region HBox.hgrow="ALWAYS" />
-                                <HBox alignment="CENTER" spacing="10">
-                                    <Label style="-fx-font-family: 'Segoe UI'; -fx-text-fill: #555;" text="Filtrer par:" />
-                                    <ComboBox prefWidth="150" promptText="Tous les rôles" style="-fx-background-color: #f5f7fa; -fx-background-radius: 5;" />
-                                    <TextField prefWidth="200" promptText="Rechercher..." style="-fx-background-color: #f5f7fa; -fx-background-radius: 20; -fx-padding: 8 15; -fx-font-family: 'Segoe UI';" />
-                                </HBox>
-                            </HBox>
-                            
-                            <TableView style="-fx-background-color: white; -fx-border-color: transparent; -fx-font-family: 'Segoe UI';" VBox.vgrow="ALWAYS">
-                                <columns>
-                                    <TableColumn prefWidth="60" text="ID" />
-                                    <TableColumn prefWidth="120" text="Nom" />
-                                    <TableColumn prefWidth="200" text="Email" />
-                                    <TableColumn prefWidth="100" text="Rôle" />
-                                    <TableColumn prefWidth="150" text="Date d'inscription" />
-                                    <TableColumn prefWidth="100" text="Status" />
-                                    <TableColumn prefWidth="120" text="Actions" />
-                                </columns>
-                            </TableView>
-                            
-                            <!-- Pagination -->
-                            <HBox alignment="CENTER" spacing="10">
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="«" />
-                                <Button style="-fx-background-color: #1e3c72; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10;" text="1" />
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="2" />
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="3" />
-                                <Button style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 5 10;" text="»" />
-                            </HBox>
-                        </children>
-                    </VBox>
-                </VBox>
-                
-                <!-- Vue des activités -->
-                <VBox fx:id="activitiesView" spacing="25" visible="false">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Gestion des Activités" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button style="-fx-background-color: #1e3c72; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 10 20;">
-                            <graphic>
-                                <HBox alignment="CENTER" spacing="8">
-                                    <Label style="-fx-font-size: 18px; -fx-text-fill: white;" text="+" />
-                                    <Label style="-fx-text-fill: white; -fx-font-family: 'Segoe UI';" text="Nouvelle Activité" />
-                                </HBox>
-                            </graphic>
-                        </Button>
-                    </HBox>
-                    
-                    <!-- Contenu des activités sera ajouté ici de façon similaire -->
-                </VBox>
-                
-                <!-- Vue des cours -->
-                <VBox fx:id="coursesView" spacing="25" visible="false">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Gestion des Cours" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button style="-fx-background-color: #1e3c72; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 10 20;">
-                            <graphic>
-                                <HBox alignment="CENTER" spacing="8">
-                                    <Label style="-fx-font-size: 18px; -fx-text-fill: white;" text="+" />
-                                    <Label style="-fx-text-fill: white; -fx-font-family: 'Segoe UI';" text="Nouveau Cours" />
-                                </HBox>
-                            </graphic>
-                        </Button>
-                    </HBox>
-                    
-                    <!-- Contenu des cours sera ajouté ici de façon similaire -->
-                </VBox>
-                
-                <!-- Vue des rapports -->
-                <VBox fx:id="reportsView" spacing="25" visible="false">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Rapports et Analyses" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button style="-fx-background-color: #1e3c72; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 10 20;">
-                            <graphic>
-                                <HBox alignment="CENTER" spacing="8">
-                                    <Label style="-fx-font-size: 16px; -fx-text-fill: white;" text="📊" />
-                                    <Label style="-fx-text-fill: white; -fx-font-family: 'Segoe UI';" text="Exporter" />
-                                </HBox>
-                            </graphic>
-                        </Button>
-                    </HBox>
-                    
-                    <!-- Contenu des rapports sera ajouté ici de façon similaire -->
-                </VBox>
-                
-                <!-- Vue des paramètres -->
-                <VBox fx:id="settingsView" spacing="25" visible="false">
-                    <HBox alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1e3c72; -fx-font-family: 'Segoe UI Semibold';" text="Paramètres" />
-                    </HBox>
-                    
-                    <!-- Paramètres système -->
-                    <VBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25;">
-                        <effect>
-                            <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                        </effect>
-                        <children>
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Paramètres système" />
-                            
-                            <VBox spacing="10">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Langue du système" />
-                                <ComboBox prefWidth="250" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-font-family: 'Segoe UI';" />
-                            </VBox>
-                            
-                            <VBox spacing="10">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Thème de l'application" />
-                                <HBox spacing="15">
-                                    <RadioButton selected="true" style="-fx-font-family: 'Segoe UI';" text="Thème clair" />
-                                    <RadioButton style="-fx-font-family: 'Segoe UI';" text="Thème sombre" />
-                                    <RadioButton style="-fx-font-family: 'Segoe UI';" text="Système" />
-                                </HBox>
-                            </VBox>
-                            
-                            <VBox spacing="10">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Notifications" />
-                                <HBox spacing="15">
-                                    <CheckBox selected="true" style="-fx-font-family: 'Segoe UI';" text="Email" />
-                                    <CheckBox selected="true" style="-fx-font-family: 'Segoe UI';" text="Push" />
-                                    <CheckBox style="-fx-font-family: 'Segoe UI';" text="SMS" />
-                                </HBox>
-                            </VBox>
-                            
-                            <Button style="-fx-background-color: #1e3c72; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Sauvegarder les modifications">
-                                <VBox.margin>
-                                    <Insets top="10" />
-                                </VBox.margin>
-                            </Button>
-                        </children>
-                    </VBox>
-                    
-                    <!-- Paramètres du compte -->
-                    <VBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25;">
-                        <effect>
-                            <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                        </effect>
-                        <children>
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Paramètres du compte" />
-                            
-                            <VBox spacing="10">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Nom d'utilisateur" />
-                                <TextField style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" text="admin" />
-                            </VBox>
-                            
-                            <VBox spacing="10">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Email" />
-                                <TextField style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" text="admin@eduskool.tn" />
-                            </VBox>
-                            
-                            <VBox spacing="10">
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-font-family: 'Segoe UI';" text="Changer le mot de passe" />
-                                <HBox spacing="15">
-                                    <PasswordField promptText="Mot de passe actuel" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" HBox.hgrow="ALWAYS" />
-                                    <PasswordField promptText="Nouveau mot de passe" style="-fx-background-color: #f5f7fa; -fx-background-radius: 8; -fx-border-color: transparent; -fx-font-size: 14px; -fx-padding: 10 15; -fx-font-family: 'Segoe UI';" HBox.hgrow="ALWAYS" />
-                                </HBox>
-                            </VBox>
-                            
-                            <Button style="-fx-background-color: #1e3c72; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 10 20; -fx-font-family: 'Segoe UI';" text="Mettre à jour le profil">
-                                <VBox.margin>
-                                    <Insets top="10" />
-                                </VBox.margin>
-                            </Button>
-                        </children>
-                    </VBox>
-                </VBox>
-                <!-- Tableau de bord (affiché par défaut) -->
-                <VBox fx:id="dashboardView" spacing="30">
-                    <HBox spacing="25">
-
-
-                       
-
-
-
-
-                        <!-- Tableau des activités récentes -->
-                        <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;" HBox.hgrow="ALWAYS">
-                            <effect>
-                                <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                            </effect>
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="10">
-                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Activités Récentes" />
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <Button style="-fx-background-color: #f5f7fa; -fx-text-fill: #1e3c72; -fx-font-weight: bold; -fx-background-radius: 5; -fx-font-size: 12px; -fx-padding: 7 12;" text="Voir tout" />
-                                </HBox>
-                                <TableView fx:id="activityTableView" VBox.vgrow="ALWAYS">
-    <columns>
-        <TableColumn fx:id="colId" prefWidth="50" text="ID" />
-        <TableColumn fx:id="colTitre" prefWidth="150" text="Titre" />
-        <TableColumn fx:id="colDescription" prefWidth="250" text="Description" />
-        <TableColumn fx:id="colDate" prefWidth="100" text="Date" />
-        <TableColumn fx:id="colIsApproved" prefWidth="150" text="Statut" />
-
-    </columns>
-</TableView>
-
-                            </children>
-                        </VBox>
-                        
-                        <!-- Commentaires récents -->
-                        <VBox prefWidth="380" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;">
-                            <effect>
-                                <DropShadow color="rgba(0, 0, 0, 0.05)" offsetX="0" offsetY="3" radius="6" spread="0.02" />
-                            </effect>
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="10">
-                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-font-family: 'Segoe UI Semibold';" text="Commentaires Récents" />
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <Button style="-fx-background-color: #f5f7fa; -fx-text-fill: #1e3c72; -fx-font-weight: bold; -fx-background-radius: 5; -fx-font-size: 12px; -fx-padding: 7 12;" text="Voir tout" />
-                                </HBox>
-                                <VBox spacing="15" style="-fx-padding: 15 0 0 0;">
-                                    <!-- Commentaire 1 - Style amélioré -->
-                                    <VBox style="-fx-border-color: #f0f3f8; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 15 0;">
-                                        <HBox alignment="CENTER_LEFT" spacing="12">
-                                            <StackPane style="-fx-background-color: #f5f7fa; -fx-background-radius: 50; -fx-padding: 10;">
-                                                <Label style="-fx-font-size: 16px;" text="👤" />
-                                            </StackPane>
-                                            <VBox>
-                                                <Label style="-fx-font-weight: bold; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 14px;" text="Ahmed Bensaid" />
-                                                <Label style="-fx-text-fill: #7F8C8D; -fx-font-size: 12px; -fx-font-family: 'Segoe UI';" text="Il y a 2 heures" />
-                                            </VBox>
-                                            <Region HBox.hgrow="ALWAYS" />
-                                            <Label style="-fx-text-fill: #f39c12;" text="⭐⭐⭐⭐⭐" />
-                                        </HBox>
-                                        <Label style="-fx-font-family: 'Segoe UI'; -fx-font-size: 13px;" text="Excellent cours, très instructif et bien structuré." wrapText="true">
-                                            <VBox.margin>
-                                                <Insets left="45" top="8" />
-                                            </VBox.margin>
-                                        </Label>
-                                    </VBox>
-                                    
-                                    <!-- Commentaire 2 -->
-                                    <VBox style="-fx-border-color: #f0f3f8; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 15 0;">
-                                        <HBox alignment="CENTER_LEFT" spacing="12">
-                                            <StackPane style="-fx-background-color: #f5f7fa; -fx-background-radius: 50; -fx-padding: 10;">
-                                                <Label style="-fx-font-size: 16px;" text="👤" />
-                                            </StackPane>
-                                            <VBox>
-                                                <Label style="-fx-font-weight: bold; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 14px;" text="Leila Mansour" />
-                                                <Label style="-fx-text-fill: #7F8C8D; -fx-font-size: 12px; -fx-font-family: 'Segoe UI';" text="Il y a 5 heures" />
-                                            </VBox>
-                                            <Region HBox.hgrow="ALWAYS" />
-                                            <Label style="-fx-text-fill: #f39c12;" text="⭐⭐⭐⭐" />
-                                        </HBox>
-                                        <Label style="-fx-font-family: 'Segoe UI'; -fx-font-size: 13px;" text="J'ai beaucoup appris grâce à cette activité. Merci!" wrapText="true">
-                                            <VBox.margin>
-                                                <Insets left="45" top="8" />
-                                            </VBox.margin>
-                                        </Label>
-                                    </VBox>
-                                    
-                                    <!-- Commentaire 3 -->
-                                    <VBox>
-                                        <HBox alignment="CENTER_LEFT" spacing="12">
-                                            <StackPane style="-fx-background-color: #f5f7fa; -fx-background-radius: 50; -fx-padding: 10;">
-                                                <Label style="-fx-font-size: 16px;" text="👤" />
-                                            </StackPane>
-                                            <VBox>
-                                                <Label style="-fx-font-weight: bold; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 14px;" text="Karim Hamoudi" />
-                                                <Label style="-fx-text-fill: #7F8C8D; -fx-font-size: 12px; -fx-font-family: 'Segoe UI';" text="Il y a 8 heures" />
-                                            </VBox>
-                                            <Region HBox.hgrow="ALWAYS" />
-                                            <Label style="-fx-text-fill: #f39c12;" text="⭐⭐⭐" />
-                                        </HBox>
-                                        <Label style="-fx-font-family: 'Segoe UI'; -fx-font-size: 13px;" text="Bon contenu, mais pourrait être plus détaillé sur certains aspects." wrapText="true">
-                                            <VBox.margin>
-                                                <Insets left="45" top="8" />
-                                            </VBox.margin>
-                                        </Label>
-                                    </VBox>
-                                </VBox>
-                            </children>
-                        </VBox>
-
-
-
-
-                        
-                    </HBox>
-                </VBox>
+            <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <!-- Dashboard View -->
+                  <VBox fx:id="dashboardView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area">
+                     <children>
+                        <Label text="Dashboard Content" />
+                        <Label text="Welcome to EduSkool Admin Dashboard">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <!-- Add dashboard widgets here -->
+                     </children>
+                  </VBox>
+                  
+                  <!-- Users View -->
+                  <VBox fx:id="usersView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                     <children>
+                        <Label text="Users Management">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <!-- Add users management content here -->
+                     </children>
+                  </VBox>
+                  
+                  <!-- Activities View -->
+                  <VBox fx:id="activitiesView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                     <children>
+                        <fx:include source="activity_view.fxml" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Comments View -->
+                  <VBox fx:id="commentsView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                     <children>
+                        <Label text="Comments Management">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <!-- Add comments management content here -->
+                     </children>
+                  </VBox>
+                  
+                  <!-- Courses View -->
+                  <VBox fx:id="coursesView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                     <children>
+                        <Label text="Courses Management">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <!-- Add courses management content here -->
+                     </children>
+                  </VBox>
+                  
+                  <!-- Reports View -->
+                  <VBox fx:id="reportsView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                     <children>
+                        <Label text="Reports">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <!-- Add reports content here -->
+                     </children>
+                  </VBox>
+                  
+                  <!-- Settings View -->
+                  <VBox fx:id="settingsView" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                     <children>
+                        <Label text="Settings">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <!-- Add settings content here -->
+                     </children>
+                  </VBox>
+               </children>
             </StackPane>
-        </VBox>
-    </center>
-    
-    <!-- Barre d'état en bas -->
-    <bottom>
-        <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 12 25; -fx-border-color: #f0f3f8; -fx-border-width: 1 0 0 0;">
-            <children>
-                <Label style="-fx-text-fill: #7F8C8D; -fx-font-family: 'Segoe UI';" text="© 2025 EduSkool. Tous droits réservés." />
-                <Region HBox.hgrow="ALWAYS" />
-                <Label style="-fx-text-fill: #7F8C8D; -fx-font-family: 'Segoe UI';" text="Version 1.0.0" />
-            </children>
-        </HBox>
-    </bottom>
-    
-    <!-- Styles et CSS supplémentaires -->
-   
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

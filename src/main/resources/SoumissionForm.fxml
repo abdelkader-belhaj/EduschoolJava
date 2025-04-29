@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.eduskool.controllers.SoumissionFormController"
+      prefWidth="400" prefHeight="250" style="-fx-padding: 20;">
+
+    <!-- Affiche le titre du devoir -->
+    <Label fx:id="lblDevoir" text="Titre du devoir"/>
+
+    <!-- Champ texte non modifiable pour afficher le chemin du fichier -->
+    <TextField fx:id="txtFichier" promptText="Aucun fichier sélectionné" editable="false" maxWidth="300"/>
+
+    <!-- Bouton pour parcourir les fichiers -->
+    <Button fx:id="btnParcourir" text="Parcourir" onAction="#parcourirFichier"/>
+
+    <!-- Bouton pour valider l'envoi -->
+    <Button fx:id="btnValider" text="Soumettre" onAction="#validerSoumission"/>
+
+</VBox>

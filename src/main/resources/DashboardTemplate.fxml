@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.eduskool.controllers.DashboardController"
+            stylesheets="@css/style.css">
+
+    <top>
+        <HBox style="-fx-background-color: #34495e; -fx-padding: 15;">
+            <Label text="Dashboard Enseignant" style="-fx-text-fill: white; -fx-font-size: 20px;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Button fx:id="homeBtn" text="🏠 Accueil" styleClass="nav-button"/>
+            <Button fx:id="profileBtn" text="👤 Profil" styleClass="nav-button"/>
+
+            <!-- Section Devoirs avec sous-boutons -->
+            <Button fx:id="devoirsBtn"
+                    text="📄 Devoirs"
+                    styleClass="nav-button"
+                    onAction="#handleDevoirsClick"/>
+
+            <Button fx:id="settingsBtn" text="⚙️ Paramètres" styleClass="nav-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="mainContent" style="-fx-background-color: #ecf0f1;">
+            <Label fx:id="messageLabel" text="Bienvenue" style="-fx-font-size: 24px;"/>
+        </StackPane>
+    </center>
+
+</BorderPane>

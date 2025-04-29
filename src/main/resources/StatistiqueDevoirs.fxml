@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.eduskool.controllers.StatistiqueDevoirsController" prefWidth="1000" prefHeight="600" style="-fx-background-color: #f4f4f4;">
+    <!-- Titre -->
+    <Text fx:id="title" text="Statistiques des Devoirs par Enseignant" layoutX="350" layoutY="30">
+        <font>
+            <Font name="Arial" size="20" />
+        </font>
+        <fill>
+            <javafx.scene.paint.Color fx:value="#333" />
+        </fill>
+    </Text>
+
+    <!-- BarChart -->
+    <BarChart fx:id="barChart" layoutX="100" layoutY="100" prefWidth="800" prefHeight="400" style="-fx-border-color: #ccc; -fx-background-color: white;">
+        <xAxis>
+            <CategoryAxis label="Enseignants" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Nombre de devoirs" />
+        </yAxis>
+    </BarChart>
+</AnchorPane>

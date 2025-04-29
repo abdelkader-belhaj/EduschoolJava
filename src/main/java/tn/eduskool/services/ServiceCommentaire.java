@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tn.eduskool.entities.Commentaire;
-import tn.eduskool.services.ServiceCommentaire;
+import tn.eduskool.entities.Utilisateur;
 import tn.eduskool.tools.DatabaseConnection;
 
 public class ServiceCommentaire {
@@ -13,17 +13,27 @@ public class ServiceCommentaire {
     // Récupérer les commentaires par activity_id
     public static List<Commentaire> getCommentairesByActivityId(int activityId) {
         List<Commentaire> list = new ArrayList<>();
-        String sql = "SELECT * FROM commentaire WHERE activity_id = ?";
+        String sql = "SELECT c.*, u.nom, u.prenom FROM commentaire c " +
+                "LEFT JOIN utilisateur u ON c.user_id = u.id_utilisateur " +
+                "WHERE c.activity_id = ?";
         try (Connection conn = DatabaseConnection.connect();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, activityId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                Utilisateur user = null;
+                if (rs.getString("nom") != null) {
+                    user = new Utilisateur();
+                    user.setNom(rs.getString("nom"));
+                    user.setPrenom(rs.getString("prenom"));
+                }
+
                 Commentaire c = new Commentaire(
                         rs.getInt("id"),
                         rs.getInt("activity_id"),
                         rs.getString("contenu"),
-                        rs.getInt("note"));
+                        rs.getInt("note"),
+                        user);
                 list.add(c);
             }
         } catch (SQLException e) {

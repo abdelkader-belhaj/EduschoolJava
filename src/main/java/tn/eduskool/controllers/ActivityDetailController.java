@@ -1,144 +1,137 @@
 package tn.eduskool.controllers;
 
-import javafx.collections.FXCollections;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import tn.eduskool.entities.Activity;
 import tn.eduskool.entities.Commentaire;
 import tn.eduskool.services.ServiceCommentaire;
-import java.util.List;
+import javafx.scene.Node;
+import javafx.event.ActionEvent;
 
-import java.io.File;
-import java.time.format.DateTimeFormatter;
+public class ActivityDetailController implements Initializable {
 
-public class ActivityDetailController {
+    @FXML
+    private ImageView activityImage;
 
     @FXML
     private Label titleLabel;
+
     @FXML
-    private Label idLabel;
-    @FXML
-    private Label activityTitleLabel;
-    @FXML
-    private TextArea descriptionTextArea;
+    private Label descriptionLabel;
+
     @FXML
     private Label dateLabel;
-    @FXML
-    private Label statusLabel;
+
     @FXML
     private Label typeLabel;
-    @FXML
-    private Label createdAtLabel;
-    @FXML
-    private Label imagePathLabel;
-    @FXML
-    private ImageView activityImageView;
-    @FXML
-    private Label commentCountLabel;
-    @FXML
-    private TableView<Commentaire> commentTableView;
-    @FXML
-    private TableColumn<Commentaire, Integer> colCommentId;
-    @FXML
-    private TableColumn<Commentaire, String> colCommentContent;
-    @FXML
-    private TableColumn<Commentaire, Integer> colCommentRating;
-
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @FXML
-    private void initialize() {
-        // Initialiser les colonnes de la table des commentaires
-        colCommentId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colCommentContent.setCellValueFactory(new PropertyValueFactory<>("contenu"));
-        colCommentRating.setCellValueFactory(new PropertyValueFactory<>("note"));
+    private ListView<Commentaire> commentsListView;
 
-        // Ajouter un rendu personnalisé pour la colonne de note
-        colCommentRating.setCellFactory(column -> {
-            return new TableCell<Commentaire, Integer>() {
-                @Override
-                protected void updateItem(Integer note, boolean empty) {
-                    super.updateItem(note, empty);
+    @FXML
+    private Button addCommentButton;
 
-                    if (empty || note == null) {
-                        setText(null);
-                        setStyle("");
-                    } else {
-                        setText(note + "/5");
+    @FXML
+    private Button backButton;
 
-                        // Colorer en fonction de la note
-                        if (note >= 4) {
-                            setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
-                        } else if (note >= 2) {
-                            setStyle("-fx-text-fill: orange;");
-                        } else {
-                            setStyle("-fx-text-fill: red;");
-                        }
-                    }
-                }
-            };
-        });
+    private Activity activity;
+    private List<Commentaire> comments;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        backButton.setOnAction(this::onBackButtonClicked);
+        addCommentButton.setOnAction(this::onAddCommentClicked);
+
+        // Set up comments list view cell factory
+        commentsListView.setCellFactory(listView -> new CommentaireListCell());
     }
 
     public void setActivity(Activity activity) {
-        if (activity == null)
-            return;
+        this.activity = activity;
 
-        // Mettre à jour le titre de la fenêtre
-        titleLabel.setText("Détails de l'activité: " + activity.getTitre());
-
-        // Remplir les informations de l'activité
-        idLabel.setText(String.valueOf(activity.getId()));
-        activityTitleLabel.setText(activity.getTitre());
-        descriptionTextArea.setText(activity.getDescription());
-        dateLabel.setText(activity.getDate().format(dateFormatter));
-        statusLabel.setText(activity.isApproved() ? "Approuvée" : "En attente");
+        // Update UI with activity details
+        titleLabel.setText(activity.getTitre());
+        descriptionLabel.setText(activity.getDescription());
+        dateLabel.setText(activity.getDate().toString());
         typeLabel.setText(activity.getTypesActivity());
-        createdAtLabel.setText(activity.getCreatedAt().format(dateFormatter));
 
-        // Style du statut
-        if (activity.isApproved()) {
-            statusLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
-        } else {
-            statusLabel.setStyle("-fx-text-fill: orange; -fx-font-weight: bold;");
-        }
+        // Load activity image
+        try {
+            String imagePath = "/tn/eduskool/resources/uploads/" + activity.getImageFileName();
+            File file = new File(System.getProperty("user.dir") + imagePath);
 
-        // Charger l'image si elle existe
-        if (activity.getImageFileName() != null && !activity.getImageFileName().isEmpty()) {
-            try {
-                File imageFile = new File("uploads-img/" + activity.getImageFileName());
-
-                if (imageFile.exists()) {
-                    Image image = new Image(imageFile.toURI().toString());
-                    activityImageView.setImage(image);
-                    imagePathLabel.setText(activity.getImageFileName());
-                } else {
-                    imagePathLabel.setText("Image non trouvée: " + activity.getImageFileName());
-                }
-
-            } catch (Exception e) {
-                imagePathLabel.setText("Erreur de chargement de l'image: " + e.getMessage());
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                activityImage.setImage(image);
+            } else {
+                // Load default image
+                Image defaultImage = new Image(
+                        getClass().getResourceAsStream("/tn/eduskool/resources/images/default_activity.png"));
+                activityImage.setImage(defaultImage);
             }
-        } else {
-            imagePathLabel.setText("Aucune image disponible");
+        } catch (Exception e) {
+            System.err.println("Error loading activity image: " + e.getMessage());
         }
 
-        // Afficher les commentaires
-        commentCountLabel.setText(String.valueOf(activity.getCommentaires().size()));
-        List<Commentaire> commentaires = ServiceCommentaire.getCommentairesByActivityId(activity.getId());
-        commentTableView.setItems(FXCollections.observableArrayList(commentaires));
-        commentCountLabel.setText(String.valueOf(commentaires.size()));
+        // Load comments
+        loadComments();
+    }
 
+    private void loadComments() {
+        comments = ServiceCommentaire.getCommentairesByActivityId(activity.getId());
+        commentsListView.getItems().clear();
+        commentsListView.getItems().addAll(comments);
     }
 
     @FXML
-    private void closeWindow() {
-        // Fermer la fenêtre
-        Stage stage = (Stage) titleLabel.getScene().getWindow();
-        stage.close();
+    private void onBackButtonClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ActivityGridVIew.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error returning to activities view: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onAddCommentClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/commentaire_view.fxml"));
+            Parent root = loader.load();
+
+            CommentaireViewController controller = loader.getController();
+            controller.setActivityId(activity.getId());
+
+            Stage stage = new Stage();
+            stage.setTitle("Add Comment");
+            stage.setScene(new Scene(root));
+
+            // When comment window closes, refresh comments
+            stage.setOnHidden(e -> loadComments());
+
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error opening comment dialog: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

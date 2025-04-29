@@ -1,108 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
-<VBox spacing="20" style="-fx-background-color: #f4f4f4;" 
-      xmlns="http://javafx.com/javafx/23.0.1" 
-      xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="tn.eduskool.controllers.ActivityController">
-   <padding>
-      <Insets bottom="20" left="20" right="20" top="20" />
-   </padding>
-   <children>
-      <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Activity Management" />
-      
-      <HBox alignment="CENTER" spacing="20">
-         <children>
-            <!-- Form Container -->
-            <VBox fx:id="inputBox" prefWidth="400" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10;">
-               <padding>
-                  <Insets bottom="20" left="20" right="20" top="20" />
-               </padding>
-               <effect>
-                  <DropShadow radius="10">
-                     <color>
-                        <Color opacity="0.5" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <children>
-                  <Label text="ID :" />
-                  <TextField fx:id="idField" promptText="ID (pour modifier ou supprimer)" style="-fx-background-radius: 5; -fx-control-inner-background: white; -fx-font-size: 14px;" />
-                  
-                  <Label text="Titre :" />
-                  <TextField fx:id="titreTXT" promptText="Titre de l'activité" style="-fx-background-radius: 5; -fx-control-inner-background: white; -fx-font-size: 14px;" />
-                  
-                  <Label text="Description :" />
-                  <TextField fx:id="descriptionTXT" promptText="Description de l'activité" style="-fx-background-radius: 5; -fx-control-inner-background: white; -fx-font-size: 14px;" />
-                  
-                  <Label text="Date :" />
-                  <DatePicker fx:id="datePicker" />
-                  
-                  <Label text="Nom de l'image :" />
-                  <HBox spacing="10">
-                     <children>
-                        <TextField fx:id="imgTXT" editable="false" promptText="Nom de l'image" style="-fx-background-radius: 5; -fx-control-inner-background: white; -fx-font-size: 14px;" />
-                        <Button fx:id="chooseImgBtn" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Choisir image" />
-                     </children>
-                  </HBox>
-                  
-                  <ImageView fx:id="imageView" fitWidth="150" fitHeight="150" preserveRatio="true" />
-                  
-                  <CheckBox fx:id="apprBOX" style="-fx-font-size: 14px;" text="Approuvé" />
-                  
-                  <Label text="Type d'activité :" />
-                  <TextField fx:id="typeTXT" promptText="Type d'activité" style="-fx-background-radius: 5; -fx-control-inner-background: white; -fx-font-size: 14px;" />
-                  
-                  <HBox spacing="10">
-                     <children>
-                        <Button fx:id="addBUTT" text="Ajouter" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" />
-                        <Button fx:id="updateBtn" text="Modifier" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" />
-                        <Button fx:id="deleteBtn" text="Supprimer" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" />
-                        <Button fx:id="refreshBtn" text="Afficher" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-background-radius: 5;" />
-                     </children>
-                  </HBox>
-
-                  <Button fx:id="showCommentsBtn" text="Ajouter commentaire" />
-                  <!-- Nouveau bouton Aide -->
-                  <Button fx:id="helpBtn" text="Aide" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-background-radius: 5;" />
-               </children>
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="tn.eduskool.controllers.ActivityController"
+            prefWidth="1200" prefHeight="800"
+            styleClass="main-container">
+    
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    
+    <top>
+        <VBox styleClass="header-section" spacing="10">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Gestion des Activités" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <!-- Boutons d'action regroupés -->
+                <Button fx:id="addBUTT" text="Ajouter" styleClass="primary-button"/>
+                <Button fx:id="updateBtn" text="Modifier" styleClass="update-button"/>
+                <Button fx:id="deleteBtn" text="Supprimer" styleClass="delete-button"/>
+                <Button fx:id="refreshBtn" text="Actualiser" styleClass="refresh-button"/>
+                <Button fx:id="showCommentsBtn" text="Commentaires" styleClass="comments-button"/>
+                <Button fx:id="helpBtn" text="Guide" styleClass="help-button"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <HBox spacing="20">
+            <!-- Panneau de gauche - Formulaire -->
+            <VBox fx:id="inputBox" styleClass="form-panel" spacing="10" minWidth="400" maxWidth="400">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                
+                <Label text="Informations de l'Activité" styleClass="section-title"/>
+                
+                <VBox styleClass="form-group" spacing="5">
+                    <Label text="ID" styleClass="field-label"/>
+                    <TextField fx:id="idField" styleClass="form-field" 
+                             promptText="ID (pour modifier/supprimer)"/>
+                </VBox>
+                
+                <VBox styleClass="form-group" spacing="5">
+                    <Label text="Titre" styleClass="field-label"/>
+                    <TextField fx:id="titreTXT" styleClass="form-field" 
+                             promptText="Titre de l'activité"/>
+                </VBox>
+                
+                <VBox styleClass="form-group" spacing="5">
+                    <Label text="Description" styleClass="field-label"/>
+                    <TextField fx:id="descriptionTXT" styleClass="form-field" 
+                             promptText="Description de l'activité"/>
+                </VBox>
+                
+                <VBox styleClass="form-group" spacing="5">
+                    <Label text="Date" styleClass="field-label"/>
+                    <DatePicker fx:id="datePicker" styleClass="form-field" maxWidth="Infinity"/>
+                </VBox>
+                
+                <VBox styleClass="form-group" spacing="5">
+                    <Label text="Type d'activité" styleClass="field-label"/>
+                    <TextField fx:id="typeTXT" styleClass="form-field" 
+                             promptText="Type d'activité"/>
+                </VBox>
+                
+                <VBox styleClass="form-group" spacing="5">
+                    <Label text="Image" styleClass="field-label"/>
+                    <HBox spacing="10">
+                        <TextField fx:id="imgTXT" styleClass="form-field" 
+                                 promptText="Sélectionner une image" 
+                                 editable="false" HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="chooseImgBtn" text="Parcourir" 
+                                styleClass="secondary-button"/>
+                    </HBox>
+                    <ImageView fx:id="imageView" fitWidth="200" fitHeight="150" 
+                              preserveRatio="true" styleClass="preview-image"/>
+                </VBox>
+                
+                <CheckBox fx:id="apprBOX" text="Approuvé" styleClass="approval-checkbox"/>
             </VBox>
             
-            <!-- List Container -->
-            <VBox fx:id="listContainer" prefWidth="500" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10;">
-               <padding>
-                  <Insets bottom="20" left="20" right="20" top="20" />
-               </padding>
-               <effect>
-                  <DropShadow radius="10">
-                     <color>
-                        <Color opacity="0.5" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <children>
-                  <Label text="Liste des Activités">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <ListView fx:id="activityListView" prefHeight="600.0" VBox.vgrow="ALWAYS" />
-               </children>
+            <!-- Liste des activités -->
+            <VBox fx:id="listContainer" styleClass="list-panel" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                <Label text="Liste des Activités" styleClass="section-title"/>
+                <ListView fx:id="activityListView" VBox.vgrow="ALWAYS" 
+                         styleClass="activities-list"/>
             </VBox>
-         </children>
-      </HBox>
-   </children>
-</VBox>
+        </HBox>
+    </center>
+    
+</BorderPane>
