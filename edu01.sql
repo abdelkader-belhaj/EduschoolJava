@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 27 avr. 2025 à 01:16
+-- Généré le : mar. 29 avr. 2025 à 20:17
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.1.25
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `eduskool`
+-- Base de données : `edu01`
 --
 
 -- --------------------------------------------------------
@@ -43,19 +43,10 @@ CREATE TABLE `activity` (
 --
 
 INSERT INTO `activity` (`id`, `titre`, `description`, `date`, `image_file_name`, `is_approved`, `types_activity`, `created_at`) VALUES
-(86, 'hobo', 'hobo', '2589-01-25 00:00:00', '', 1, 'aaaa', '2025-04-09 13:50:03'),
-(87, 'qqqqqqqqqqqq', 'qqqqqqqqqqqqqqqqq', '2000-04-02 00:00:00', '', 1, 'ssssssssssss', '2025-04-11 17:16:52'),
-(88, 'gadourheee', 'heeeeeeeeeeeeeee', '2025-04-25 00:00:00', 'soutenance.jpg', 1, 'aaaaaaaa', '2025-04-11 17:22:00'),
-(101, 'exemple', 'description exemple .........................', '2025-04-12 20:49:00', '[\"67fac3eedd611.jpg\"]', 0, 'sport', '2025-04-12 19:50:06'),
-(102, 'abdelkader', 'bonjour', '2025-04-12 00:00:00', 'img_1744804291360.png', 0, 'aaaaaaaa', '2025-04-16 12:51:38'),
-(103, '', 'bonjour', '2025-04-12 00:00:00', 'img_1744804291360.png', 0, 'aaaaaaaa', '2025-04-16 12:52:02'),
-(104, 'a', 's', '2025-04-18 00:00:00', '', 1, 's', '2025-04-16 13:08:45'),
-(105, 'ssq', 'sqsq', '2025-04-25 00:00:00', '', 0, '', '2025-04-16 13:11:22'),
-(106, 'sqs', 'sqs', '2025-04-11 00:00:00', '', 0, '', '2025-04-16 13:12:10'),
-(107, 'aaaa', 'aaaaaaaaaaaaaaaaaa', '2027-04-10 00:00:00', 'img_1744805879632.jpg', 0, 'aaaaa', '2025-04-16 13:18:14'),
-(108, 'aaaa', 'aaaaaaaaaaaaaaaaa', '2026-04-10 00:00:00', 'img_1744883580583.jpg', 0, 'sport', '2025-04-17 10:53:07'),
-(109, 'exempleaaaaaaaaaaaa', 'description exemple .........................', '2028-04-22 00:00:00', 'img_1745698491060.png', 1, 'sport', '2025-04-26 21:14:59'),
-(110, 'wwwwwwwwww', 'wwwwwwwwwwwww', '2028-04-21 00:00:00', 'img_1745703365845.jpg', 0, 'wwww', '2025-04-26 22:36:49');
+(77, 'aa', 'aa', '2025-04-19 00:00:00', 'C:\\Users\\21658\\Desktop\\plage.png', 1, 'aaa', '2025-04-04 23:16:21'),
+(78, 'hhhhhh', 'jhhhhh', '2025-05-10 00:00:00', 'C:\\Users\\21658\\Desktop\\364549317_1301169150494018_440304093175356292_n.jpg', 1, 'hjhjhj', '2025-04-05 00:07:38'),
+(79, 'bbbbbbb', 'bbbbbbbbbbbbb', '2025-04-05 19:11:00', '[\"67f1725b303b0.jpg\"]', 0, 'culture', '2025-04-05 18:11:39'),
+(80, 'dsq', 'dqsfdfsbgfgfgggfgf', '2025-05-08 00:00:00', 'img_1745943927148.jpg', 1, 'dqsdfds', '2025-04-29 17:25:37');
 
 -- --------------------------------------------------------
 
@@ -75,21 +66,8 @@ CREATE TABLE `commentaire` (
 --
 
 INSERT INTO `commentaire` (`id`, `activity_id`, `contenu`, `note`) VALUES
-(87, 101, 'hello word', 3),
-(88, 86, 'aaaaaaa', 3),
-(89, 86, 'aaaaaaaa', 4),
-(91, 107, '', 0),
-(92, 107, '', 0),
-(93, 107, '', 0),
-(94, 107, '', 0),
-(95, 107, 'bonjour', 2),
-(96, 107, 'aaaaaaaa', 2),
-(97, 103, 'dfsdf', 2),
-(98, 102, 'qsdssq', 4),
-(99, 102, 'fgsgf', 3),
-(100, 103, 'dsdsq', 4),
-(101, 101, 'ththttrh', 4),
-(102, 101, 'sgrgerrer', 4);
+(75, 77, 'hello word', 3),
+(76, 77, 'hhhhhhhhhhhhhh', 0);
 
 -- --------------------------------------------------------
 
@@ -116,8 +94,40 @@ CREATE TABLE `devoirs` (
   `titre` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `datelimite` datetime NOT NULL,
-  `fichier` varchar(255) NOT NULL
+  `fichier` varchar(255) NOT NULL,
+  `idEnseignant` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `devoirs`
+--
+
+INSERT INTO `devoirs` (`id`, `titre`, `description`, `datelimite`, `fichier`, `idEnseignant`) VALUES
+(45, '1744739918008_resumeFinal-switched-network', '15d', '2025-04-24 12:00:00', '1744861209873_1744739918008_resumeFinal-switched-network.pdf', 101),
+(46, 'receipt_6', 'azerty', '2025-04-18 12:00:00', '1744883787561_receipt_6.pdf', 101),
+(47, 'resumeFinal-switched-network (1)', 'zertyu', '2025-04-18 12:00:00', '1744917213329_resumeFinal-switched-network (1).pdf', NULL),
+(50, 'resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaaaa', '2025-05-02 12:00:00', '1745718896424_resumeFinal-switched-network (1).pdf', 101),
+(52, 'receipt_4', 'cccccccccccccccccccccc', '2025-05-02 12:00:00', '1745718944602_receipt_4.pdf', 101),
+(53, 'resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaaaa', '2025-05-09 12:00:00', '1745719114709_resumeFinal-switched-network (1).pdf', 99),
+(54, 'receipt_4', 'aaaaaaaaaaaaaaaaaaaaaaa', '2025-04-30 12:00:00', '1745719132170_receipt_4.pdf', 99),
+(55, 'resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaa', '2025-05-08 12:00:00', '1745719149094_resumeFinal-switched-network (1).pdf', 99),
+(56, 'resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaaaaaaaaaaa', '2025-05-02 12:00:00', '1745719168054_resumeFinal-switched-network (1).pdf', 99),
+(57, 'receipt_4', 'aaaaaaaaaaaaaaaaaaaaaaaaa', '2025-05-07 12:00:00', '1745719187352_receipt_4.pdf', 99),
+(58, '1744647259307_resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaaaa', '2025-05-02 12:00:00', '1745719207082_1744647259307_resumeFinal-switched-network (1).pdf', 99),
+(59, 'resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2025-04-30 12:00:00', '1745719225535_resumeFinal-switched-network (1).pdf', 99),
+(60, 'L222 (5) (1)', 'aaaaaaaaaaaaaaaaaaaaa', '2025-05-10 12:00:00', '1745719245186_L222 (5) (1).pdf', 99),
+(61, 'receipt_4', 'aaaaaaaaaaaaaaaaaaaaaaaaaa', '2025-05-11 12:00:00', '1745719264259_receipt_4.pdf', 99),
+(62, 'receipt_4', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2025-05-11 12:00:00', '1745719282163_receipt_4.pdf', 99),
+(63, '1744647259307_resumeFinal-switched-network (1)', 'kkkkkkkkkkkkkkkkkkkkkk', '2025-05-09 12:00:00', '1745719547132_1744647259307_resumeFinal-switched-network (1).pdf', 200),
+(64, '1744647259307_resumeFinal-switched-network (1)', 'sssssssssssssssss', '2025-05-08 12:00:00', '1745719563293_1744647259307_resumeFinal-switched-network (1).pdf', 200),
+(65, 'resumeFinal-switched-network (1)', 'ssssssssssssssssssssssssss', '2025-05-03 12:00:00', '1745719581160_resumeFinal-switched-network (1).pdf', 200),
+(66, 'resumeFinal-switched-network (1)', 'ssssssssssssssssssssssssssssssssssssssssss', '2025-05-02 12:00:00', '1745719595785_resumeFinal-switched-network (1).pdf', 200),
+(67, '1744739918008_resumeFinal-switched-network', 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', '2025-05-03 12:00:00', '1745719610464_1744739918008_resumeFinal-switched-network.pdf', 200),
+(68, 'bbbbbbbbbb', 'bbbbbbbb', '2025-05-03 12:00:00', '1745778274222_resumeFinal-switched-network (1).pdf', 101),
+(70, 'resumeFinal-switched-network (1)', 'azertyui', '2025-05-01 12:00:00', '1745873130154_resumeFinal-switched-network (1).pdf', 101),
+(71, '1744647259307_resumeFinal-switched-network (1)', 'aaaaaaaaaaaaaaaaaaa', '2025-05-03 12:00:00', '1745873866506_1744647259307_resumeFinal-switched-network (1).pdf', 101),
+(73, 'aymen', 'aymeeeeen', '2025-05-03 12:00:00', '1745880329614_CV.pdf', 201),
+(74, 'orgiAnglais', 'aaaaaaaaaaaaaaaaaaaaa', '2025-05-01 12:00:00', '1745884806566_orgiAnglais.pdf', 101);
 
 -- --------------------------------------------------------
 
@@ -145,13 +155,6 @@ CREATE TABLE `pack` (
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `pack`
---
-
-INSERT INTO `pack` (`id`, `name`, `price`, `duration`, `description`) VALUES
-(1, 'qqq', 111, 111, 'qqqq');
-
 -- --------------------------------------------------------
 
 --
@@ -169,13 +172,6 @@ CREATE TABLE `payment` (
   `card_expiration` varchar(10) DEFAULT NULL,
   `card_cvv` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `payment`
---
-
-INSERT INTO `payment` (`id`, `stripe_session_id`, `amount`, `payment_date`, `payment_method`, `status`, `card_number`, `card_expiration`, `card_cvv`) VALUES
-(1, '', 4445, '2025-04-15 13:45:00', 'hhjh', 'kjjkj', '6555', '685', '6853');
 
 -- --------------------------------------------------------
 
@@ -203,8 +199,20 @@ CREATE TABLE `soumissiondevoir` (
   `id` int(11) NOT NULL,
   `dateSoumission` datetime NOT NULL,
   `fichier` varchar(255) NOT NULL,
-  `note` int(11) DEFAULT NULL
+  `note` int(11) DEFAULT NULL,
+  `devoir_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `soumissiondevoir`
+--
+
+INSERT INTO `soumissiondevoir` (`id`, `dateSoumission`, `fichier`, `note`, `devoir_id`) VALUES
+(11, '2025-04-17 09:32:23', 'soumission_1744878743933_resumeFinal-switched-network (1).pdf', 15, 45),
+(13, '2025-04-17 20:12:01', 'soumission_1744917121959_1744647259307_resumeFinal-switched-network (1).pdf', 18, 46),
+(16, '2025-04-28 04:28:51', 'soumission_1745810931838_resumeFinal-switched-network (1).pdf', NULL, 46),
+(17, '2025-04-28 22:10:45', 'aaaaaaaaa', NULL, 56),
+(19, '2025-04-29 01:29:06', 'soumission_74_1745886546011.pdf', 20, 74);
 
 -- --------------------------------------------------------
 
@@ -280,21 +288,23 @@ CREATE TABLE `utilisateur` (
   `type_Utilisateur` enum('admin','etudiant','enseiagnt') NOT NULL,
   `is_verified` tinyint(1) DEFAULT 0,
   `date_creation` timestamp NOT NULL DEFAULT current_timestamp(),
-  `photo` text DEFAULT NULL
+  `photo` text DEFAULT NULL,
+  `id_enseignant` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `nom`, `prenom`, `cin`, `email`, `mot_de_passe`, `adresse`, `date_naissance`, `telephone`, `type_Utilisateur`, `is_verified`, `date_creation`, `photo`) VALUES
-(1, 'gadour', 'gaodur', 55332255, 'gadour@gmail.com', 'gadour', 'korba', '2000-04-13', 58069420, 'enseiagnt', 1, '2025-04-23 21:07:08', 'uploads\\profils\\user_1_75a65d57-01bc-4bc4-82d8-7c1202db9c3f.png'),
-(2, 'aymen', 'aymen', 22335544, 'aymen@gmailc.om', 'aymen', 'korba', '1999-04-23', 58069420, 'etudiant', 0, '2025-04-23 23:25:02', 'uploads\\profils\\user_2_111e8140-4db5-4a4e-b40c-153d8de57fd6.jpg'),
-(99, 'admin', 'admin', 0, 'admin@gmail.com', 'admin', 'admin', '2000-04-02', 21365355, 'admin', 1, '2025-04-23 23:27:40', NULL),
-(100, 'rayen', 'rayen', 653336633, 'rayen@gmail.com', 'rayen', 'rayen', '1999-04-23', 58695869, 'etudiant', 0, '2025-04-24 00:52:22', 'uploads\\profils\\user_100_be1db691-7a55-4819-8d7a-e7d62dce7277.jpg'),
-(101, 'maryem', 'maryeeeem', 55334466, 'maryem@gmail.com', 'maryem', 'korba', '1998-04-17', 99665588, 'enseiagnt', 0, '2025-04-24 08:33:38', 'uploads\\profils\\user_101_3a46a2aa-e85c-4239-bbe9-e303e732f9b6.png'),
-(102, 'omar', 'omar', 55223355, 'omar@gmail.com', 'omar', 'nabeul', '1999-04-15', 21356999, 'enseiagnt', 0, '2025-04-24 08:52:15', 'uploads\\profils\\user_102_b3fb7b14-86e6-4bbe-8dc0-9aadccebed52.jpg'),
-(103, 'etudiant', 'etudiant', 55555544, 'etudiant@gmail.com', 'etudiant', 'FH', '2000-04-15', 99999999, 'etudiant', 0, '2025-04-26 19:22:25', 'uploads\\profils\\user_103_e410a32d-19b6-45df-b623-9dd9f354dfcb.jpg');
+INSERT INTO `utilisateur` (`id_utilisateur`, `nom`, `prenom`, `cin`, `email`, `mot_de_passe`, `adresse`, `date_naissance`, `telephone`, `type_Utilisateur`, `is_verified`, `date_creation`, `photo`, `id_enseignant`) VALUES
+(2, 'aymen', 'aymen', 22335544, 'aymen@gmailc.om', 'aymen', 'korba', '1999-04-23', 58069420, 'etudiant', 0, '2025-04-23 22:25:02', 'uploads\\profils\\user_2_111e8140-4db5-4a4e-b40c-153d8de57fd6.jpg', NULL),
+(99, 'admin', 'admin', 0, 'admin@gmail.com', 'admin', 'admin', '2000-04-02', 21365355, 'admin', 1, '2025-04-23 22:27:40', NULL, NULL),
+(100, 'rayen', 'rayen', 653336633, 'rayen@gmail.com', 'rayen', 'rayen', '1999-04-23', 58695869, 'etudiant', 1, '2025-04-23 23:52:22', 'uploads\\profils\\user_100_be1db691-7a55-4819-8d7a-e7d62dce7277.jpg', NULL),
+(101, 'zina', 'somrani', 9947721, 'zina@gmail.com', '09947721', 'siliana', '2000-03-31', 99116165, 'enseiagnt', 1, '2025-04-25 01:34:46', 'uploads\\profils\\user_101_4c0207c8-ea84-4f15-bfba-ac964d9cb5fd.JPG', NULL),
+(200, 'mohamed', 'somrani', 9947721, 'mohamed@gmail.com', '123456789', 'siliana', '2025-04-15', 99988852, 'enseiagnt', 1, '2025-04-16 02:02:25', NULL, NULL),
+(201, 'aymen', 'aymen', 55445544, 'aymen@gmail.com', 'aymen', 'aymen', '2003-04-26', 58695896, 'enseiagnt', 1, '2025-04-28 22:35:00', 'uploads\\profils\\user_201_c0c86689-4dd7-497f-ba59-542ca66e9613.jpg', NULL),
+(202, 'gougogu', 'gougug', 55555532, 'gougou@gmail.com', 'gougou', 'koezl', '1999-04-02', 55555555, 'enseiagnt', 0, '2025-04-29 17:59:44', 'uploads\\profils\\user_202_c39c1ae1-6a35-4403-a87e-41236a9a11d5.jpg', NULL),
+(203, 'ahmed', 'ahmed', 55445549, 'ahmed@gmail.com', 'ahmed', 'dedez', '2000-04-14', 77887788, 'etudiant', 0, '2025-04-29 18:06:08', 'uploads\\profils\\user_203_ffc61fef-a669-448d-8b7c-ffa53a0bcced.jpg', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -323,7 +333,8 @@ ALTER TABLE `cours`
 -- Index pour la table `devoirs`
 --
 ALTER TABLE `devoirs`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_enseignant_id` (`idEnseignant`);
 
 --
 -- Index pour la table `doctrine_migration_versions`
@@ -353,7 +364,8 @@ ALTER TABLE `seance_psychologique`
 -- Index pour la table `soumissiondevoir`
 --
 ALTER TABLE `soumissiondevoir`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_devoir_id` (`devoir_id`);
 
 --
 -- Index pour la table `subscription`
@@ -394,13 +406,13 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT pour la table `cours`
@@ -412,19 +424,19 @@ ALTER TABLE `cours`
 -- AUTO_INCREMENT pour la table `devoirs`
 --
 ALTER TABLE `devoirs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT pour la table `pack`
 --
 ALTER TABLE `pack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `seance_psychologique`
@@ -436,7 +448,7 @@ ALTER TABLE `seance_psychologique`
 -- AUTO_INCREMENT pour la table `soumissiondevoir`
 --
 ALTER TABLE `soumissiondevoir`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `subscription`
@@ -466,7 +478,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- Contraintes pour les tables déchargées
@@ -477,6 +489,18 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `commentaire`
   ADD CONSTRAINT `FK_67F068BC81C06096` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `devoirs`
+--
+ALTER TABLE `devoirs`
+  ADD CONSTRAINT `fk_enseignant_id` FOREIGN KEY (`idEnseignant`) REFERENCES `utilisateur` (`id_utilisateur`);
+
+--
+-- Contraintes pour la table `soumissiondevoir`
+--
+ALTER TABLE `soumissiondevoir`
+  ADD CONSTRAINT `fk_devoir_id` FOREIGN KEY (`devoir_id`) REFERENCES `devoirs` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

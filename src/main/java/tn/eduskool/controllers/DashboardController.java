@@ -299,6 +299,29 @@ public class DashboardController implements Initializable, BaseController {
     }
 
     @FXML
+    void showDevoirs(ActionEvent event) {
+        System.out.println("Showing Devoirs view");
+        hideAllViews();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeDevoirs.fxml"));
+            Parent devoirsView = loader.load();
+
+            ListeDevoirsController controller = loader.getController();
+            controller.setUtilisateur(this.utilisateur);
+
+            if (contentArea != null) {
+                contentArea.getChildren().setAll(devoirsView);
+                if (lblPageTitle != null) {
+                    lblPageTitle.setText("Liste des devoirs");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error loading devoirs view: " + e.getMessage());
+        }
+    }
+
+    @FXML
     void showReports(ActionEvent event) {
         System.out.println("Showing Reports view");
         hideAllViews();

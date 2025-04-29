@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduskool.controllers.AjouterDevoirController">
+   <children>
+      <VBox layoutX="50.0" layoutY="30.0" spacing="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+         <children>
+            <!-- Titre -->
+            <Label text="Titre du devoir:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="titreID" prefWidth="500.0" />
+
+            <!-- Description -->
+            <Label text="Description:" style="-fx-font-weight: bold;"/>
+            <TextArea fx:id="descriptionID" prefWidth="500.0" prefHeight="100.0"/>
+
+            <!-- Date limite -->
+            <Label text="Date limite:" style="-fx-font-weight: bold;"/>
+            <HBox spacing="10">
+               <DatePicker fx:id="datePicker" promptText="Sélectionnez une date"/>
+               <ComboBox fx:id="hourCombo" promptText="Heure"/>
+               <Label text=":"/>
+               <ComboBox fx:id="minuteCombo" promptText="Minute"/>
+            </HBox>
+
+            <!-- Fichier PDF -->
+            <Label text="Fichier PDF:" style="-fx-font-weight: bold;"/>
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+               <TextField fx:id="fichierField" prefWidth="400.0" editable="false"/>
+               <Button text="Parcourir" onAction="#handleParcourir" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- Bouton Valider -->
+            <Button fx:id="devoirbuttonID" text="Valider" onAction="#ajouter"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"
+                    prefWidth="150.0" prefHeight="40.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets top="20.0"/>
+               </HBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,36 +1,27 @@
 package tn.eduskool.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Devoir {
     private int id;
     private String titre;
     private String description;
-    private LocalDateTime datelimite;
+    private LocalDateTime dateLimite;
     private String fichier;
-
-    // Constructeurs
+    private Integer idEnseignant;
 
     public Devoir() {
     }
 
-    public Devoir(String titre, String description, LocalDateTime datelimite, String fichier) {
+    public Devoir(String titre, String description, LocalDateTime dateLimite, String fichier) {
         this.titre = titre;
         this.description = description;
-        this.datelimite = datelimite;
-        this.fichier = fichier;
-    }
-
-    public Devoir(int id, String titre, String description, LocalDateTime datelimite, String fichier) {
-        this.id = id;
-        this.titre = titre;
-        this.description = description;
-        this.datelimite = datelimite;
+        this.dateLimite = dateLimite;
         this.fichier = fichier;
     }
 
     // Getters et Setters
-
     public int getId() {
         return id;
     }
@@ -55,12 +46,21 @@ public class Devoir {
         this.description = description;
     }
 
+    public LocalDateTime getDateLimite() {
+        return dateLimite;
+    }
+
+    public void setDateLimite(LocalDateTime datelimite) {
+        this.dateLimite = datelimite;
+    }
+
+    // Alias methods pour la compatibilité avec la base de données
     public LocalDateTime getDatelimite() {
-        return datelimite;
+        return getDateLimite();
     }
 
     public void setDatelimite(LocalDateTime datelimite) {
-        this.datelimite = datelimite;
+        setDateLimite(datelimite);
     }
 
     public String getFichier() {
@@ -71,17 +71,15 @@ public class Devoir {
         this.fichier = fichier;
     }
 
-    // toString
-
-    @Override
-    public String toString() {
-        return "Devoir{" +
-                "id=" + id +
-                ", titre='" + titre + '\'' +
-                ", description='" + description + '\'' +
-                ", datelimite=" + datelimite +
-                ", fichier='" + fichier + '\'' +
-                '}';
+    public Integer getIdEnseignant() {
+        return idEnseignant;
     }
 
+    public void setIdEnseignant(Integer idEnseignant) {
+        this.idEnseignant = idEnseignant;
+    }
+
+    public String getFormattedDate() {
+        return dateLimite != null ? dateLimite.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "";
+    }
 }

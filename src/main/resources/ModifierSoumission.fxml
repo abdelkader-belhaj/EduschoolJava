@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="tn.eduskool.controllers.ModifierSoumissionController"
+            styleClass="edit-form"
+            stylesheets="@css/style.css"
+            prefWidth="400" prefHeight="300">
+    
+    <VBox spacing="15" AnchorPane.topAnchor="0.0" 
+          AnchorPane.rightAnchor="0.0" 
+          AnchorPane.bottomAnchor="0.0" 
+          AnchorPane.leftAnchor="0.0">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Date Soumission" styleClass="form-label"/>
+        <DatePicker fx:id="dateSoumissionPicker" styleClass="form-field"/>
+
+        <Label text="Fichier" styleClass="form-label"/>
+        <HBox spacing="10">
+            <TextField fx:id="fichierField" HBox.hgrow="ALWAYS"/>
+            <Button text="Choisir..." onAction="#choisirFichier" 
+                    styleClass="action-button-modifier"/>
+        </HBox>
+
+        <Label text="Note" styleClass="form-label"/>
+        <TextField fx:id="noteField" editable="false" styleClass="form-field"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Enregistrer" 
+                    styleClass="action-button-modifier"
+                    onAction="#enregistrer"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
