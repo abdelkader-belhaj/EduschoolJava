@@ -3,6 +3,7 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
@@ -19,7 +20,7 @@
     </Text>
 
     <!-- BarChart -->
-    <BarChart fx:id="barChart" layoutX="100" layoutY="100" prefWidth="800" prefHeight="400" style="-fx-border-color: #ccc; -fx-background-color: white;">
+    <BarChart fx:id="barChart" layoutX="50" layoutY="100" prefWidth="500" prefHeight="400" style="-fx-border-color: #ccc; -fx-background-color: white;">
         <xAxis>
             <CategoryAxis label="Enseignants" />
         </xAxis>
@@ -27,4 +28,7 @@
             <NumberAxis label="Nombre de devoirs" />
         </yAxis>
     </BarChart>
+
+    <!-- PieChart -->
+    <PieChart fx:id="pieChart" layoutX="570" layoutY="100" prefWidth="350" prefHeight="400" style="-fx-border-color: #ccc; -fx-background-color: white;" />
 </AnchorPane>

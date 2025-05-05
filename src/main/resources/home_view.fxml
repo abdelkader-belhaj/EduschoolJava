@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+
+<ScrollPane fitToWidth="true" styleClass="home-container" xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.eduskool.controllers.HomeController">
+    <VBox spacing="40" alignment="TOP_CENTER">
+        <padding>
+            <Insets top="50" right="30" bottom="50" left="30"/>
+        </padding>
+
+        <VBox alignment="CENTER" spacing="20">
+            <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                <Image url="@images/school-logo.png"/>
+            </ImageView>
+            
+            <Label text="Bienvenue sur EduSkool" styleClass="welcome-text"/>
+            <Label text="Votre plateforme éducative préférée" styleClass="subtitle-text"/>
+        </VBox>
+
+        <HBox spacing="30" alignment="CENTER">
+            <VBox styleClass="feature-box" spacing="15">
+                <ImageView fitWidth="64" fitHeight="64">
+                    <Image url="@images/homework-icon.png"/>
+                </ImageView>
+                <Label text="Devoirs" styleClass="feature-title"/>
+                <Label text="Gérez facilement vos devoirs et suivez vos progrès" 
+                       styleClass="feature-description"/>
+            </VBox>
+
+            <VBox styleClass="feature-box" spacing="15">
+                <ImageView fitWidth="64" fitHeight="64">
+                    <Image url="@images/activity-icon.png"/>
+                </ImageView>
+                <Label text="Activités" styleClass="feature-title"/>
+                <Label text="Participez à des activités éducatives amusantes" 
+                       styleClass="feature-description"/>
+            </VBox>
+
+            <VBox styleClass="feature-box" spacing="15">
+                <ImageView fitWidth="64" fitHeight="64">
+                    <Image url="@images/progress-icon.png"/>
+                </ImageView>
+                <Label text="Progrès" styleClass="feature-title"/>
+                <Label text="Suivez votre évolution et vos résultats" 
+                       styleClass="feature-description"/>
+            </VBox>
+
+            <VBox styleClass="feature-box" spacing="15">
+                <ImageView fitWidth="64" fitHeight="64">
+                    <Image url="@images/calendar-icon.png"/>
+                </ImageView>
+                <Label text="Calendrier" styleClass="feature-title"/>
+                <Label text="Visualisez vos activités sur un calendrier interactif" 
+                       styleClass="feature-description"/>
+                <Button text="Ouvrir le calendrier" 
+                        styleClass="calendar-button"
+                        onAction="#handleShowCalendar"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

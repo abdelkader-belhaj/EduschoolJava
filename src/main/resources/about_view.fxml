@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="30" styleClass="about-container"
+      stylesheets="@css/style.css">
+    
+    <padding>
+        <Insets top="50" right="30" bottom="50" left="30"/>
+    </padding>
+
+    <Label text="À propos d'EduSkool" styleClass="about-title">
+        <font>
+            <Font size="32"/>
+        </font>
+    </Label>
+
+    <VBox spacing="20">
+        <Label text="Notre Mission" styleClass="section-title"/>
+        <Label text="EduSkool est une plateforme éducative conçue pour faciliter l'apprentissage et la gestion des devoirs entre enseignants et étudiants." 
+               styleClass="section-content" wrapText="true"/>
+    </VBox>
+
+    <VBox spacing="20">
+        <Label text="Contact" styleClass="section-title"/>
+        <VBox spacing="10" styleClass="contact-info">
+            <Label text="Email: contact@eduskool.com"/>
+            <Label text="Téléphone: +216 XX XXX XXX"/>
+            <Label text="Adresse: Tunis, Tunisie"/>
+        </VBox>
+    </VBox>
+</VBox>

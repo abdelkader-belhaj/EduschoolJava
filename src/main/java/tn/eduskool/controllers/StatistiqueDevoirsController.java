@@ -1,13 +1,17 @@
 package tn.eduskool.controllers;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.paint.Color;
+
 import javafx.scene.text.Text;
-import javafx.scene.chart.XYChart.Data;
+
 
 import java.net.URL;
 import java.sql.*;
@@ -18,9 +22,17 @@ public class StatistiqueDevoirsController implements Initializable {
     @FXML
     private BarChart<String, Number> barChart;
 
+    @FXML
+    private PieChart pieChart;
+
+    @FXML
+    private LineChart<String, Number> lineChart;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         chargerStatistiques();
+        chargerPieChart();
+        chargerLineChart();
     }
 
     private void chargerStatistiques() {
@@ -83,6 +95,64 @@ public class StatistiqueDevoirsController implements Initializable {
         }
     }
 
+    private void chargerPieChart() {
+        String query = "SELECT u.nom, COUNT(d.id) AS nombre_devoirs " +
+                       "FROM devoirs d " +
+                       "JOIN utilisateur u ON d.idEnseignant = u.id_utilisateur " +
+                       "GROUP BY d.idEnseignant";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/eduskool", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+
+            while (rs.next()) {
+                String enseignant = rs.getString("nom");
+                int nombreDevoirs = rs.getInt("nombre_devoirs");
+                pieData.add(new PieChart.Data(enseignant, nombreDevoirs));
+            }
+
+            pieChart.setData(pieData);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void chargerLineChart() {
+        String query = "SELECT MONTH(d.date) AS mois, COUNT(d.id) AS nombre_devoirs " +
+                       "FROM devoirs d " +
+                       "WHERE d.date IS NOT NULL " + // Ensure dates are not null
+                       "GROUP BY MONTH(d.date) " +
+                       "ORDER BY mois";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/eduskool", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Nombre de devoirs par mois");
+
+            while (rs.next()) {
+                int moisIndex = rs.getInt("mois");
+                String mois = getMonthName(moisIndex); // Convert month index to name
+                int nombreDevoirs = rs.getInt("nombre_devoirs");
+                series.getData().add(new XYChart.Data<>(mois, nombreDevoirs));
+            }
+
+            lineChart.getData().clear(); // Clear existing data
+            lineChart.getData().add(series); // Add the new series
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getMonthName(int month) {
+        String[] months = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
+        return months[month - 1];
+    }
 
     private String getRandomColor() {
         String[] colors = {"#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FF8C33", "#33FFF6"};

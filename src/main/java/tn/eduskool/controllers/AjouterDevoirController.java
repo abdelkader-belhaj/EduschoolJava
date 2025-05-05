@@ -1,4 +1,3 @@
-
 package tn.eduskool.controllers;
 
 import javafx.event.ActionEvent;
@@ -9,6 +8,7 @@ import javafx.util.StringConverter;
 import tn.eduskool.entities.Devoir;
 import tn.eduskool.entities.Utilisateur;
 import tn.eduskool.services.DevoirService;
+import tn.eduskool.services.EmailService;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,11 +17,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import tn.eduskool.services.EmailService;
-
-
 public class AjouterDevoirController implements BaseController {
     private Utilisateur utilisateur;
+
     @Override
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
@@ -35,14 +33,20 @@ public class AjouterDevoirController implements BaseController {
     private final DevoirService ds1 = new DevoirService();
     private final EmailService emailService = new EmailService();
 
-
-    @FXML private TextField titreID;
-    @FXML private TextArea descriptionID;
-    @FXML private DatePicker datePicker;
-    @FXML private ComboBox<Integer> hourCombo;
-    @FXML private ComboBox<Integer> minuteCombo;
-    @FXML private TextField fichierField;
-    @FXML private Button devoirbuttonID;
+    @FXML
+    private TextField titreID;
+    @FXML
+    private TextArea descriptionID;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private ComboBox<Integer> hourCombo;
+    @FXML
+    private ComboBox<Integer> minuteCombo;
+    @FXML
+    private TextField fichierField;
+    @FXML
+    private Button devoirbuttonID;
 
     @FXML
     public void initialize() {
@@ -66,6 +70,7 @@ public class AjouterDevoirController implements BaseController {
             public String toString(Integer object) {
                 return String.format("%02d", object);
             }
+
             @Override
             public Integer fromString(String string) {
                 return string.isEmpty() ? null : Integer.parseInt(string);
@@ -77,6 +82,7 @@ public class AjouterDevoirController implements BaseController {
             public String toString(Integer object) {
                 return String.format("%02d", object);
             }
+
             @Override
             public Integer fromString(String string) {
                 return string.isEmpty() ? null : Integer.parseInt(string);
@@ -98,8 +104,7 @@ public class AjouterDevoirController implements BaseController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionner un fichier PDF");
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
-        );
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
         File selectedFile = fileChooser.showOpenDialog(fichierField.getScene().getWindow());
         if (selectedFile != null) {
@@ -145,8 +150,7 @@ public class AjouterDevoirController implements BaseController {
             // Création de la date limite
             LocalDateTime dateLimite = LocalDateTime.of(
                     datePicker.getValue(),
-                    LocalTime.of(hourCombo.getValue(), minuteCombo.getValue())
-            );
+                    LocalTime.of(hourCombo.getValue(), minuteCombo.getValue()));
 
             // Enregistrement du PDF
             String savedFileName = saveUploadedFile(pdfFile);
@@ -156,34 +160,25 @@ public class AjouterDevoirController implements BaseController {
                     titreID.getText(),
                     descriptionID.getText(),
                     dateLimite,
-                    savedFileName
-            );
-            devoir.setEnseignant(utilisateur);
+                    savedFileName);
+            devoir.setIdEnseignant(utilisateur.getIdUtilisateur());
 
-            // Sauvegarde en base
-            if (ds1.ajouter(devoir)) {
-                showAlert("Succès", "Devoir créé avec succès");
+            ds1.ajouter(devoir);
 
-                // Envoyer un mail à l'admin
-                String toEmail = "meleksahki11@gmail.com";
-                String subject = "Nouveau devoir ajouté";
-                String message = "Un nouveau devoir intitulé '" + devoir.getTitre() + "' a été ajouté par l'enseignant " + utilisateur.getNom() + ".";
+            // Envoyer un email à l'admin
+            String toEmail = "aymen.somrani@esprit.tn";
+            String subject = "Nouveau devoir ajouté";
+            String message = "Un nouveau devoir intitulé '" + devoir.getTitre() + "' a été ajouté par l'enseignant " + utilisateur.getNom() + ".";
 
-                try {
-                    emailService.envoyerEmail(toEmail, subject, message);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+            emailService.envoyerEmail(toEmail, subject, message);
 
-                resetForm();
-            } else {
-                throw new Exception("Échec de l'enregistrement en base de données");
-            }
+            showAlert("Succès", "Devoir créé avec succès et email envoyé.");
+            resetForm();
+
         } catch (Exception e) {
             showAlert("Erreur", e.getMessage());
         }
     }
-
 
     private String saveUploadedFile(File file) throws IOException {
         Path uploadDir = Paths.get("uploads/devoirs");

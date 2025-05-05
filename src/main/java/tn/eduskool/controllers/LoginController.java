@@ -1,6 +1,5 @@
 package tn.eduskool.controllers;
 
-
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,8 +42,7 @@ public class LoginController implements Initializable, BaseController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialiser le service de login avec la connexion à la base de données
-        Connection connection = DatabaseConnection.getInstance().getCnx();
-
+        Connection connection = DatabaseConnection.connect();
         loginService = new LoginService(connection);
 
         // Configurer les options du ComboBox
@@ -107,61 +105,44 @@ public class LoginController implements Initializable, BaseController {
     private void ouvrirEcranSelonRole(Utilisateur utilisateur) {
         try {
             String fxmlFile;
-
-            // Déterminer quel écran ouvrir selon le rôle
-            switch (utilisateur.getTypeUtilisateur()) {
-                case ADMIN:
-                    fxmlFile = "/dashbord_view.fxml";
-                    break;
-                case ENSEIGNANT:
-                    fxmlFile = "/DashboardTemplate.fxml";
-                    break;
-                case ETUDIANT:
-                    fxmlFile = "/DashboardEtudiant.fxml";
-                    break;
-                default:
-                    errorLabel.setText("Type d'utilisateur non pris en charge");
-                    return;
+            if (utilisateur.getType_Utilisateur().equals("admin")) { // Modification ici
+                fxmlFile = "/dashboard_view.fxml";
+            } else {
+                fxmlFile = "/front_view.fxml";
             }
 
-            // Charger le fichier FXML approprié
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
 
-            // Transmettre l'utilisateur connecté au controller de la nouvelle vue
-            Object controller = loader.getController();
-
-            // Vérifier le type du contrôleur et appeler la méthode setUtilisateur
-            if (controller instanceof BaseController) {
-                ((BaseController) controller).setUtilisateur(utilisateur);
+            if (utilisateur.getType_Utilisateur().equals("admin")) { // Et ici
+                DashboardController controller = loader.getController();
+                controller.setUtilisateur(utilisateur);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
             } else {
-                errorLabel.setText("Erreur: Le contrôleur n'implémente pas BaseController");
-                return;
+                FrontController controller = loader.getController();
+                controller.setUtilisateur(utilisateur);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setMaximized(true);
+                stage.show();
             }
 
-            // Créer une nouvelle scène et l'afficher
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("EduSkool - " + utilisateur.getNom() + " " + utilisateur.getPrenom());
-            stage.show();
+            // Fermer la fenêtre de login
+            ((Stage) loginButton.getScene().getWindow()).close();
 
-        } catch (IOException e) {
-            errorLabel.setText("Erreur lors du chargement de l'interface: " + e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
+            showError("Erreur lors du chargement de l'application: " + e.getMessage());
         }
     }
 
     @FXML
     void handleRegister(ActionEvent event) {
         try {
-            // Updated to use proper path and error handling
-            URL resource = getClass().getResource("/inscription_view.fxml");
-            if (resource == null) {
-                errorLabel.setText("Erreur: Fichier FXML introuvable");
-                return;
-            }
-            Parent root = FXMLLoader.load(resource);
+            // Charger l'écran d'inscription
+            Parent root = FXMLLoader.load(getClass().getResource("/inscription_vienw.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(scene);
@@ -181,5 +162,9 @@ public class LoginController implements Initializable, BaseController {
     @Override
     public Utilisateur getUtilisateur() {
         return utilisateur;
+    }
+
+    private void showError(String message) {
+        errorLabel.setText(message);
     }
 }

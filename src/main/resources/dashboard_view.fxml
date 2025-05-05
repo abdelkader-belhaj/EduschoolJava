@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.eduskool.controllers.DashboardController"
+      stylesheets="/dashboard.css,/activities.css">
+    
+    <!-- Header Section -->
+    <HBox fx:id="titleBar" styleClass="title-bar">
+        <Label text="EduSkool Admin" styleClass="title-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="minimizeButton" text="-" styleClass="window-button"/>
+        <Button fx:id="maximizeButton" text="□" styleClass="window-button"/>
+        <Button fx:id="closeButton" text="×" styleClass="window-button"/>
+    </HBox>
+    
+    <!-- Main Content -->
+    <HBox VBox.vgrow="ALWAYS">
+        <!-- Navigation Sidebar -->
+        <VBox styleClass="sidebar">
+            <Button fx:id="btnDashboard" text="Dashboard" styleClass="nav-button"/>
+            <Button fx:id="btnUsers" text="Users" styleClass="nav-button"/>
+            <Button fx:id="btnActivities" text="Our Activities" styleClass="nav-button"/>
+            <Button fx:id="btnComments" text="Comments" styleClass="nav-button"/>
+            <Button fx:id="btnCourses" text="Courses" styleClass="nav-button"/>
+            <Button fx:id="btnReports" text="Reports" styleClass="nav-button"/>
+            <Button fx:id="btnDevoirs" text="Devoirs" styleClass="nav-button" onAction="#showDevoirsStats"/>
+            <Button fx:id="btnAdminDevoirs" text="Admin Devoirs" styleClass="nav-button" onAction="#showListeDevoirs"/>
+            <Button fx:id="btnAdminSoumissions" text="Admin Soumissions" styleClass="nav-button" onAction="#showSoumissionDevoirs"/>
+            <Button fx:id="btnSettings" text="Settings" styleClass="nav-button"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button fx:id="btnLogout" text="Logout" styleClass="nav-button,logout-button"/>
+        </VBox>
+        
+        <!-- Content Area -->
+        <VBox HBox.hgrow="ALWAYS" styleClass="content-container">
+            <Label fx:id="lblPageTitle" styleClass="page-title"/>
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
+                <!-- Dashboard View -->
+                <VBox fx:id="dashboardView" styleClass="content-area"/>
+                
+                <!-- Users View -->
+                <VBox fx:id="usersView" styleClass="content-area" visible="false"/>
+                
+                <!-- Activities View -->
+                <VBox fx:id="activitiesView" styleClass="content-area" visible="false"/>
+                
+                <!-- Comments View -->
+                <VBox fx:id="commentsView" styleClass="content-area" visible="false"/>
+                
+                <!-- Courses View -->
+                <VBox fx:id="coursesView" styleClass="content-area" visible="false"/>
+                
+                <!-- Reports View -->
+                <VBox fx:id="reportsView" styleClass="content-area" visible="false"/>
+                
+                <!-- Settings View -->
+                <VBox fx:id="settingsView" styleClass="content-area" visible="false"/>
+            </StackPane>
+        </VBox>
+    </HBox>
+</VBox>

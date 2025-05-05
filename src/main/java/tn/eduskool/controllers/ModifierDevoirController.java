@@ -1,6 +1,5 @@
 package tn.eduskool.controllers;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -19,15 +18,22 @@ public class ModifierDevoirController {
     private Devoir devoirToModify;
     private final DevoirService devoirService = new DevoirService();
 
-    @FXML private TextField titreField;
-    @FXML private TextArea descriptionField;
-    @FXML private DatePicker datePicker;
-    @FXML private ComboBox<Integer> hourCombo;
-    @FXML private ComboBox<Integer> minuteCombo;
-    @FXML private TextField fichierField;
-    @FXML private Button parcourirBtn;
-    @FXML private Button modifierButton;
-
+    @FXML
+    private TextField titreField;
+    @FXML
+    private TextArea descriptionField;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private ComboBox<Integer> hourCombo;
+    @FXML
+    private ComboBox<Integer> minuteCombo;
+    @FXML
+    private TextField fichierField;
+    @FXML
+    private Button parcourirBtn;
+    @FXML
+    private Button modifierButton;
 
     // ✅ Méthode appelée depuis ListeDevoirsController
     public void initData(Devoir devoir) {
@@ -47,13 +53,16 @@ public class ModifierDevoirController {
     }
 
     private void initializeDateTimeControls() {
-        for (int i = 0; i < 24; i++) hourCombo.getItems().add(i);
-        for (int i = 0; i < 60; i++) minuteCombo.getItems().add(i);
+        for (int i = 0; i < 24; i++)
+            hourCombo.getItems().add(i);
+        for (int i = 0; i < 60; i++)
+            minuteCombo.getItems().add(i);
 
         hourCombo.setConverter(new StringConverter<>() {
             public String toString(Integer object) {
                 return String.format("%02d", object);
             }
+
             public Integer fromString(String string) {
                 return string.isEmpty() ? null : Integer.parseInt(string);
             }
@@ -63,13 +72,15 @@ public class ModifierDevoirController {
             public String toString(Integer object) {
                 return String.format("%02d", object);
             }
+
             public Integer fromString(String string) {
                 return string.isEmpty() ? null : Integer.parseInt(string);
             }
         });
 
         datePicker.setDayCellFactory(picker -> new DateCell() {
-            @Override public void updateItem(LocalDate date, boolean empty) {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
                 setDisable(empty || date.isBefore(LocalDate.now()));
             }
@@ -81,8 +92,7 @@ public class ModifierDevoirController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un fichier PDF");
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Fichiers PDF", "*.pdf")
-        );
+                new FileChooser.ExtensionFilter("Fichiers PDF", "*.pdf"));
         File file = fileChooser.showOpenDialog(parcourirBtn.getScene().getWindow());
         if (file != null) {
             fichierField.setText(file.getAbsolutePath());
@@ -117,8 +127,7 @@ public class ModifierDevoirController {
             // Créer la nouvelle date limite
             LocalDateTime nouvelleDateLimite = LocalDateTime.of(
                     selectedDate,
-                    LocalTime.of(hourCombo.getValue(), minuteCombo.getValue())
-            );
+                    LocalTime.of(hourCombo.getValue(), minuteCombo.getValue()));
 
             // Mettre à jour l'objet Devoir
             devoirToModify.setTitre(titre);
@@ -126,19 +135,15 @@ public class ModifierDevoirController {
             devoirToModify.setDatelimite(nouvelleDateLimite);
             devoirToModify.setFichier(fichierField.getText());
 
-            // Essayer de modifier le devoir
-            if (devoirService.modifier(devoirToModify)) {
-                showAlert("Succès", "Devoir modifié avec succès");
-                closeWindow();
-            } else {
-                showAlert("Erreur", "Échec de la modification");
-            }
+            // Modifier le devoir sans vérifier de retour
+            devoirService.modifier(devoirToModify);
+            showAlert("Succès", "Devoir modifié avec succès");
+            closeWindow();
+
         } catch (Exception e) {
             showAlert("Erreur", e.getMessage());
         }
     }
-
-
 
     @FXML
     private void handleAnnuler() {

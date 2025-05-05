@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.eduskool.controllers.FrontController"
+            stylesheets="@css/style.css">
+            
+    <top>
+        <VBox>
+            <HBox styleClass="header" alignment="CENTER" spacing="20">
+                <padding>
+                    <Insets top="20" right="30" bottom="20" left="30"/>
+                </padding>
+                <Label text="EduSkool" styleClass="welcome-text"/>
+            </HBox>
+            
+            <HBox styleClass="nav-menu" spacing="20" alignment="CENTER">
+                <padding>
+                    <Insets top="15" right="30" bottom="15" left="30"/>
+                </padding>
+                <Button text="Accueil" onAction="#navigateToHome" styleClass="nav-button"/>
+                <Button text="Activités" onAction="#navigateToActivities" styleClass="nav-button"/>
+                <Button text="Devoirs" onAction="#navigateToDevoirs" styleClass="nav-button"/>
+                <Button text="À propos" onAction="#navigateToAbout" styleClass="nav-button"/>
+                <Button text="Déconnexion" onAction="#handleLogout" styleClass="nav-button"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox styleClass="content-area">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </center>
+</BorderPane>

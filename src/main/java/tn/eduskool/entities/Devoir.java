@@ -1,42 +1,23 @@
 package tn.eduskool.entities;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Devoir {
     private int id;
     private String titre;
     private String description;
-    private LocalDateTime datelimite;
+    private LocalDateTime dateLimite;
     private String fichier;
-    private int idEnseignant;
-    private transient Utilisateur enseignant;
-    private List<SoumissionDevoir> soumissions = new ArrayList<>();
+    private Integer idEnseignant;
 
-    // Constructeurs
     public Devoir() {
     }
 
-    public Devoir(int id) {
-        this.id = id;
-    }
-
-    public Devoir(String titre, String description, LocalDateTime datelimite, String fichier) {
+    public Devoir(String titre, String description, LocalDateTime dateLimite, String fichier) {
         this.titre = titre;
         this.description = description;
-        this.datelimite = datelimite;
-        this.fichier = fichier;
-    }
-
-    public Devoir(int id, String titre, String description, LocalDateTime datelimite, String fichier) {
-        this.id = id;
-        this.titre = titre;
-        this.description = description;
-        this.datelimite = datelimite;
+        this.dateLimite = dateLimite;
         this.fichier = fichier;
     }
 
@@ -65,12 +46,21 @@ public class Devoir {
         this.description = description;
     }
 
+    public LocalDateTime getDateLimite() {
+        return dateLimite;
+    }
+
+    public void setDateLimite(LocalDateTime datelimite) {
+        this.dateLimite = datelimite;
+    }
+
+    // Alias methods pour la compatibilité avec la base de données
     public LocalDateTime getDatelimite() {
-        return datelimite;
+        return getDateLimite();
     }
 
     public void setDatelimite(LocalDateTime datelimite) {
-        this.datelimite = datelimite;
+        setDateLimite(datelimite);
     }
 
     public String getFichier() {
@@ -81,56 +71,15 @@ public class Devoir {
         this.fichier = fichier;
     }
 
-    public int getIdEnseignant() {
+    public Integer getIdEnseignant() {
         return idEnseignant;
     }
 
-    public void setIdEnseignant(int idEnseignant) {
+    public void setIdEnseignant(Integer idEnseignant) {
         this.idEnseignant = idEnseignant;
     }
 
-    public Utilisateur getEnseignant() {
-        return enseignant;
-    }
-
-    public void setEnseignant(Utilisateur enseignant) {
-        if (enseignant == null || !enseignant.getTypeUtilisateur().equals(Utilisateur.TypeUtilisateur.ENSEIGNANT)) {
-            throw new IllegalArgumentException("L'utilisateur doit être un enseignant");
-        }
-        this.enseignant = enseignant;
-        this.idEnseignant = enseignant.getIdUtilisateur();
-    }
-
-    public List<SoumissionDevoir> getSoumissions() {
-        return soumissions;
-    }
-
-    public void setSoumissions(List<SoumissionDevoir> soumissions) {
-        this.soumissions = soumissions;
-    }
-
-    // Méthodes pour JavaFX
-    public StringProperty titreProperty() {
-        return new SimpleStringProperty(titre);
-    }
-
-    public StringProperty dateLimiteStringProperty() {
-        return new SimpleStringProperty(getFormattedDate());
-    }
-
     public String getFormattedDate() {
-        return datelimite.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-    }
-
-    @Override
-    public String toString() {
-        return "Devoir{" +
-                "id=" + id +
-                ", titre='" + titre + '\'' +
-                ", description='" + description + '\'' +
-                ", datelimite=" + datelimite +
-                ", fichier='" + fichier + '\'' +
-                ", idEnseignant=" + idEnseignant +
-                '}';
+        return dateLimite != null ? dateLimite.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "";
     }
 }

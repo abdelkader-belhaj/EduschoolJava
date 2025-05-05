@@ -1,41 +1,37 @@
 package tn.eduskool.test;
 
-import tn.eduskool.entities.Devoir;
-import tn.eduskool.entities.SoumissionDevoir;
-import tn.eduskool.services.DevoirService;
-import tn.eduskool.services.SoumissionDevoirService;
-import tn.eduskool.tools.DatabaseConnection;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
 
-import java.time.LocalDateTime;
-import java.util.List;
+public class mainApp extends Application {
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_view.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
 
-public class mainApp {
+            // Charger tous les fichiers CSS nécessaires
+            scene.getStylesheets().addAll(
+                    getClass().getResource("/activities.css").toExternalForm(),
+                    getClass().getResource("/front.css").toExternalForm(),
+                    getClass().getResource("/dashboard.css").toExternalForm(),
+                    getClass().getResource("/style.css").toExternalForm());
 
-    public static void main(String[] args) {
-        DatabaseConnection dbc = DatabaseConnection.getInstance();
-        DevoirService ds = new DevoirService();
-        Devoir devoir = new Devoir();
-        devoir.setTitre("Devoir mousi9ia");
-        devoir.setDescription("TP sur les classes");
-        devoir.setDatelimite(LocalDateTime.of(2025, 5, 5, 23, 59));
-        devoir.setFichier("tp_java_oop.pdf");
-        ds.ajouter(devoir);
-
-        SoumissionDevoirService sds = new SoumissionDevoirService();
-
-        SoumissionDevoir soumission = new SoumissionDevoir();
-        soumission.setDateSoumission(LocalDateTime.now());
-        soumission.setFichier("tp_java_solution.pdf");
-        soumission.setNote(null); // pas encore corrigé
-        soumission.setDevoir(devoir);
-
-        sds.ajouter(soumission);
-        System.out.println("\n===== SOUMISSION AJOUTÉE =====");
-        System.out.println(soumission);
-
-
-
-
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("EduSkool");
+            primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

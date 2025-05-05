@@ -1,4 +1,5 @@
 package tn.eduskool.controllers;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,6 +10,8 @@ import javafx.stage.FileChooser;
 import tn.eduskool.entities.Utilisateur;
 import tn.eduskool.services.UtilisateurService;
 import tn.eduskool.tools.DatabaseConnection;
+import tn.eduskool.services.GeocodingService;
+import tn.eduskool.utils.MapDialog;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -49,14 +52,16 @@ public class InscriptionController {
     private Button inscrireButton;
 
     private UtilisateurService utilisateurService;
+    private GeocodingService geocodingService;
     private File selectedPhotoFile;
     private String photoPath;
 
     @FXML
     public void initialize() {
         // Initialiser la connexion à la base de données
-        Connection connection = DatabaseConnection.getInstance().getCnx();
+        Connection connection = DatabaseConnection.connect();
         utilisateurService = new UtilisateurService(connection);
+        geocodingService = new GeocodingService();
 
         // Initialiser le ComboBox avec les types d'utilisateurs (sans admin)
         typeUtilisateurComboBox.getItems().addAll("Étudiant", "Enseignant");
@@ -106,7 +111,7 @@ public class InscriptionController {
                 }
 
                 showAlert(Alert.AlertType.INFORMATION, "Inscription réussie",
-                        "Votzzre compte a été créé avec succès. Vous pourrez vous connecter après vérification par un administrateur.");
+                        "Votre compte a été créé avec succès. Vous pourrez vous connecter après vérification par un administrateur.");
 
                 // Réinitialiser le formulaire
                 clearFields();
@@ -253,5 +258,50 @@ public class InscriptionController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleDetectLocation() {
+        // Demander la permission à l'utilisateur
+        if (showConfirmationDialog("Localisation",
+                "Voulez-vous utiliser votre position actuelle pour remplir l'adresse ?")) {
+
+            try {
+                // Simuler l'obtention des coordonnées GPS (à remplacer par une vraie
+                // implémentation)
+                // Ces coordonnées correspondent à Tunis
+                double latitude = 36.8065;
+                double longitude = 10.1815;
+
+                String address = geocodingService.reverseGeocode(latitude, longitude);
+                if (address != null) {
+                    adresseField.setText(address);
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Erreur",
+                            "Impossible de détecter l'adresse.");
+                }
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur",
+                        "Erreur lors de la détection de l'adresse: " + e.getMessage());
+            }
+        }
+    }
+
+    private boolean showConfirmationDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        return alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK;
+    }
+
+    @FXML
+    private void handleOpenMap() {
+        MapDialog.show(address -> {
+            if (address != null && !address.isEmpty()) {
+                adresseField.setText(address);
+            }
+        });
     }
 }

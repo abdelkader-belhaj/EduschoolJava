@@ -5,36 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
+    private static final String URL = "jdbc:mysql://localhost:3306/eduskool";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
 
-
-    public final String url = "jdbc:mysql://127.0.0.1:3306/eduskool?serverVersion=10.4.32-MariaDB&charset=utf8mb4";
-    public final String username = "root";
-    public final String password = "";
-    private Connection cnx;
-
-
-    public static DatabaseConnection myDtaBase;
-
-    private DatabaseConnection() {
+    public static Connection connect() {
         try {
-            cnx = DriverManager.getConnection(url, username, password);
-            System.out.println("cnx établis avec succées");
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println("Erreur de connexion: " + e.getMessage());
+            throw new RuntimeException("Impossible de se connecter à la base de données", e);
         }
-
-    }
-    public static DatabaseConnection getInstance () {
-        if (myDtaBase == null)
-            myDtaBase = new DatabaseConnection();
-        return myDtaBase;
-    }
-
-    public Connection getCnx() {
-        return cnx;
-    }
-
-    public void setCnx(Connection cnx) {
-        this.cnx = cnx;
     }
 }

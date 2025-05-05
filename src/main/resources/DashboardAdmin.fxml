@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.eduskool.controllers.DashboardAdminController"
+            stylesheets="@css/style.css">
+
+    <top>
+        <HBox style="-fx-background-color: #8e44ad; -fx-padding: 15;">
+            <Label text="Dashboard Administrateur" style="-fx-text-fill: white; -fx-font-size: 20px;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #7d3c98; -fx-padding: 20;">
+            <Button fx:id="homeBtn" text="🏠 Accueil" styleClass="nav-button"/>
+            <Button fx:id="usersBtn" text="👥 Gérer Utilisateurs" styleClass="nav-button"/>
+            <Button fx:id="settingsBtn" text="⚙️ Paramètres" styleClass="nav-button"/>
+            <Button fx:id="statsBtn" text="📊 Statistiques" styleClass="nav-button" onAction="#handleStatsClick"/>
+            <Button fx:id="soumissionsBtn" text="📥 Soumissions Devoirs" styleClass="nav-button" onAction="#handleSoumissionsClick"/>
+            <Button fx:id="devoirsBtn"
+                    text="📄 Devoirs"
+                    styleClass="nav-button"
+                    onAction="#handleDevoirsClick"/>
+
+
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="mainContent" style="-fx-background-color: #f5eef8;">
+            <Label fx:id="messageLabel" text="Bienvenue, Administrateur" style="-fx-font-size: 24px;"/>
+        </StackPane>
+    </center>
+
+</BorderPane>

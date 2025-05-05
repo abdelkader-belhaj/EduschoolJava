@@ -18,6 +18,10 @@
                 styleClass="notification-button"
                 onAction="#afficherNotifications"/>
 
+        <TextField fx:id="searchField"
+                   promptText="Rechercher un devoir par titre..."
+                   styleClass="search-field" />
+
         <TableView fx:id="tableDevoirs" styleClass="custom-table" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="colTitre" text="Titre"/>

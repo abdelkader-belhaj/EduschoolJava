@@ -1,181 +1,54 @@
 package tn.eduskool.services;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import tn.eduskool.tools.DatabaseConnection;
 import tn.eduskool.entities.Devoir;
-
-import java.sql.*;
-import java.util.ArrayList;
+import tn.eduskool.repository.DevoirRepository;
+import java.sql.SQLException;
 import java.util.List;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
 
-public class DevoirService implements IService<Devoir> {
-
-    private Connection cnx;
+public class DevoirService {
+    private final DevoirRepository devoirRepository;
 
     public DevoirService() {
-        cnx = DatabaseConnection.getInstance().getCnx();
+        this.devoirRepository = new DevoirRepository();
     }
 
-    public boolean ajouter(Devoir devoir) {
-        String query = "INSERT INTO devoirs (titre, description, datelimite, fichier, idEnseignant) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
-            stmt.setString(1, devoir.getTitre());
-            stmt.setString(2, devoir.getDescription());
-            stmt.setTimestamp(3, Timestamp.valueOf(devoir.getDatelimite()));
-            stmt.setString(4, devoir.getFichier());
-            stmt.setInt(5, devoir.getEnseignant().getIdUtilisateur()); // <<< ici on insère l'ID de l'enseignant
-
-            return stmt.executeUpdate() > 0;
+    public void ajouter(Devoir devoir) {
+        try {
+            devoirRepository.save(devoir);
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Erreur lors de l'ajout du devoir", e);
         }
     }
 
-    public String getFileNameById(int id) {
-        String query = "SELECT fichier FROM devoirs WHERE id = ?";
-        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getString("fichier");
-            }
+    public void modifier(Devoir devoir) {
+        try {
+            devoirRepository.update(devoir);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public boolean supprimer(int id) {
-        String fileName = getFileNameById(id);
-
-        String query = "DELETE FROM devoirs WHERE id = ?";
-        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
-            stmt.setInt(1, id);
-            boolean success = stmt.executeUpdate() > 0;
-
-            if (success && fileName != null) {
-                try {
-                    Path filePath = Paths.get("uploads/devoirs/" + fileName);
-                    Files.deleteIfExists(filePath);
-                } catch (IOException e) {
-                    System.err.println("Erreur suppression fichier: " + e.getMessage());
-                }
-            }
-            return success;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Erreur lors de la modification du devoir", e);
         }
     }
 
-    @Override
-    public boolean modifier(Devoir devoir, String ancienFichier) {
-        String query = "UPDATE devoirs SET titre = ?, description = ?, datelimite = ?, fichier = ? WHERE id = ?";
-        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
-            stmt.setString(1, devoir.getTitre());
-            stmt.setString(2, devoir.getDescription());
-            stmt.setTimestamp(3, Timestamp.valueOf(devoir.getDatelimite()));
-            stmt.setString(4, devoir.getFichier());
-            stmt.setInt(5, devoir.getId());
-
-            boolean success = stmt.executeUpdate() > 0;
-
-            if (success && ancienFichier != null && !ancienFichier.equals(devoir.getFichier())) {
-                try {
-                    Path oldFilePath = Paths.get("uploads/devoirs/" + ancienFichier);
-                    Files.deleteIfExists(oldFilePath);
-                } catch (IOException e) {
-                    System.err.println("Erreur suppression ancien fichier: " + e.getMessage());
-                }
-            }
-            return success;
+    public void supprimer(int id) {
+        try {
+            devoirRepository.delete(id);
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Erreur lors de la suppression du devoir", e);
         }
-    }
-
-    public ObservableList<Devoir> recupererObservable() {
-        return FXCollections.observableArrayList(this.recuperer());
     }
 
     public List<Devoir> recuperer() {
-        List<Devoir> devoirs = new ArrayList<>();
-        String query = "SELECT * FROM devoirs";
-
-        try (Statement stmt = cnx.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                Devoir devoir = new Devoir(
-                        rs.getInt("id"),
-                        rs.getString("titre"),
-                        rs.getString("description"),
-                        rs.getTimestamp("datelimite").toLocalDateTime(),
-                        rs.getString("fichier")
-                );
-                devoirs.add(devoir);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération: " + e.getMessage());
-        }
-
-        return devoirs;
-    }
-    @Override
-    public boolean modifier(Devoir devoir) {
-        return modifier(devoir, null); // ou selon ton cas, tu peux même gérer différemment
-    }
-    public Devoir getById(int id) {
-        Devoir devoir = null;
-        String query = "SELECT * FROM devoirs WHERE id = ?";
-        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                devoir = new Devoir(
-                        rs.getInt("id"),
-                        rs.getString("titre"),
-                        rs.getString("description"),
-                        rs.getTimestamp("datelimite").toLocalDateTime(),
-                        rs.getString("fichier")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return devoir;
-    }
-    public List<Devoir> recupererParEnseignant(int enseignantId) {
-        List<Devoir> devoirs = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM devoirs WHERE idEnseignant = ?";
-            PreparedStatement ps = DatabaseConnection.getInstance().getCnx().prepareStatement(sql);
-            ps.setInt(1, enseignantId);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Devoir devoir = new Devoir();
-                devoir.setId(rs.getInt("id"));
-                devoir.setTitre(rs.getString("titre"));
-                devoir.setDescription(rs.getString("description"));
-                devoir.setDatelimite(rs.getTimestamp("datelimite").toLocalDateTime());
-                devoir.setFichier(rs.getString("fichier"));
-                devoir.setIdEnseignant(rs.getInt("idEnseignant")); // correct maintenant
-                devoirs.add(devoir);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            return devoirRepository.findAll();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la récupération des devoirs", e);
         }
-        return devoirs;
     }
 
-
+    public List<Devoir> recupererParEnseignant(int enseignantId) {
+        try {
+            return devoirRepository.findByEnseignantId(enseignantId);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la récupération des devoirs", e);
+        }
+    }
 }
