@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.eduskool.controllers.ModifierDevoirController" 
+      spacing="10" 
+      styleClass="edit-form"
+      stylesheets="@css/style.css">
+
+    <Label text="Modifier Devoir" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Date limite:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <DatePicker fx:id="datePicker" promptText="Date"/>
+            <ComboBox fx:id="hourCombo" promptText="HH" prefWidth="60"/>
+            <Label text=":"/>
+            <ComboBox fx:id="minuteCombo" promptText="MM" prefWidth="60"/>
+        </HBox>
+
+        <Label text="Fichier PDF:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" spacing="10">
+            <TextField fx:id="fichierField" editable="false" prefWidth="200"/>
+            <Button fx:id="parcourirBtn" text="Parcourir" onAction="#handleParcourir"/>
+        </HBox>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Annuler" onAction="#handleAnnuler" styleClass="action-button-supprimer"/>
+        <Button fx:id="modifierButton" text="Modifier" onAction="#handleModifier" styleClass="action-button-modifier"/>
+    </HBox>
+
+</VBox>

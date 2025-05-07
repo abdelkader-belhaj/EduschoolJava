@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.eduskool.controllers.ActivityDetailController"
+      styleClass="activity-detail-view"
+      spacing="20">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <HBox spacing="20">
+        <!-- Back button -->
+        <Button fx:id="backButton" 
+                text="← Back"
+                styleClass="back-button"/>
+    </HBox>
+    
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <!-- Activity Image -->
+        <ImageView fx:id="activityImage"
+                   fitWidth="400"
+                   fitHeight="300"
+                   preserveRatio="true"
+                   styleClass="detail-image"/>
+        
+        <!-- Activity Details -->
+        <VBox spacing="10">
+            <Label fx:id="titleLabel" 
+                   styleClass="detail-title"/>
+                   
+            <Label fx:id="dateLabel" 
+                   styleClass="detail-date"/>
+                   
+            <Label fx:id="typeLabel" 
+                   styleClass="detail-type"/>
+                   
+            <Label fx:id="descriptionLabel" 
+                   styleClass="detail-description"
+                   wrapText="true"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Comments Section -->
+    <VBox spacing="10">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Comments" 
+                   styleClass="section-title"/>
+            <Button fx:id="addCommentButton" 
+                    text="+ Add Comment"
+                    styleClass="add-comment-button"/>
+        </HBox>
+        
+        <ListView fx:id="commentsListView" 
+                  VBox.vgrow="ALWAYS"
+                  styleClass="comments-list"/>
+    </VBox>
+    
+</VBox>

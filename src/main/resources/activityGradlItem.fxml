@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="activityCard" styleClass="activity-card" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="tn.eduskool.controllers.ActivityCardItemController">
+    
+    <ImageView fx:id="activityImage" fitWidth="300" fitHeight="200" preserveRatio="true" 
+               styleClass="activity-image">
+        <image>
+            <Image url="@default-activity.png"/>
+        </image>
+    </ImageView>
+    
+    <VBox styleClass="activity-info" spacing="8">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+        
+        <Label fx:id="titleLabel" styleClass="activity-title" wrapText="true"/>
+        
+        <Label fx:id="typeLabel" styleClass="activity-type"/>
+        
+        <Label fx:id="descriptionLabel" styleClass="activity-description" wrapText="true"/>
+        
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="dateLabel" styleClass="activity-date"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Voir plus" styleClass="secondary-button"/>
+        </HBox>
+    </VBox>
+</VBox>

@@ -2,14 +2,18 @@ package tn.eduskool.entities;
 
 import java.time.LocalDateTime;
 
+ Gestion-Lecon
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+
+main
 public class SoumissionDevoir {
     private int id;
     private LocalDateTime dateSoumission;
     private String fichier;
     private Integer note;
+Gestion-Lecon
 
     @ManyToOne
     @JoinColumn(name = "devoir_id")
@@ -45,6 +49,17 @@ public class SoumissionDevoir {
 
     // Getters et Setters
 
+
+    private Integer devoir_id;
+    private Devoir devoir;
+    private int etudiantId;
+
+    // Constructors
+    public SoumissionDevoir() {
+    }
+
+    // Getters and Setters
+main
     public int getId() {
         return id;
     }
@@ -77,6 +92,7 @@ public class SoumissionDevoir {
         this.note = note;
     }
 
+ Gestion-Lecon
     // toString
 
     @Override
@@ -87,5 +103,32 @@ public class SoumissionDevoir {
                 ", fichier='" + fichier + '\'' +
                 ", note=" + note +
                 '}';
+
+    public Integer getDevoirId() {
+        return devoir_id;
+    }
+
+    public void setDevoirId(Integer devoir_id) {
+        this.devoir_id = devoir_id;
+    }
+
+    public Devoir getDevoir() {
+        return devoir;
+    }
+
+    public void setDevoir(Devoir devoir) {
+        this.devoir = devoir;
+        if (devoir != null) {
+            this.devoir_id = devoir.getId();
+        }
+    }
+
+    public int getEtudiantId() {
+        return etudiantId;
+    }
+
+    public void setEtudiantId(int etudiantId) {
+        this.etudiantId = etudiantId;
+ main
     }
 }

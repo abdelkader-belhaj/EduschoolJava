@@ -4,7 +4,11 @@ import java.time.LocalDateTime;
 
 public class Cours {
 
+Gestion-Lecon
     private int id;
+
+    private Long id;
+ main
 
     private String titre;
 
@@ -12,12 +16,16 @@ public class Cours {
 
     private String enseignant;
 
+Gestion-Lecon
     private Theme theme; // plus de relation, juste une chaîne de caractères
+
+    private String theme; // plus de relation, juste une chaîne de caractères
+ main
 
     // Constructeur par défaut
     public Cours() {
     }
-
+ Gestion-Lecon
     public Cours(int id, String titre, LocalDateTime dateHeure, String enseignant, Theme theme) {
         this.id = id;
         this.titre = titre;
@@ -35,6 +43,10 @@ public class Cours {
 
     // Getters et Setters
     public int getId() {
+
+    // Getters et Setters
+    public Long getId() {
+      main
         return id;
     }
 
@@ -62,6 +74,7 @@ public class Cours {
         this.enseignant = enseignant;
     }
 
+Gestion-Lecon
     public Theme getTheme() {
         return theme;
     }
@@ -82,4 +95,13 @@ public class Cours {
                 '}';
     }
 
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+      main
 }

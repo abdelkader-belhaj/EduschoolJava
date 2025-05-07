@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" styleClass="main-container" xmlns="http://javafx.com/javafx/17" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="tn.eduskool.controllers.CommentaireViewController"
+      stylesheets="@activities.css">
+    
+    <VBox styleClass="header-section">
+        <padding>
+            <Insets top="20" right="30" bottom="20" left="30"/>
+        </padding>
+        <Label text="Commentaires et Avis" styleClass="page-title"/>
+    </VBox>
+    
+    <HBox spacing="20">
+        <!-- Formulaire de commentaire -->
+        <VBox spacing="15" styleClass="form-panel" minWidth="400">
+            <VBox spacing="10">
+                <Label text="Activity ID" styleClass="field-label"/>
+                <TextField fx:id="tfActivityId" styleClass="form-field" 
+                          promptText="ID de l'activité"/>
+            </VBox>
+            
+            <VBox spacing="10">
+                <Label text="Votre commentaire" styleClass="field-label"/>
+                <TextField fx:id="tfContenu" styleClass="form-field" 
+                          promptText="Partagez votre avis..." />
+            </VBox>
+            
+            <VBox spacing="10">
+                <Label text="Note" styleClass="field-label"/>
+                <HBox fx:id="starBox" styleClass="star-rating"/>
+            </VBox>
+            
+            <VBox spacing="10">
+                <Label text="ID du commentaire" styleClass="field-label"/>
+                <TextField fx:id="tfId" styleClass="form-field" 
+                          promptText="Pour modifier/supprimer"/>
+            </VBox>
+            
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="btnCreate" text="Publier" onAction="#handleCreate" 
+                        styleClass="primary-button"/>
+                <Button fx:id="btnUpdate" text="Modifier" onAction="#handleUpdate" 
+                        styleClass="secondary-button"/>
+                <Button fx:id="btnDelete" text="Supprimer" onAction="#handleDelete" 
+                        styleClass="secondary-button"/>
+            </HBox>
+        </VBox>
+        
+        <!-- Liste des commentaires -->
+        <VBox spacing="15" styleClass="form-panel" HBox.hgrow="ALWAYS">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Liste des commentaires" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnLoad" text="Actualiser" onAction="#handleLoad" 
+                        styleClass="secondary-button"/>
+                <Button fx:id="btnListen" text="Écouter" onAction="#handleListen" 
+                        styleClass="primary-button"/>
+            </HBox>
+            
+            <TextArea fx:id="taCommentaires" prefRowCount="6" 
+                      styleClass="text-area" wrapText="true" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>
