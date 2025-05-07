@@ -1,14 +1,28 @@
 package tn.eduskool.entities;
 
+ Gestion-Lecon
+import java.util.Date;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
+ main
 
 public class Activity {
     private int id;
     private String titre;
     private String description;
+ Gestion-Lecon
+    private Date date;
+    private String imageFileName;
+    private boolean isApproved;
+    private String typesActivity;
+    private Date createdAt;
+
+    public Activity(int id, String titre, String description, Date date, String imageFileName, boolean isApproved,
+            String typesActivity, Date createdAt) {
+
     private LocalDateTime date;
     private String imageFileName;
     private boolean isApproved;
@@ -21,6 +35,7 @@ public class Activity {
     public Activity(int id, String titre, String description, LocalDateTime date, String imageFileName,
             boolean isApproved,
             String typesActivity, LocalDateTime createdAt) {
+main
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -31,7 +46,11 @@ public class Activity {
         this.createdAt = createdAt;
     }
 
+ Gestion-Lecon
+    // Getters et setters
+
     // Getters et Setters (standard)
+ main
     public int getId() {
         return id;
     }
@@ -52,11 +71,19 @@ public class Activity {
         this.description = description;
     }
 
+ Gestion-Lecon
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+
     public LocalDateTime getDate() {
         return date;
     }
 
     public void setDate(LocalDateTime date) {
+ main
         this.date = date;
     }
 
@@ -76,10 +103,13 @@ public class Activity {
         this.isApproved = isApproved;
     }
 
+Gestion-Lecon
+=======
     public boolean getApproved() {
         return isApproved;
     }
 
+ main
     public String getTypesActivity() {
         return typesActivity;
     }
@@ -87,6 +117,30 @@ public class Activity {
     public void setTypesActivity(String typesActivity) {
         this.typesActivity = typesActivity;
     }
+
+ Gestion-Lecon
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "----------------------------------------\n" +
+                "ID: " + id + "\n" +
+                "Titre: " + titre + "\n" +
+                "Description: " + description + "\n" +
+                "Date: " + date + "\n" +
+                "Image: " + imageFileName + "\n" +
+                "Approuvé: " + (isApproved ? "Oui" : "Non") + "\n" +
+                "Type d'activité: " + typesActivity + "\n" +
+                "Créée le: " + createdAt + "\n" +
+                "----------------------------------------\n";
+    }
+
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -135,4 +189,5 @@ public class Activity {
     public String getImagePath() {
         return "uploads-img/" + this.getImageFileName();
     }
+ main
 }
