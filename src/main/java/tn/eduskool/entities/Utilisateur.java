@@ -19,6 +19,15 @@ public class Utilisateur {
     private boolean isVerified;
     private LocalDateTime dateCreation;
     private String photo;
+    private String type_Utilisateur;
+
+    public String getType_Utilisateur() {
+        return type_Utilisateur;
+    }
+
+    public void setType_Utilisateur(String type_Utilisateur) {
+        this.type_Utilisateur = type_Utilisateur;
+    }
 
     // Énumération pour les types d'utilisateur
     public enum TypeUtilisateur {

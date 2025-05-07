@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane stylesheets="@front.css" xmlns="http://javafx.com/javafx/17" 
-           xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="tn.eduskool.controllers.FrontController">
-    
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.eduskool.controllers.FrontController"
+            stylesheets="@css/style.css">
+            
     <top>
-        <VBox spacing="0" styleClass="header-container">
-            <HBox styleClass="main-nav" alignment="CENTER">
+        <VBox>
+            <HBox styleClass="header" alignment="CENTER" spacing="20">
                 <padding>
-                    <Insets top="15" right="20" bottom="15" left="20"/>
+                    <Insets top="20" right="30" bottom="20" left="30"/>
                 </padding>
-                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" spacing="30">
-                    <Label styleClass="logo-text">
-                        <text>EDU</text>
-                    </Label>
-                    <Label styleClass="logo-text-blue">
-                        <text>SKOOL</text>
-                    </Label>
-                    <HBox spacing="20">
-                        <Button text="Home" styleClass="nav-button" onAction="#navigateToHome"/>
-                        <Button text="About" styleClass="nav-button" onAction="#navigateToAbout"/>
-                        <Button text="Our Activities" styleClass="nav-button" onAction="#navigateToActivities"/>
-                    </HBox>
-                </HBox>
+                <Label text="EduSkool" styleClass="welcome-text"/>
+            </HBox>
+            
+            <HBox styleClass="nav-menu" spacing="20" alignment="CENTER">
+                <padding>
+                    <Insets top="15" right="30" bottom="15" left="30"/>
+                </padding>
+                <Button text="Accueil" onAction="#navigateToHome" styleClass="nav-button"/>
+                <Button text="Activités" onAction="#navigateToActivities" styleClass="nav-button"/>
+                <Button text="Devoirs" onAction="#navigateToDevoirs" styleClass="nav-button"/>
+                <Button text="Cours" onAction="#navigateToCours" styleClass="nav-button"/>
+                <Button text="Themes" onAction="#navigateToTheme" styleClass="nav-button"/>
+                <Button text="Psychologue" onAction="#navigateToPsychologue" styleClass="nav-button"/>
+                <Button text="À propos" onAction="#navigateToAbout" styleClass="nav-button"/>
+                <Button text="Déconnexion" onAction="#handleLogout" styleClass="nav-button"/>
             </HBox>
         </VBox>
     </top>
     
     <center>
-        <StackPane fx:id="contentArea">
-            <!-- Le contenu changera dynamiquement -->
-        </StackPane>
+        <VBox styleClass="content-area">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS"/>
+        </VBox>
     </center>
 </BorderPane>

@@ -7,28 +7,15 @@ public class SoumissionDevoir {
     private LocalDateTime dateSoumission;
     private String fichier;
     private Integer note;
+    private Integer devoir_id;
+    private Devoir devoir;
+    private int etudiantId;
 
-    // Constructeurs
-
+    // Constructors
     public SoumissionDevoir() {
-        this.dateSoumission = LocalDateTime.now(); // Date actuelle par défaut
     }
 
-    public SoumissionDevoir(LocalDateTime dateSoumission, String fichier, Integer note) {
-        this.dateSoumission = dateSoumission;
-        this.fichier = fichier;
-        this.note = note;
-    }
-
-    public SoumissionDevoir(int id, LocalDateTime dateSoumission, String fichier, Integer note) {
-        this.id = id;
-        this.dateSoumission = dateSoumission;
-        this.fichier = fichier;
-        this.note = note;
-    }
-
-    // Getters et Setters
-
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -61,15 +48,30 @@ public class SoumissionDevoir {
         this.note = note;
     }
 
-    // toString
+    public Integer getDevoirId() {
+        return devoir_id;
+    }
 
-    @Override
-    public String toString() {
-        return "SoumissionDevoir{" +
-                "id=" + id +
-                ", dateSoumission=" + dateSoumission +
-                ", fichier='" + fichier + '\'' +
-                ", note=" + note +
-                '}';
+    public void setDevoirId(Integer devoir_id) {
+        this.devoir_id = devoir_id;
+    }
+
+    public Devoir getDevoir() {
+        return devoir;
+    }
+
+    public void setDevoir(Devoir devoir) {
+        this.devoir = devoir;
+        if (devoir != null) {
+            this.devoir_id = devoir.getId();
+        }
+    }
+
+    public int getEtudiantId() {
+        return etudiantId;
+    }
+
+    public void setEtudiantId(int etudiantId) {
+        this.etudiantId = etudiantId;
     }
 }

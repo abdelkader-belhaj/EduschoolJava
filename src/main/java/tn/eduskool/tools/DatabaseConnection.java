@@ -4,36 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import tn.eduskool.controllers.BaseController;
-import tn.eduskool.entities.Utilisateur;
-
-public class DatabaseConnection implements BaseController {
+public class DatabaseConnection {
+    private static final String URL = "jdbc:mysql://localhost:3306/eduskool";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
 
     public static Connection connect() {
-        String url = "jdbc:mysql://127.0.0.1:3306/eduskool";
-        String username = "root";
-        String password = "";
-
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Connexion réussie !");
-            return connection;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return null;
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            System.err.println("Erreur de connexion: " + e.getMessage());
+            throw new RuntimeException("Impossible de se connecter à la base de données", e);
         }
-    }
-
-    protected Utilisateur utilisateur;
-
-    @Override
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-    }
-
-    @Override
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
     }
 }

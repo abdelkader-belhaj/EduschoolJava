@@ -99,7 +99,11 @@
             <TextField fx:id="emailField" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <PasswordField fx:id="motDePasseField" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <PasswordField fx:id="confirmMotDePasseField" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="adresseField" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="6">
+    <TextField fx:id="adresseField" prefHeight="30.0" HBox.hgrow="ALWAYS"/>
+    <Button onAction="#handleOpenMap" text="Sélectionner sur la carte" 
+            style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+</HBox>
             <DatePicker fx:id="dateNaissancePicker" prefHeight="30.0" prefWidth="530.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="telephoneField" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <ComboBox fx:id="typeUtilisateurComboBox" prefHeight="30.0" prefWidth="530.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />

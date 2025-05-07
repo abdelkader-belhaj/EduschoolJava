@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="tn.eduskool.controllers.ListeSoumissionsEnseignantController"
+      styleClass="custom-table">
+    <TableView fx:id="tableSoumissions" editable="true" prefWidth="800" prefHeight="600" styleClass="custom-table">
+
+    <columns>
+            <TableColumn fx:id="colDate" text="Date Soumission" prefWidth="200"/>
+            <TableColumn fx:id="colFichier" text="Fichier" prefWidth="300"/>
+            <TableColumn fx:id="colNote" text="Note" prefWidth="100" editable="true"/>
+        </columns>
+    </TableView>
+</VBox>

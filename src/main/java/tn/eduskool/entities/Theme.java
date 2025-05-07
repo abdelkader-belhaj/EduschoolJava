@@ -2,7 +2,7 @@ package tn.eduskool.entities;
 
 public class Theme {
 
-    private Long id;
+    private int id;
 
     private String titre;
 
@@ -10,8 +10,17 @@ public class Theme {
     public Theme() {
     }
 
+    public Theme(int id, String titre) {
+        this.id = id;
+        this.titre = titre;
+    }
+
+    public Theme(String titre) {
+        this.titre = titre;
+    }
+
     // Getters et Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -25,6 +34,6 @@ public class Theme {
 
     @Override
     public String toString() {
-        return titre != null ? titre : "Unnamed Theme";
+        return titre;
     }
 }
