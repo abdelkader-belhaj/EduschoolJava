@@ -37,6 +37,10 @@ public class FrontController implements Initializable, BaseController {
     private void navigateToAbout() {
         loadPage("/about_view.fxml");
     }
+    @FXML
+    private void navigateToPsychologue() {
+        loadPage("");
+    }
 
     @FXML
     private void navigateToActivities() {
@@ -56,6 +60,54 @@ public class FrontController implements Initializable, BaseController {
         return utilisateur;
     }
 
+    @FXML
+    private void navigateToTheme() {
+        String fxmlFile;
+        System.out.println("Navigate to Theme - User Type: " + (utilisateur != null ? utilisateur.getType_Utilisateur() : "null")); // Debug log
+
+        if (utilisateur == null || utilisateur.getType_Utilisateur() == null || utilisateur.getType_Utilisateur().isEmpty()) {
+            showError("Erreur", "Type d'utilisateur invalide");
+            return;
+        }
+
+        switch (utilisateur.getType_Utilisateur().toLowerCase()) {
+            case "etudiant":
+                fxmlFile = "/CalendrierEtudiant.fxml";
+                break;
+            case "enseiagnt":
+                fxmlFile = "/CalendrierCours.fxml";
+                break;
+            default:
+                showError("Erreur", "Type d'utilisateur non reconnu: " + utilisateur.getType_Utilisateur());
+                return;
+        }
+        
+        loadPage(fxmlFile);
+    }
+    @FXML
+    private void navigateToCours() {
+        String fxmlFile;
+        System.out.println("Navigate to Cours - User Type: " + (utilisateur != null ? utilisateur.getType_Utilisateur() : "null")); // Debug log
+
+        if (utilisateur == null || utilisateur.getType_Utilisateur() == null || utilisateur.getType_Utilisateur().isEmpty()) {
+            showError("Erreur", "Type d'utilisateur invalide");
+            return;
+        }
+
+        switch (utilisateur.getType_Utilisateur().toLowerCase()) {
+            case "etudiant":
+                fxmlFile = "/FrontCours.fxml";
+                break;
+            case "enseiagnt":
+                fxmlFile = "/AfficherCoursEnseignant.fxml";
+                break;
+            default:
+                showError("Erreur", "Type d'utilisateur non reconnu: " + utilisateur.getType_Utilisateur());
+                return;
+        }
+
+        loadPage(fxmlFile);
+    }
     @FXML
     private void navigateToDevoirs() {
         String fxmlFile;
@@ -77,9 +129,11 @@ public class FrontController implements Initializable, BaseController {
                 showError("Erreur", "Type d'utilisateur non reconnu: " + utilisateur.getType_Utilisateur());
                 return;
         }
-        
+
         loadPage(fxmlFile);
     }
+
+
 
     @FXML
     void handleLogout(ActionEvent event) {

@@ -40,7 +40,8 @@ public class DashboardController implements Initializable, BaseController {
     private Button btnSettings;
     @FXML
     private Button btnUsers;
-    // Nous supprimons la référence à btnCreate qui n'est pas dans le FXML
+    @FXML
+    private Button btnThemes; // New Themes button
     @FXML
     private Button minimizeButton;
     @FXML
@@ -63,6 +64,8 @@ public class DashboardController implements Initializable, BaseController {
     private VBox settingsView;
     @FXML
     private VBox usersView;
+    @FXML
+    private VBox themesView; // New Themes view
 
     // Variables pour le déplacement de la fenêtre
     private double xOffset = 0;
@@ -176,7 +179,11 @@ public class DashboardController implements Initializable, BaseController {
             System.out.println("Warning: btnLogout is null");
         }
 
-        // Nous ne référençons plus btnCreate ici
+        if (btnThemes != null) {
+            btnThemes.setOnAction(this::showThemes);
+        } else {
+            System.out.println("Warning: btnThemes is null");
+        }
     }
 
     /**
@@ -191,6 +198,7 @@ public class DashboardController implements Initializable, BaseController {
         System.out.println("coursesView: " + (coursesView != null ? "OK" : "NULL"));
         System.out.println("reportsView: " + (reportsView != null ? "OK" : "NULL"));
         System.out.println("settingsView: " + (settingsView != null ? "OK" : "NULL"));
+        System.out.println("themesView: " + (themesView != null ? "OK" : "NULL"));
         System.out.println("contentArea: " + (contentArea != null ? "OK" : "NULL"));
         System.out.println("lblPageTitle: " + (lblPageTitle != null ? "OK" : "NULL"));
     }
@@ -213,6 +221,8 @@ public class DashboardController implements Initializable, BaseController {
             reportsView.setVisible(false);
         if (settingsView != null)
             settingsView.setVisible(false);
+        if (themesView != null)
+            themesView.setVisible(false);
     }
 
     /**
@@ -253,8 +263,8 @@ public class DashboardController implements Initializable, BaseController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_view.fxml"));
             Parent loginView = loader.load();
             Stage stage = (Stage) btnLogout.getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(loginView)); // Set a new scene
-            stage.show(); // Ensure the stage is displayed
+            stage.setScene(new javafx.scene.Scene(loginView));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading login view: " + e.getMessage());
@@ -296,9 +306,17 @@ public class DashboardController implements Initializable, BaseController {
         System.out.println("Showing Courses view");
         hideAllViews();
         if (coursesView != null) {
-            coursesView.setVisible(true);
-            if (lblPageTitle != null)
-                lblPageTitle.setText("Courses Management");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherCours.fxml"));
+                Parent coursView = loader.load();
+                coursesView.getChildren().setAll(coursView);
+                coursesView.setVisible(true);
+                if (lblPageTitle != null)
+                    lblPageTitle.setText("Courses Management");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Error loading courses view: " + e.getMessage());
+            }
         }
     }
 
@@ -315,10 +333,8 @@ public class DashboardController implements Initializable, BaseController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeDevoirs.fxml"));
             Parent devoirsView = loader.load();
-
             ListeDevoirsController controller = loader.getController();
             controller.setUtilisateur(this.utilisateur);
-
             if (contentArea != null) {
                 contentArea.getChildren().setAll(devoirsView);
                 if (lblPageTitle != null) {
@@ -338,7 +354,6 @@ public class DashboardController implements Initializable, BaseController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiqueDevoirs.fxml"));
             Parent statsView = loader.load();
-
             if (contentArea != null) {
                 contentArea.getChildren().setAll(statsView);
                 if (lblPageTitle != null) {
@@ -384,6 +399,25 @@ public class DashboardController implements Initializable, BaseController {
         }
     }
 
+    @FXML
+    void showThemes(ActionEvent event) {
+        System.out.println("Showing Themes view");
+        hideAllViews();
+        if (themesView != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherTheme.fxml"));
+                Parent themeView = loader.load();
+                themesView.getChildren().setAll(themeView);
+                themesView.setVisible(true);
+                if (lblPageTitle != null)
+                    lblPageTitle.setText("Themes Management");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Error loading themes view: " + e.getMessage());
+            }
+        }
+    }
+
     public void setupStage(Stage stage) {
         // Taille fixe (par exemple 1000x700)
         double width = 1000;
@@ -409,8 +443,6 @@ public class DashboardController implements Initializable, BaseController {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
-        // Mettre à jour l'interface si nécessaire avec les informations de
-        // l'utilisateur
     }
 
     public void showListeDevoirs() {

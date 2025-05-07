@@ -24,6 +24,9 @@
                 <Button text="Accueil" onAction="#navigateToHome" styleClass="nav-button"/>
                 <Button text="Activités" onAction="#navigateToActivities" styleClass="nav-button"/>
                 <Button text="Devoirs" onAction="#navigateToDevoirs" styleClass="nav-button"/>
+                <Button text="Cours" onAction="#navigateToCours" styleClass="nav-button"/>
+                <Button text="Themes" onAction="#navigateToTheme" styleClass="nav-button"/>
+                <Button text="Psychologue" onAction="#navigateToPsychologue" styleClass="nav-button"/>
                 <Button text="À propos" onAction="#navigateToAbout" styleClass="nav-button"/>
                 <Button text="Déconnexion" onAction="#handleLogout" styleClass="nav-button"/>
             </HBox>

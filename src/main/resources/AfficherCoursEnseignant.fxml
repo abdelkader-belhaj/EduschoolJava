@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10.0" style="-fx-padding: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduskool.controllers.AfficherCoursController">
+
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button fx:id="addButton" onAction="#handleAddCours" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Ajouter Cours" />
+    </HBox>
+
+    <TableView fx:id="coursTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
+            <TableColumn fx:id="titreColumn" prefWidth="200.0" text="Titre" />
+            <TableColumn fx:id="dateHeureColumn" prefWidth="150.0" text="Date et Heure" />
+            <TableColumn fx:id="enseignantColumn" prefWidth="150.0" text="Enseignant" />
+            <TableColumn fx:id="themeColumn" prefWidth="150.0" text="Thème" />
+            <TableColumn fx:id="fichierColumn" prefWidth="200.0" text="Fichier PDF" /> <!-- Nouvelle colonne pour fichier -->
+            <TableColumn fx:id="actionsColumn" prefWidth="200.0" text="Actions" />
+        </columns>
+    </TableView>
+</VBox>
